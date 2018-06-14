@@ -9,7 +9,6 @@ public class Survivor : MonoBehaviour,
     IPointerExitHandler{
 
     protected SpriteRenderer sprite;
-    protected Transform slot;
 
     public Canvas canvas;
     public Text nameText;
