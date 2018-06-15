@@ -51,12 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a728025381b82b41ade1e7a59ceb47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayCount: {fileID: 114920686219863890, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
-  barrierCount: {fileID: 114098757040570626, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  foodCount: {fileID: 114227309398738022, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  zombieCount: {fileID: 114820502187694770, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  nightlyNews: {fileID: 114081154504134864, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dayText: {fileID: 0}
+  barrierText: {fileID: 0}
+  foodText: {fileID: 0}
+  zombieText: {fileID: 0}

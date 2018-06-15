@@ -5,24 +5,54 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    private const int ZOMBIE_DAMAGE = 5;
+    private const int HUNGER_SCORE = 5;
+    private const int SURVIVOR_SLOTS = 3;
+
     public static GameManager gm = null;
 
+    public GameObject[] slots = new GameObject[SURVIVOR_SLOTS];
 
-    public Text dayCount;
-    public Text barrierCount;
-    public Text foodCount;
-    public Text zombieCount;
-    public Image nightlyNews;
+    public Text dayText;
+    public Text barrierText;
+    public Text foodText;
+    public Text zombieText;
+
+    private int dayCount = 1;
+    private int barrierCount = 100;
+    private int foodCount = 100;
+    private int zombieCount = 1;
+    private int survivorCount = 0;
 
     void Awake() {
         if (gm == null) gm = this;
         else if (gm != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        foreach (GameObject slot in slots) {
+            if (slot.transform.childCount > 0) survivorCount += 1;
+        }
     }
 
     void Start() {
- 
+        updateGUI();
+    }
+
+    private void updateGUI() {
+        dayText.text = dayCount.ToString();
+        barrierText.text = barrierCount.ToString();
+        foodText.text = foodCount.ToString();
+        zombieText.text = zombieCount.ToString();
+    }
+
+    public void advanceDay() {
+        dayCount += 1;
+        barrierCount -= ZOMBIE_DAMAGE * zombieCount;
+        foodCount -= HUNGER_SCORE * survivorCount;
+        zombieCount += 1;
+
+        updateGUI();
     }
 
 }
