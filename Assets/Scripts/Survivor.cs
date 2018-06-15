@@ -10,8 +10,8 @@ public class Survivor : MonoBehaviour,
 
     protected SpriteRenderer sprite;
 
-    public Canvas canvas;
-    public Text nameText;
+    private Canvas canvas;
+    private Text nameText;
 
     public string charName = "Survivor";
     public int loot = 1;
@@ -20,8 +20,10 @@ public class Survivor : MonoBehaviour,
     public int rally = 1;
 
     void Awake () {
-        nameText.text = this.charName;
-        nameText.enabled = false;
+        canvas = GetComponentInChildren<Canvas>();
+        nameText = GetComponentInChildren<Text>();
+
+        canvas.enabled = false;
     }
 
     void Start() {
@@ -33,11 +35,11 @@ public class Survivor : MonoBehaviour,
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        nameText.enabled = true;
+        canvas.enabled = true;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        nameText.enabled = false;
+        canvas.enabled = false;
     }
 }
 

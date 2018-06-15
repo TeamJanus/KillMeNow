@@ -55,7 +55,6 @@ public class FadeMe : MonoBehaviour {
             gameObject.SetActive(false);
             trigger.enabled = true;
             GameManager.gm.advanceDay();
-            Debug.Log("Faded out");
         }
         yield return null;
     }
