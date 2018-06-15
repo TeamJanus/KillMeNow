@@ -642,7 +642,7 @@ MonoBehaviour:
   combat: 50
   build: 50
   rally: 50
-  selectedButton: {fileID: 0}
+  action: 3
 --- !u!212 &800269433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 800269432}
-        m_MethodName: setSelectedButton
+        m_MethodName: SetAction
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1174039615}
@@ -1282,7 +1282,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 800269432}
-        m_MethodName: setSelectedButton
+        m_MethodName: SetAction
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1552023322}
@@ -1549,7 +1549,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 800269432}
-        m_MethodName: setSelectedButton
+        m_MethodName: SetAction
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1791451463}
