@@ -445,6 +445,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224066383824441984, guid: 10d406886433b0c4fbd26f9e592496b9,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -535,7 +545,90 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 842915713}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 114798544290156914, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FadeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273631571759934, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FadeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 842915713}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 114798544290156914, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FadeIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FadeIn
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114798544290156914, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &775998335
@@ -688,6 +781,12 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &842915713 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114961645445762548, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  m_PrefabInternal: {fileID: 767311830}
+  m_Script: {fileID: 11500000, guid: b5c68ab46321b454783e4bc24b7b4a61, type: 3}
 --- !u!1 &896145808
 GameObject:
   m_ObjectHideFlags: 0
