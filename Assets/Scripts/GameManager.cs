@@ -22,17 +22,13 @@ public class GameManager : MonoBehaviour {
     private int barrierCount = 100;
     private int foodCount = 100;
     private int zombieCount = 1;
-    private int survivorCount = 0;
+    private int survivorCount = 1;
 
     void Awake() {
         if (gm == null) gm = this;
         else if (gm != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-
-        foreach (GameObject slot in slots) {
-            if (slot.transform.childCount > 0) survivorCount += 1;
-        }
     }
 
     void Start() {
@@ -47,6 +43,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void advanceDay() {
+        advanceGUI();
+    }
+
+    private void advanceGUI() {
         dayCount += 1;
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
         foodCount -= HUNGER_SCORE * survivorCount;
@@ -54,5 +54,4 @@ public class GameManager : MonoBehaviour {
 
         updateGUI();
     }
-
 }

@@ -535,6 +535,25 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1209313233003228, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224100619539032272, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 224100619539032272, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -5.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114745230541533406, guid: 10d406886433b0c4fbd26f9e592496b9,
+        type: 2}
+      propertyPath: m_Text
+      value: Survive 10 days until help arrives.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
   m_IsPrefabParent: 0
