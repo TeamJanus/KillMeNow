@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class FadeMe : MonoBehaviour {
 
     private const int FIRST_FADE_SPEED = 3;
+    private const int FADE_SPEED = 1;
 
     private MaskableGraphic element;
     private EventTrigger trigger;
@@ -26,13 +27,13 @@ public class FadeMe : MonoBehaviour {
     }
 
     // Adapted from Kiwasi Games's "Unity UI Fade Out" at https://youtu.be/MkoIZTFUego
-    public void FadeIn(int speed) {
+    public void FadeIn() {
         gameObject.SetActive(true);
-        StartCoroutine(DoFadeIn(speed));
+        StartCoroutine(DoFadeIn());
     }
 
-    public void FadeOut(int speed) {
-        StartCoroutine(DoFadeOut(speed));
+    public void FadeOut() {
+        StartCoroutine(DoFadeOut());
         trigger.enabled = false;
     }
 
@@ -44,12 +45,12 @@ public class FadeMe : MonoBehaviour {
         trigger.enabled = false;
     }
 
-    IEnumerator DoFadeIn(int speed) {
+    IEnumerator DoFadeIn() {
         trigger.enabled = false;
 
         Color alpha = element.color;
         while (alpha.a < 1f) {
-            alpha.a += Time.deltaTime / speed;
+            alpha.a += Time.deltaTime / FADE_SPEED;
             element.color = alpha;
             yield return null;
         }
@@ -59,10 +60,10 @@ public class FadeMe : MonoBehaviour {
         yield return null;
     }
 
-    IEnumerator DoFadeOut(int speed) {
+    IEnumerator DoFadeOut() {
         Color alpha = element.color;
         while (alpha.a > 0f) {
-            alpha.a -= Time.deltaTime / speed;
+            alpha.a -= Time.deltaTime / FADE_SPEED;
             element.color = alpha;
             yield return null;
         }
