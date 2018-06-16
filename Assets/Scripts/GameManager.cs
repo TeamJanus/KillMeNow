@@ -43,10 +43,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void advanceDay() {
-        advanceGUI();
+        
     }
 
-    private void advanceGUI() {
+    public void advanceGUI() {
         dayCount += 1;
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
         foodCount -= HUNGER_SCORE * survivorCount;
