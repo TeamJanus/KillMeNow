@@ -59,3 +59,6 @@ MonoBehaviour:
   barrierText: {fileID: 0}
   foodText: {fileID: 0}
   zombieText: {fileID: 0}
+  dayReport: {fileID: 0}
+  actionReport: {fileID: 0}
+  numbersReport: {fileID: 0}
