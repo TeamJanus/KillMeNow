@@ -14,7 +14,7 @@ public class Survivor : MonoBehaviour,
 
     protected SpriteRenderer sprite;
 
-    private Canvas canvas;
+    public Canvas canvas;
     private Text nameText;
 
     public enum Action { Build, Loot, Support, None };
@@ -28,12 +28,7 @@ public class Survivor : MonoBehaviour,
     public Action action = Action.None;
 
     void Awake () {
-        canvas = GetComponentInChildren<Canvas>();
-        nameText = GetComponentInChildren<Text>();
-
-        nameText.text = charName;
-
-        canvas.enabled = false;
+        
     }
 
     void Start() {
@@ -44,11 +39,15 @@ public class Survivor : MonoBehaviour,
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        canvas.enabled = true;
+        canvas.gameObject.SetActive(true);
+
+        if (nameText == null) nameText = GetComponentInChildren<Text>();
+
+        nameText.text = charName;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        canvas.enabled = false;
+        canvas.gameObject.SetActive(false);
     }
 
     public void SetAction(Button choice) {
