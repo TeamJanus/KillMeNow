@@ -731,6 +731,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 767311830}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1067159317 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114854817245342028, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  m_PrefabInternal: {fileID: 767311830}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1103167398
 Prefab:
   m_ObjectHideFlags: 0
@@ -787,6 +793,11 @@ Prefab:
       objectReference: {fileID: 72688526}
     - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
         type: 2}
+      propertyPath: nextDayButton
+      value: 
+      objectReference: {fileID: 1067159317}
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
       propertyPath: dayText
       value: 
       objectReference: {fileID: 1521361056}
@@ -807,6 +818,11 @@ Prefab:
       objectReference: {fileID: 1357760169}
     - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
         type: 2}
+      propertyPath: nightlyNews
+      value: 
+      objectReference: {fileID: 842915713}
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
       propertyPath: dayReport
       value: 
       objectReference: {fileID: 1719436408}
@@ -820,11 +836,6 @@ Prefab:
       propertyPath: numbersReport
       value: 
       objectReference: {fileID: 1114167996}
-    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
-        type: 2}
-      propertyPath: nightlyNews
-      value: 
-      objectReference: {fileID: 842915713}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bab8be6d72253264a9815f7830033666, type: 2}
   m_IsPrefabParent: 0

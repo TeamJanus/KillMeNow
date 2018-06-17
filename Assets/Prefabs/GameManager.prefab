@@ -55,10 +55,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  nextDayButton: {fileID: 0}
   dayText: {fileID: 0}
   barrierText: {fileID: 0}
   foodText: {fileID: 0}
   zombieText: {fileID: 0}
+  nightlyNews: {fileID: 0}
   dayReport: {fileID: 0}
   actionReport: {fileID: 0}
   numbersReport: {fileID: 0}

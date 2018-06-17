@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public GameObject[] slots = new GameObject[SURVIVOR_SLOTS];
     private Survivor.Action[] actions = new Survivor.Action[SURVIVOR_SLOTS];
 
+    public Button nextDayButton;
+
     public Text dayText;
     public Text barrierText;
     public Text foodText;
@@ -42,14 +44,35 @@ public class GameManager : MonoBehaviour {
 
         // We don't need to persist the gameManager if we only ever have one scene or don't need to move data between scenes we do create in in. Experiment
         //DontDestroyOnLoad(gameObject);
+
+        ResetActions();
     }
 
     private void Start() {
         UpdateGUI();
+        nextDayButton.interactable = false;
     }
 
     public void SetAction(Survivor.Action action, int slotNum) {
         actions[slotNum - 1] = action;
+
+        CheckActions();
+    }
+
+    private void CheckActions() {
+        int howManyActions = 0;
+
+        foreach (Survivor.Action action in actions) {
+            if (action != Survivor.Action.None) howManyActions += 1; 
+        }
+
+        if (howManyActions == survivorCount) nextDayButton.interactable = true;
+        else nextDayButton.interactable = false;
+    }
+
+    private void ResetActions() {
+        for (int i = 0; i < actions.Length; i++) actions[i] = Survivor.Action.None;
+        nextDayButton.interactable = false;
     }
 
     public void UpdateGUI() {
@@ -78,6 +101,8 @@ public class GameManager : MonoBehaviour {
 
         numbersReport.text = string.Format("Barrier took {0} damage. {1} units of food left. {2} horrors at the door.",
                                             ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
+
+        ResetActions();
     }
 
     private void WinGame() {
