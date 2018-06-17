@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour {
         actionReport.text = "Click to play again.";
         numbersReport.enabled = false;
 
-        nightlyNews.newGame = true;
+        nightlyNews.NewGame();
     }
 
     private void LoseGame() {
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
         actionReport.text = "Click to play again.";
         numbersReport.enabled = false;
 
-        nightlyNews.newGame = true;
+        nightlyNews.NewGame();
     }
 
     public void ReloadLevel() {

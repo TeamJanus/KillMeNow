@@ -13,7 +13,7 @@ public class FadePanelAndText : MonoBehaviour {
     private Text[] texts;
     private EventTrigger trigger;
 
-    public bool newGame = false;
+    private bool newGame = false;
     private bool firstLoad = true;
 
     private void Awake() {
@@ -33,6 +33,10 @@ public class FadePanelAndText : MonoBehaviour {
         texts[texts.Length - 1].color = new Color(texts[texts.Length - 1].color.r, texts[texts.Length - 1].color.g, texts[texts.Length - 1].color.b, 1f);
 
         gameObject.SetActive(true);
+    }
+
+    public void NewGame() {
+        newGame = true;
     }
 
     // Adapted from Kiwasi Games's "Unity UI Fade Out" at https://youtu.be/MkoIZTFUego
