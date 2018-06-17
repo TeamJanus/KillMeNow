@@ -689,6 +689,12 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &842915713 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114961645445762548, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  m_PrefabInternal: {fileID: 767311830}
+  m_Script: {fileID: 11500000, guid: b5c68ab46321b454783e4bc24b7b4a61, type: 3}
 --- !u!1 &896145808
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +820,11 @@ Prefab:
       propertyPath: numbersReport
       value: 
       objectReference: {fileID: 1114167996}
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
+      propertyPath: nightlyNews
+      value: 
+      objectReference: {fileID: 842915713}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bab8be6d72253264a9815f7830033666, type: 2}
   m_IsPrefabParent: 0

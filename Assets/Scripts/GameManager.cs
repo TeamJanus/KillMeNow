@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public Text foodText;
     public Text zombieText;
 
+    public FadePanelAndText nightlyNews;
     public Text dayReport;
     public Text actionReport;
     public Text numbersReport;
@@ -33,14 +35,15 @@ public class GameManager : MonoBehaviour {
                                                          "The survivors grab a few hours of uneasy sleep.",
                                                          "Night watch catches glimpses of strange shapes in the fading light" };
 
-    void Awake() {
+    private void Awake() {
         if (gm == null) gm = this;
         else if (gm != this) Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        // We don't need to persist the gameManager if we only ever have one scene or don't need to move data between scenes we do create in in. Experiment
+        //DontDestroyOnLoad(gameObject);
     }
 
-    void Start() {
+    private void Start() {
         UpdateGUI();
     }
 
@@ -57,6 +60,12 @@ public class GameManager : MonoBehaviour {
         foodCount -= HUNGER_SCORE * survivorCount;
         zombieCount += 1;
 
+        if (barrierCount <= 0 || foodCount <= 0) LoseGame();
+        else if (dayCount >= 10) WinGame();
+        else ContinueGame();
+    }
+
+    private void ContinueGame() {
         daysLeft -= 1;
         dayReport.text = string.Format("{0} days left until help arrives.", daysLeft);
 
@@ -66,4 +75,25 @@ public class GameManager : MonoBehaviour {
                                             ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
     }
 
+    private void WinGame() {
+        dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops." + 
+                         "\r\nYou join up with the survivor army and live to fight another day.";
+        actionReport.text = "Click to play again.";
+        numbersReport.enabled = false;
+
+        nightlyNews.newGame = true;
+    }
+
+    private void LoseGame() {
+        dayReport.text = "The door bursts open and stumbling shapes outside pour in." +
+                         "\r\nThe survivors are too weak to protest as they are torn apart.";
+        actionReport.text = "Click to play again.";
+        numbersReport.enabled = false;
+
+        nightlyNews.newGame = true;
+    }
+
+    public void ReloadLevel() {
+        SceneManager.LoadScene(0);
+    }
 }

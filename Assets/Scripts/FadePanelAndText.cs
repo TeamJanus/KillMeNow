@@ -13,6 +13,8 @@ public class FadePanelAndText : MonoBehaviour {
     private Text[] texts;
     private EventTrigger trigger;
 
+    public bool newGame = false;
+
     private void Awake() {
         blackPanel = GetComponent<Image>();
         texts = GetComponentsInChildren<Text>();
@@ -32,9 +34,13 @@ public class FadePanelAndText : MonoBehaviour {
     }
 
     public void FadeOut() {
-        GameManager.gm.UpdateGUI();
-        StartCoroutine(DoFadeOut());
-        trigger.enabled = false;
+        if (!newGame) {
+            GameManager.gm.UpdateGUI();
+            StartCoroutine(DoFadeOut());
+            trigger.enabled = false;
+        } else {
+            GameManager.gm.ReloadLevel();
+        }
     }
 
     private void FirstFadeOut() {
