@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gm = null;
 
-    public GameObject[] slots = new GameObject[SURVIVOR_SLOTS];
-    private Survivor.Action[] actions = new Survivor.Action[SURVIVOR_SLOTS];
+    private Survivor[] survivors = new Survivor[SURVIVOR_SLOTS];
 
     public Button nextDayButton;
 
@@ -45,7 +44,12 @@ public class GameManager : MonoBehaviour {
         // We don't need to persist the gameManager if we only ever have one scene or don't need to move data between scenes we do create in in. Experiment
         //DontDestroyOnLoad(gameObject);
 
-        ResetActions();
+        GameObject slots = GameObject.Find("Survivor Slots");
+        survivors = slots.GetComponentsInChildren<Survivor>();
+        foreach(Survivor survivor in survivors) {
+            Debug.Log(survivor.charName);
+        }
+        nextDayButton.interactable = false;
     }
 
     private void Start() {
@@ -53,17 +57,15 @@ public class GameManager : MonoBehaviour {
         nextDayButton.interactable = false;
     }
 
-    public void SetAction(Survivor.Action action, int slotNum) {
-        actions[slotNum - 1] = action;
-
-        CheckActions();
+    private void SetSurvivor(Survivor survivor, int slotNum) {
+        survivors[slotNum - 1] = survivor;
     }
 
-    private void CheckActions() {
+    public void CheckActions() {
         int howManyActions = 0;
 
-        foreach (Survivor.Action action in actions) {
-            if (action != Survivor.Action.None) howManyActions += 1; 
+        foreach (Survivor survivor in survivors) {
+            if (survivor.action != Survivor.Action.None) howManyActions += 1; 
         }
 
         if (howManyActions == survivorCount) nextDayButton.interactable = true;
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void ResetActions() {
-        for (int i = 0; i < actions.Length; i++) actions[i] = Survivor.Action.None;
+        foreach (Survivor survivor in survivors) survivor.ResetAction();
         nextDayButton.interactable = false;
     }
 
@@ -97,10 +99,9 @@ public class GameManager : MonoBehaviour {
         daysLeft -= 1;
         dayReport.text = string.Format("{0} days left until help arrives.", daysLeft);
 
-        actionReport.text = neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
+        actionReport.text = EvaluateAction();
 
-        numbersReport.text = string.Format("Barrier took {0} damage. {1} units of food left. {2} horrors at the door.",
-                                            ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
+        numbersReport.text = EvaluateNumbers();
 
         ResetActions();
     }
@@ -125,5 +126,59 @@ public class GameManager : MonoBehaviour {
 
     public void ReloadLevel() {
         SceneManager.LoadScene(0);
+    }
+
+    private string EvaluateAction() {
+        string output = "";
+
+        foreach (Survivor survivor in survivors) {
+            switch (survivor.action) {
+                case Survivor.Action.Build:
+                    barrierCount += survivor.build / 10;
+                    output += survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
+                    break;
+                case Survivor.Action.Loot:
+                    output += EvaluateLooting(survivor);
+                    break;
+                case Survivor.Action.Support:
+                    break;
+                default:
+                    Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + "doesn't have an action selected.");
+                    break;
+            }
+        }
+
+        output += neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
+        return output;
+    }
+
+    private string EvaluateLooting(Survivor survivor) {
+        string output = "";
+        if (Random.Range(1, 100) < survivor.loot) {
+            // Good Stuff
+            int foodFound = Random.Range(3, 8);
+            foodCount += foodFound;
+            output += survivor.charName + " braved the outside world and found " + foodFound + " units of food.\r\n";
+        } else {
+            // Bad Stuff
+            switch (Random.Range(1,2)) {
+                case 1:
+                    survivor.AddStatus(Survivor.Status.Frightened);
+                    output += survivor.charName + " saw something beyond comprehension. \r\nThey return to the library jumping at every bump and screech.\r\n";
+                    break;
+                case 2:
+                    output += survivor.charName + " gets clipped by something sharp. \r\nThey return to the library bleeding and weak.\r\n";
+                    survivor.AddStatus(Survivor.Status.Hurt);
+                    break;
+            }
+        }
+        return output;
+    }
+
+    private string EvaluateNumbers() {
+        string output = string.Format("Barrier took {0} damage. {1} units of food left. {2} horrors at the door.",
+                                            ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
+
+        return output;
     }
 }
