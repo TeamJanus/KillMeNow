@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,7 +12,9 @@ public class Survivor : MonoBehaviour,
     private const string lootButton = "LootButton";
     private const string supportButton = "SupportButton";
 
-    protected SpriteRenderer sprite;
+    private SpriteRenderer sprite;
+    private Transform slot;
+    private int slotNum;
 
     public Canvas canvas;
     private Text nameText;
@@ -28,7 +30,9 @@ public class Survivor : MonoBehaviour,
     public Action action = Action.None;
 
     void Awake () {
-        
+        sprite = GetComponent<SpriteRenderer>();
+        slot = gameObject.transform.parent;
+        Int32.TryParse(slot.name, out slotNum);
     }
 
     void Start() {
@@ -65,6 +69,8 @@ public class Survivor : MonoBehaviour,
                 this.action = Action.None;
                 break;
         }
+
+        GameManager.gm.SetAction(this.action, this.slotNum);
     }
 
 

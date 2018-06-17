@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager gm = null;
 
     public GameObject[] slots = new GameObject[SURVIVOR_SLOTS];
+    private Survivor.Action[] actions = new Survivor.Action[SURVIVOR_SLOTS];
 
     public Text dayText;
     public Text barrierText;
@@ -45,6 +46,10 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         UpdateGUI();
+    }
+
+    public void SetAction(Survivor.Action action, int slotNum) {
+        actions[slotNum - 1] = action;
     }
 
     public void UpdateGUI() {
