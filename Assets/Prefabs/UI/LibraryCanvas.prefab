@@ -411,7 +411,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Survive 10 days until help arrives.
+  m_Text: Click to start.
 --- !u!114 &114505743491270414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c68ab46321b454783e4bc24b7b4a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGame: 0
 --- !u!222 &222067517773172946
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -14,6 +14,7 @@ public class FadePanelAndText : MonoBehaviour {
     private EventTrigger trigger;
 
     public bool newGame = false;
+    private bool firstLoad = true;
 
     private void Awake() {
         blackPanel = GetComponent<Image>();
@@ -21,9 +22,17 @@ public class FadePanelAndText : MonoBehaviour {
         trigger = GetComponent<EventTrigger>();
     }
 
-    // Fade out at start of game to inform difficulty
+    // Set up fade out at start of game to inform difficulty
     private void Start() {
-        FirstFadeOut();
+        blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 1f);
+
+        // This is the topmost text on the panel
+        texts[0].color = new Color(texts[0].color.r, texts[0].color.g, texts[0].color.b, 1f);
+
+        // This is the bottommost text on the panel
+        texts[texts.Length - 1].color = new Color(texts[texts.Length - 1].color.r, texts[texts.Length - 1].color.g, texts[texts.Length - 1].color.b, 1f);
+
+        gameObject.SetActive(true);
     }
 
     // Adapted from Kiwasi Games's "Unity UI Fade Out" at https://youtu.be/MkoIZTFUego
@@ -35,22 +44,17 @@ public class FadePanelAndText : MonoBehaviour {
 
     public void FadeOut() {
         if (!newGame) {
-            GameManager.gm.UpdateGUI();
-            StartCoroutine(DoFadeOut());
-            trigger.enabled = false;
+            if (firstLoad) {
+                firstLoad = false;
+                StartCoroutine(DoFirstFadeOut());
+            } else {
+                GameManager.gm.UpdateGUI();
+                StartCoroutine(DoFadeOut());
+                trigger.enabled = false;
+            }
         } else {
             GameManager.gm.ReloadLevel();
         }
-    }
-
-    private void FirstFadeOut() {
-        blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 1f);
-
-        // This is the topmost text on the panel
-        texts[0].color = new Color(texts[0].color.r, texts[0].color.g, texts[0].color.b, 1f);
-
-        gameObject.SetActive(true);
-        StartCoroutine(DoFirstFadeOut());
     }
 
     IEnumerator DoFadeIn() {
@@ -101,9 +105,12 @@ public class FadePanelAndText : MonoBehaviour {
             alpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
             blackPanel.color = alpha;
 
-            Color textAlpha = texts[0].color;
-            textAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
-            texts[0].color = textAlpha;
+            Color textTopAlpha = texts[0].color;
+            Color textBottomAlpha = texts[texts.Length - 1].color;
+            textTopAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+            textBottomAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+            texts[0].color = textTopAlpha;
+            texts[texts.Length - 1].color = textBottomAlpha;
 
             yield return null;
         }
