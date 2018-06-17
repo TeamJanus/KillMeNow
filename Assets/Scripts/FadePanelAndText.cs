@@ -40,7 +40,8 @@ public class FadePanelAndText : MonoBehaviour {
     private void FirstFadeOut() {
         blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 1f);
 
-        foreach (Text text in texts) text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        // This is the topmost text on the panel
+        texts[0].color = new Color(texts[0].color.r, texts[0].color.g, texts[0].color.b, 1f);
 
         gameObject.SetActive(true);
         StartCoroutine(DoFirstFadeOut());
@@ -94,11 +95,9 @@ public class FadePanelAndText : MonoBehaviour {
             alpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
             blackPanel.color = alpha;
 
-            foreach(Text text in texts) {
-                Color textAlpha = text.color;
-                textAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
-                text.color = textAlpha;
-            }
+            Color textAlpha = texts[0].color;
+            textAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+            texts[0].color = textAlpha;
 
             yield return null;
         }
