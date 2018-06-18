@@ -17,7 +17,11 @@ public class Survivor : MonoBehaviour,
 
     public Canvas canvas;
     [SerializeField]
-    private Button defendButton, lootButton, supportButton;
+    private Button defendButton; 
+    [SerializeField]
+    private Button lootButton;
+    [SerializeField]
+    private Button supportButton;
     private Text nameText;
 
     public enum Action { Build, Loot, Support, None };
@@ -49,8 +53,13 @@ public class Survivor : MonoBehaviour,
         canvas.gameObject.SetActive(false);
     }
 
+    public List<Status> GetStatuses() {
+        return this.statuses;
+    }
+
     public void AddStatus(Status status) {
         statuses.Add(status);
+        if (supportButton.interactable) supportButton.interactable = false;
         if (status == Status.Frightened) lootButton.interactable = false;
         if (status == Status.Hurt) defendButton.interactable = false;
     }
@@ -59,6 +68,7 @@ public class Survivor : MonoBehaviour,
         statuses.Remove(status);
         if (status == Status.Frightened) lootButton.interactable = true;
         if (status == Status.Hurt) defendButton.interactable = true;
+        if (!supportButton.interactable && statuses.Count == 0) supportButton.interactable = true;
     }
 
     public void SetAction(Button choice) {

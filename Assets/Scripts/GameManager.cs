@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
     private int barrierCount = 100;
     private int foodCount = 100;
     private int zombieCount = 1;
-    private int survivorCount = 1;
+    private int survivorCount = 2;
 
     private int daysLeft = 10;
     private string[] neutralDescriptors = new string[] { "The banging at the door grows louder tonight.",
@@ -141,6 +142,7 @@ public class GameManager : MonoBehaviour {
                     output += EvaluateLooting(survivor);
                     break;
                 case Survivor.Action.Support:
+                    output += EvaluateSupport(survivor);
                     break;
                 default:
                     Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + "doesn't have an action selected.");
@@ -172,6 +174,22 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+        return output;
+    }
+
+    private string EvaluateSupport(Survivor survivor) {
+        string output = "";
+
+        System.Random rnd = new System.Random();
+        IEnumerable<int> result = from value in Enumerable.Range(0, survivors.Length) orderby rnd.Next() select value;
+        foreach (int i in result) {
+            if (survivors[i].GetStatuses().Count > 0) {
+                Debug.Log("There's stuff in there");
+            } else {
+                Debug.Log("There's no stuff in there!");
+            }
+        }
+
         return output;
     }
 
