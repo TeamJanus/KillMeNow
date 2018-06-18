@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour {
 
         if (howManyActions == survivorCount) nextDayButton.interactable = true;
         else nextDayButton.interactable = false;
+        Debug.Log("howManyActions = " + howManyActions + " and survivorCount = " + survivorCount);
     }
 
     private void ResetActions() {

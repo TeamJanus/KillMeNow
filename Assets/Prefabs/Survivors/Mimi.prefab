@@ -564,7 +564,7 @@ MonoBehaviour:
   combat: 90
   build: 20
   rally: 20
-  action: 3
+  action: 4
 --- !u!114 &114620742085332036
 MonoBehaviour:
   m_ObjectHideFlags: 1
