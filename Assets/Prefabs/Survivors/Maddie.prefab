@@ -496,6 +496,7 @@ MonoBehaviour:
   lootButton: {fileID: 114166460623872322}
   supportButton: {fileID: 114982421195057634}
   charName: Maddie
+  id: 1
   loot: 30
   combat: 20
   build: 60

@@ -496,6 +496,7 @@ MonoBehaviour:
   lootButton: {fileID: 114166460623872322}
   supportButton: {fileID: 114982421195057634}
   charName: Johnny Jacket
+  id: 3
   loot: 50
   combat: 50
   build: 50

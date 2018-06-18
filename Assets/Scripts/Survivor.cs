@@ -28,6 +28,7 @@ public class Survivor : MonoBehaviour,
     public enum Status { Frightened, Hurt };
 
     public string charName = "Survivor";
+    public int id = 0;
     public int loot = 1;
     public int combat = 1;
     public int build = 1;

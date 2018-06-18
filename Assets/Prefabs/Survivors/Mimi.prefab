@@ -496,6 +496,7 @@ MonoBehaviour:
   lootButton: {fileID: 114166460623872322}
   supportButton: {fileID: 114982421195057634}
   charName: Dread Queen Mimi Necrosynth
+  id: 2
   loot: 80
   combat: 90
   build: 20

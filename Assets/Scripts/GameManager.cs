@@ -177,11 +177,10 @@ public class GameManager : MonoBehaviour {
                 Instantiate(addition, slots[1]);
                 survivors = survivorSlots.GetComponentsInChildren<Survivor>();
                 survivorCount = survivors.Length;
-                Debug.Log(survivorCount);
             }
         } else {
             // Bad Stuff
-            switch (Random.Range(1,2)) {
+            switch (Random.Range(1,3)) {
                 case 1:
                     survivor.AddStatus(Survivor.Status.Frightened);
                     output += survivor.charName + " saw something beyond comprehension. \r\nThey return to the library jumping at every bump and screech.\r\n";
@@ -198,49 +197,47 @@ public class GameManager : MonoBehaviour {
     private string EvaluateSupport(Survivor survivor) {
         string output = "";
 
-        System.Random rnd = new System.Random();
-        // TODO: Rethink this entire loop. Is it possible not to use breaks?
-        IEnumerable<int> result = from value in Enumerable.Range(0, survivors.Length) orderby rnd.Next() select value;
-        foreach (int i in result) {
-            if (!string.Equals(survivor.charName, survivors[i].charName) && survivors[i].GetStatuses().Count > 0) {
-                foreach(Survivor.Status status in survivors[i].GetStatuses()) {
+        //System.Random rnd = new System.Random();
+        // TODO: Figure out how to make this loop randomly and using awful bools for breaking loops
+        List<Survivor> evalSurv = survivors.ToList();
+        evalSurv.Remove(survivor);
+        bool checkSurvivor = false;
+        for (int i = 0; i < evalSurv.Count; i++) {
+            if (!checkSurvivor) {
+                if (evalSurv[i].GetStatuses().Count > 0) {
+                    checkSurvivor = true;
                     if (survivor.rally < Random.Range(1, 100)) {
-                        switch (status) {
-                            case Survivor.Status.Frightened:
-                                survivors[i].RemoveStatus(status);
-                                output += survivor.charName + " soothes " + survivors[i].charName + "'s frayed nerves. \r\n" +
-                                          survivors[i].charName + " is ready to go out again.\r\n";
-                                break;
-                            case Survivor.Status.Hurt:
-                                survivors[i].RemoveStatus(status);
-                                output += survivor.charName + " cleans and sets " + survivors[i].charName + "'s wounds. \r\n" +
-                                          survivors[i].charName + " can do heavy work again.\r\n";
-                                break;
+                        bool checkStatus = false;
+                        foreach (Survivor.Status status in evalSurv[i].GetStatuses()) {
+                            if (!checkStatus) {
+                                switch (status) {
+                                    case Survivor.Status.Frightened:
+                                        evalSurv[i].RemoveStatus(status);
+                                        output += survivor.charName + " soothes " + evalSurv[i].charName + "'s frayed nerves. \r\n" +
+                                                    evalSurv[i].charName + " is ready to go out again.\r\n";
+                                        checkStatus = true;
+                                        break;
+                                    case Survivor.Status.Hurt:
+                                        evalSurv[i].RemoveStatus(status);
+                                        output += survivor.charName + " cleans and sets " + evalSurv[i].charName + "'s wounds. \r\n" +
+                                                    evalSurv[i].charName + " can do heavy work again.\r\n";
+                                        checkStatus = true;
+                                        break;
+                                }
+                            }
                         }
-                        break;
                     } else {
-                        switch (status) {
-                            case Survivor.Status.Frightened:
-                                output += survivor.charName + " can't get through to " + survivors[i].charName + ".\r\n" +
-                                          survivors[i].charName + " raves about the things outside.\r\n";
-                                break;
-                            case Survivor.Status.Hurt:
-                                output += survivor.charName + " fumbles healing " + survivors[i].charName + "'s wounds. \r\n" +
-                                          survivors[i].charName + " is no better than they were before.\r\n";
-                                break;
-                        }
-                        break;
-                    } 
+                        output += survivor.charName + " can't help " + evalSurv[i].charName + "'s wounds. \r\n" +
+                                    evalSurv[i].charName + " is no better than they were before.\r\n";
+                    }
+                } else {
+                    checkSurvivor = true;
+                    barrierCount += survivor.build / 10;
+                    output += survivor.charName + " doesn't see anyone in need of help.\r\n" +
+                                survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
                 }
-            } else {
-                barrierCount += survivor.build / 10;
-                output += survivor.charName + " doesn't see anyone in need of help.\r\n" + 
-                          survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
-                break;
             }
-            break;
-        }
-
+        } 
         return output;
     }
 
