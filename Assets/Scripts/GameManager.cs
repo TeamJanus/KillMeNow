@@ -200,10 +200,8 @@ public class GameManager : MonoBehaviour {
 
         System.Random rnd = new System.Random();
         IEnumerable<int> result = from value in Enumerable.Range(0, survivors.Length) orderby rnd.Next() select value;
-        //foreach (int i in result) {
-        // TODO: figure out how to structure this without a million break statements that make you cry at night
-        for (int i = 0; i < survivors.Length; i++) { 
-            if (survivors[i].GetStatuses().Count > 0) {
+        foreach (int i in result) {
+            if (!string.Equals(survivor.charName, survivors[i].charName) && survivors[i].GetStatuses().Count > 0) {
                 foreach(Survivor.Status status in survivors[i].GetStatuses()) {
                     if (survivor.rally < Random.Range(1, 100)) {
                         switch (status) {
