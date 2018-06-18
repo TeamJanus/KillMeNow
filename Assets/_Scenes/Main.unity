@@ -459,6 +459,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
+      propertyPath: slots.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
+      propertyPath: survivorsToBeFound.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4325453727175926, guid: bab8be6d72253264a9815f7830033666, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -495,17 +505,17 @@ Prefab:
         type: 2}
       propertyPath: slots.Array.data[0]
       value: 
-      objectReference: {fileID: 2147254411}
+      objectReference: {fileID: 2147254412}
     - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
         type: 2}
       propertyPath: slots.Array.data[1]
       value: 
-      objectReference: {fileID: 896145808}
+      objectReference: {fileID: 896145809}
     - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
         type: 2}
       propertyPath: slots.Array.data[2]
       value: 
-      objectReference: {fileID: 72688526}
+      objectReference: {fileID: 72688527}
     - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
         type: 2}
       propertyPath: nextDayButton
@@ -551,6 +561,12 @@ Prefab:
       propertyPath: numbersReport
       value: 
       objectReference: {fileID: 1114167996}
+    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
+        type: 2}
+      propertyPath: survivorsToBeFound.Array.data[0]
+      value: 
+      objectReference: {fileID: 114570076674515942, guid: 0c23024f825f363439849f358e374522,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bab8be6d72253264a9815f7830033666, type: 2}
   m_IsPrefabParent: 0

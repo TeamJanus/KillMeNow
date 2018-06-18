@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gm = null;
 
+    private GameObject survivorSlots;
+    public Transform[] slots = new Transform[SURVIVOR_SLOTS];
     private Survivor[] survivors = new Survivor[SURVIVOR_SLOTS];
+    public List<Survivor> survivorsToBeFound = new List<Survivor>();
 
     public Button nextDayButton;
 
@@ -45,11 +48,8 @@ public class GameManager : MonoBehaviour {
         // We don't need to persist the gameManager if we only ever have one scene or don't need to move data between scenes we do create in in. Experiment
         //DontDestroyOnLoad(gameObject);
 
-        GameObject slots = GameObject.Find("Survivor Slots");
-        survivors = slots.GetComponentsInChildren<Survivor>();
-        foreach(Survivor survivor in survivors) {
-            Debug.Log(survivor.charName);
-        }
+        survivorSlots = GameObject.Find("Survivor Slots");
+        survivors = survivorSlots.GetComponentsInChildren<Survivor>();
         nextDayButton.interactable = false;
     }
 
@@ -161,6 +161,24 @@ public class GameManager : MonoBehaviour {
             int foodFound = Random.Range(3, 8);
             foodCount += foodFound;
             output += survivor.charName + " braved the outside world and found " + foodFound + " units of food.\r\n";
+
+            // TODO: Add more survivors to the list
+            // TODO: Add ability to select slot to add survivor to
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) < survivor.loot / 2) { 
+                System.Random rnd = new System.Random();
+                int r = survivorsToBeFound.Count;
+                Survivor addition = survivorsToBeFound[rnd.Next(r)];
+                survivorsToBeFound.Remove(addition);
+
+                output += survivor.charName + " stumbles upon someone wielding a spiked bat with ease.\r\n" +
+                          "In between giant swings she introduces herself as Mimi Necrosynth, Dread Queen.\r\n" +
+                          "Mimi accompanies " + survivor.charName + " back to the library.\r\n";
+
+                Instantiate(addition, slots[1]);
+                survivors = survivorSlots.GetComponentsInChildren<Survivor>();
+                survivorCount = survivors.Length;
+                Debug.Log(survivorCount);
+            }
         } else {
             // Bad Stuff
             switch (Random.Range(1,2)) {
