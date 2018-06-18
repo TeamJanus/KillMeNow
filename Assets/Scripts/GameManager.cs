@@ -182,12 +182,46 @@ public class GameManager : MonoBehaviour {
 
         System.Random rnd = new System.Random();
         IEnumerable<int> result = from value in Enumerable.Range(0, survivors.Length) orderby rnd.Next() select value;
-        foreach (int i in result) {
+        //foreach (int i in result) {
+        // TODO: figure out how to structure this without a million break statements that make you cry at night
+        for (int i = 0; i < survivors.Length; i++) { 
             if (survivors[i].GetStatuses().Count > 0) {
-                Debug.Log("There's stuff in there");
+                foreach(Survivor.Status status in survivors[i].GetStatuses()) {
+                    if (survivor.rally < Random.Range(1, 100)) {
+                        switch (status) {
+                            case Survivor.Status.Frightened:
+                                survivors[i].RemoveStatus(status);
+                                output += survivor.charName + " soothes " + survivors[i].charName + "'s frayed nerves. \r\n" +
+                                          survivors[i].charName + " is ready to go out again.\r\n";
+                                break;
+                            case Survivor.Status.Hurt:
+                                survivors[i].RemoveStatus(status);
+                                output += survivor.charName + " cleans and sets " + survivors[i].charName + "'s wounds. \r\n" +
+                                          survivors[i].charName + " can do heavy work again.\r\n";
+                                break;
+                        }
+                        break;
+                    } else {
+                        switch (status) {
+                            case Survivor.Status.Frightened:
+                                output += survivor.charName + " can't get through to " + survivors[i].charName + ".\r\n" +
+                                          survivors[i].charName + " raves about the things outside.\r\n";
+                                break;
+                            case Survivor.Status.Hurt:
+                                output += survivor.charName + " fumbles healing " + survivors[i].charName + "'s wounds. \r\n" +
+                                          survivors[i].charName + " is no better than they were before.\r\n";
+                                break;
+                        }
+                        break;
+                    } 
+                }
             } else {
-                Debug.Log("There's no stuff in there!");
+                barrierCount += survivor.build / 10;
+                output += survivor.charName + " doesn't see anyone in need of help.\r\n" + 
+                          survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
+                break;
             }
+            break;
         }
 
         return output;
