@@ -199,6 +199,7 @@ public class GameManager : MonoBehaviour {
         string output = "";
 
         System.Random rnd = new System.Random();
+        // TODO: Rethink this entire loop. Is it possible not to use breaks?
         IEnumerable<int> result = from value in Enumerable.Range(0, survivors.Length) orderby rnd.Next() select value;
         foreach (int i in result) {
             if (!string.Equals(survivor.charName, survivors[i].charName) && survivors[i].GetStatuses().Count > 0) {
