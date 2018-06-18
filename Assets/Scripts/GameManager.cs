@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public List<Survivor> survivorsToBeFound = new List<Survivor>();
 
     public Button nextDayButton;
+    public Button storiesButton;
 
     public Text dayText;
     public Text barrierText;
