@@ -144,6 +144,9 @@ public class GameManager : MonoBehaviour {
                 case Survivor.Action.Support:
                     output += EvaluateSupport(survivor);
                     break;
+                case Survivor.Action.LastChance:
+                    output += EvaluateLastChance(survivor);
+                    break;
                 default:
                     Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + "doesn't have an action selected.");
                     break;
@@ -238,6 +241,23 @@ public class GameManager : MonoBehaviour {
                 }
             }
         } 
+        return output;
+    }
+
+    private string EvaluateLastChance(Survivor survivor) {
+        string output = "";
+
+        if (Random.Range(1, 100) > 50) {
+            if (survivor.GetStatuses().Contains(Survivor.Status.Frightened)) {
+                survivor.GetStatuses().Remove(Survivor.Status.Frightened);
+            } else {
+                survivor.GetStatuses().Remove(Survivor.Status.Hurt);
+            }
+            output += survivor.charName + " reaches into the depths of their spirit and pulls through their wounds.\r\n";
+        } else {
+            output += survivor.charName + " is too scared and hurt to get up. They remain incapacitated.\r\n";
+        }
+
         return output;
     }
 

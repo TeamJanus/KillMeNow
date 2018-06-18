@@ -11,6 +11,7 @@ public class Survivor : MonoBehaviour,
     private const string defendButtonName = "DefendButton";
     private const string lootButtonName = "LootButton";
     private const string supportButtonName = "SupportButton";
+    private const string lastChanceButtonName = "LastChanceButton";
 
     private SpriteRenderer sprite;
     private Transform slot;
@@ -22,9 +23,13 @@ public class Survivor : MonoBehaviour,
     private Button lootButton;
     [SerializeField]
     private Button supportButton;
+    [SerializeField]
+    private Button lastChanceButton;
     private Text nameText;
 
-    public enum Action { Build, Loot, Support, None };
+    private bool lastChance = false;
+
+    public enum Action { Build, Loot, Support, LastChance, None };
     public enum Status { Frightened, Hurt };
 
     public string charName = "Survivor";
@@ -48,6 +53,8 @@ public class Survivor : MonoBehaviour,
         if (nameText == null) nameText = GetComponentInChildren<Text>();
 
         nameText.text = charName;
+
+        CheckLastChance();
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -63,6 +70,7 @@ public class Survivor : MonoBehaviour,
         if (supportButton.interactable) supportButton.interactable = false;
         if (status == Status.Frightened) lootButton.interactable = false;
         if (status == Status.Hurt) defendButton.interactable = false;
+        if (statuses.Count == 2) lastChance = true;
     }
 
     public void RemoveStatus(Status status) {
@@ -70,6 +78,11 @@ public class Survivor : MonoBehaviour,
         if (status == Status.Frightened) lootButton.interactable = true;
         if (status == Status.Hurt) defendButton.interactable = true;
         if (!supportButton.interactable && statuses.Count == 0) supportButton.interactable = true;
+        if (statuses.Count > 2) lastChance = false;
+    }
+
+    private void CheckLastChance() {
+        lastChanceButton.interactable = lastChance;
     }
 
     public void SetAction(Button choice) {
@@ -82,6 +95,9 @@ public class Survivor : MonoBehaviour,
                 break;
             case supportButtonName:
                 this.action = Action.Support;
+                break;
+            case lastChanceButtonName:
+                this.action = Action.LastChance;
                 break;
             default:
                 this.action = Action.None;
