@@ -8,6 +8,8 @@ public class Survivor : MonoBehaviour,
     IPointerEnterHandler,
     IPointerExitHandler{
 
+    private const int TOTAL_STATUSES = 2;
+
     private const string defendButtonName = "DefendButton";
     private const string lootButtonName = "LootButton";
     private const string supportButtonName = "SupportButton";
@@ -25,15 +27,15 @@ public class Survivor : MonoBehaviour,
     private Button supportButton;
     [SerializeField]
     private Button lastChanceButton;
-    private Text nameText;
 
-    private bool lastChance = false;
+    public Text nameText;
 
     public enum Action { Build, Loot, Support, LastChance, None };
     public enum Status { Frightened, Hurt };
 
     public string charName = "Survivor";
-    public int id = 0;
+    public string pronounSubject;
+    public string pronounObject;
     public int loot = 1;
     public int combat = 1;
     public int build = 1;
@@ -45,44 +47,37 @@ public class Survivor : MonoBehaviour,
     private void Awake () {
         sprite = GetComponent<SpriteRenderer>();
         slot = gameObject.transform.parent;
+
+        nameText.text = charName;
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
         canvas.gameObject.SetActive(true);
-
-        if (nameText == null) nameText = GetComponentInChildren<Text>();
-
-        nameText.text = charName;
-
-        CheckLastChance();
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         canvas.gameObject.SetActive(false);
     }
 
+    // Use the add and remove status methods below instead of operating on this list directly for button interaction
     public List<Status> GetStatuses() {
         return this.statuses;
     }
 
     public void AddStatus(Status status) {
         statuses.Add(status);
-        if (supportButton.interactable) supportButton.interactable = false;
+        if (supportButton.IsInteractable()) supportButton.interactable = false;
         if (status == Status.Frightened) lootButton.interactable = false;
         if (status == Status.Hurt) defendButton.interactable = false;
-        if (statuses.Count == 2) lastChance = true;
+        if (statuses.Count == TOTAL_STATUSES) lastChanceButton.interactable = true;
     }
 
     public void RemoveStatus(Status status) {
         statuses.Remove(status);
         if (status == Status.Frightened) lootButton.interactable = true;
         if (status == Status.Hurt) defendButton.interactable = true;
-        if (!supportButton.interactable && statuses.Count == 0) supportButton.interactable = true;
-        if (statuses.Count > 2) lastChance = false;
-    }
-
-    private void CheckLastChance() {
-        lastChanceButton.interactable = lastChance;
+        if (statuses.Count == 0) supportButton.interactable = true;
+        if (lastChanceButton.IsInteractable() && statuses.Count > TOTAL_STATUSES) lastChanceButton.interactable = false;
     }
 
     public void SetAction(Button choice) {

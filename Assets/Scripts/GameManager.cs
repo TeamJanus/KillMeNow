@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour {
 
         if (howManyActions == survivorCount) nextDayButton.interactable = true;
         else nextDayButton.interactable = false;
-        Debug.Log("howManyActions = " + howManyActions + " and survivorCount = " + survivorCount);
     }
 
     private void ResetActions() {
@@ -188,10 +187,10 @@ public class GameManager : MonoBehaviour {
             switch (Random.Range(1,3)) {
                 case 1:
                     survivor.AddStatus(Survivor.Status.Frightened);
-                    output += survivor.charName + " saw something beyond comprehension. \r\nThey return to the library jumping at every bump and screech.\r\n";
+                    output += survivor.charName + " saw something beyond comprehension.\r\n" + survivor.pronounSubject + "returns to the library jumping at every bump and screech.\r\n";
                     break;
                 case 2:
-                    output += survivor.charName + " gets clipped by something sharp. \r\nThey return to the library bleeding and weak.\r\n";
+                    output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + "returns to the library bleeding and weak.\r\n";
                     survivor.AddStatus(Survivor.Status.Hurt);
                     break;
             }
@@ -233,7 +232,7 @@ public class GameManager : MonoBehaviour {
                         }
                     } else {
                         output += survivor.charName + " can't help " + evalSurv[i].charName + "'s wounds. \r\n" +
-                                    evalSurv[i].charName + " is no better than they were before.\r\n";
+                                    evalSurv[i].charName + " is no better than " + evalSurv[i].pronounSubject.ToLower() + " was before.\r\n";
                     }
                 } else {
                     checkSurvivor = true;
@@ -251,13 +250,14 @@ public class GameManager : MonoBehaviour {
 
         if (Random.Range(1, 100) > 50) {
             if (survivor.GetStatuses().Contains(Survivor.Status.Frightened)) {
-                survivor.GetStatuses().Remove(Survivor.Status.Frightened);
+                survivor.RemoveStatus(Survivor.Status.Frightened);
+                output += survivor.charName + " uses the pain to sharpen " + survivor.pronounObject.ToLower() + " resolve. " + survivor.pronounSubject + " gets up, ready.\r\n";
             } else {
-                survivor.GetStatuses().Remove(Survivor.Status.Hurt);
+                survivor.RemoveStatus(Survivor.Status.Hurt);
+                output += survivor.charName + " panics and raids the medical suppies. " + survivor.pronounSubject.ToLower() + " is ready to defend the library again.\r\n";
             }
-            output += survivor.charName + " reaches into the depths of their spirit and pulls through their wounds.\r\n";
         } else {
-            output += survivor.charName + " is too scared and hurt to get up. They remain incapacitated.\r\n";
+            output += survivor.charName + " is too scared and hurt to get up. " + survivor.pronounSubject + " remains incapacitated.\r\n";
         }
 
         return output;

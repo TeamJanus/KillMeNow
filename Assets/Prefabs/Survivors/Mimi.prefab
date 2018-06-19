@@ -448,7 +448,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pulll Through
+  m_Text: Pull Through
 --- !u!114 &114385499573392458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -558,8 +558,10 @@ MonoBehaviour:
   lootButton: {fileID: 114166460623872322}
   supportButton: {fileID: 114627640720328742}
   lastChanceButton: {fileID: 114982421195057634}
+  nameText: {fileID: 114385499573392458}
   charName: Dread Queen Mimi Necrosynth
-  id: 2
+  pronounSubject: She
+  pronounObject: Her
   loot: 80
   combat: 90
   build: 20
@@ -817,7 +819,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 114168978614907682}
   m_OnClick:
     m_PersistentCalls:
@@ -983,7 +985,7 @@ RectTransform:
   m_GameObject: {fileID: 1474545473825670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224780878599386778}
   m_Father: {fileID: 224283120325695318}
@@ -1061,7 +1063,7 @@ RectTransform:
   m_GameObject: {fileID: 1062955651408522}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224499029320601426}
   m_Father: {fileID: 224283120325695318}
@@ -1069,7 +1071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150.00002, y: -249.99992}
+  m_AnchoredPosition: {x: 150.00002, y: -350}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224499029320601426
@@ -1154,7 +1156,7 @@ RectTransform:
   m_GameObject: {fileID: 1841208550391114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224916372264589478}
   m_Father: {fileID: 224283120325695318}
