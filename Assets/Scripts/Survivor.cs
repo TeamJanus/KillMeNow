@@ -28,6 +28,8 @@ public class Survivor : MonoBehaviour,
     [SerializeField]
     private Button lastChanceButton;
 
+    private ColorBlock baseColors;
+
     public Text nameText;
 
     public enum Action { Build, Loot, Support, LastChance, None };
@@ -49,6 +51,7 @@ public class Survivor : MonoBehaviour,
         slot = gameObject.transform.parent;
 
         nameText.text = charName;
+        baseColors = defendButton.colors;
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -98,6 +101,14 @@ public class Survivor : MonoBehaviour,
                 this.action = Action.None;
                 break;
         }
+
+        foreach(Button block in GetComponentsInChildren<Button>()) {
+            block.colors = baseColors;
+        }
+
+        ColorBlock colors = choice.colors;
+        colors.normalColor = colors.highlightedColor;
+        choice.colors = colors;
 
         GameManager.gm.CheckActions();
     }
