@@ -10,15 +10,18 @@ public class Survivor : MonoBehaviour,
 
     private const int TOTAL_STATUSES = 2;
 
-    private const string defendButtonName = "DefendButton";
-    private const string lootButtonName = "LootButton";
-    private const string supportButtonName = "SupportButton";
-    private const string lastChanceButtonName = "LastChanceButton";
+    private const string BASE_NAME = "Survivor";
+
+    private const string DEFEND_BUTTON_NAME = "DefendButton";
+    private const string LOOT_BUTTON_NAME = "LootButton";
+    private const string SUPPORT_BUTTON_NAME = "SupportButton";
+    private const string LAST_CHANCE_BUTTON_NAME = "LastChanceButton";
 
     private SpriteRenderer sprite;
     private Transform slot;
 
-    public Canvas canvas;
+    [SerializeField]
+    private Canvas canvas;
     [SerializeField]
     private Button defendButton; 
     [SerializeField]
@@ -28,6 +31,11 @@ public class Survivor : MonoBehaviour,
     [SerializeField]
     private Button lastChanceButton;
 
+    [SerializeField]
+    private VerticalLayoutGroup supportMenu;
+    [SerializeField]
+    private Button[] supportButtons = new Button[GameManager.SURVIVOR_SLOTS];
+
     private ColorBlock baseColors;
 
     public Text nameText;
@@ -35,7 +43,7 @@ public class Survivor : MonoBehaviour,
     public enum Action { Build, Loot, Support, LastChance, None };
     public enum Status { Frightened, Hurt };
 
-    public string charName = "Survivor";
+    public string charName = BASE_NAME;
     public string pronounSubject;
     public string pronounObject;
     public int loot = 1;
@@ -46,7 +54,7 @@ public class Survivor : MonoBehaviour,
     public Action action = Action.None;
     private List<Status> statuses = new List<Status>(); 
 
-    private void Awake () {
+    private void Awake() {
         sprite = GetComponent<SpriteRenderer>();
         slot = gameObject.transform.parent;
 
@@ -84,17 +92,20 @@ public class Survivor : MonoBehaviour,
     }
 
     public void SetAction(Button choice) {
-        switch(choice.name) {
-            case defendButtonName:
+        DeactivateSupportMenu();
+
+        switch (choice.name) {
+            case DEFEND_BUTTON_NAME:
                 this.action = Action.Build;
                 break;
-            case lootButtonName:
+            case LOOT_BUTTON_NAME:
                 this.action = Action.Loot;
                 break;
-            case supportButtonName:
+            case SUPPORT_BUTTON_NAME:
                 this.action = Action.Support;
+                ActivateSupportMenu();
                 break;
-            case lastChanceButtonName:
+            case LAST_CHANCE_BUTTON_NAME:
                 this.action = Action.LastChance;
                 break;
             default:
@@ -111,6 +122,25 @@ public class Survivor : MonoBehaviour,
         choice.colors = colors;
 
         GameManager.gm.CheckActions();
+    }
+
+    private void ActivateSupportMenu() {
+        supportMenu.gameObject.SetActive(true);
+
+        Survivor[] survivors = GameManager.gm.GetSurvivors();
+        for (int i = 0; i < supportButtons.Length; i++) {
+            Button button = supportButtons[i];
+            button.gameObject.SetActive(true);
+            if (i < survivors.Length) {
+                button.GetComponentInChildren<Text>().text = survivors[i].charName;
+            } else {
+                button.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void DeactivateSupportMenu() {
+        supportMenu.gameObject.SetActive(false);
     }
 
     public void ResetAction() {

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 
     private const int ZOMBIE_DAMAGE = 5;
     private const int HUNGER_SCORE = 5;
-    private const int SURVIVOR_SLOTS = 3;
+    public const int SURVIVOR_SLOTS = 3;
 
     public static GameManager gm = null;
 
@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         UpdateGUI();
         nextDayButton.interactable = false;
+    }
+
+    public Survivor[] GetSurvivors() {
+        return survivors;
     }
 
     private void SetSurvivor(Survivor survivor, int slotNum) {
@@ -168,7 +172,7 @@ public class GameManager : MonoBehaviour {
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) < survivor.loot / 2) { 
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) < survivor.loot / 2) {  
                 System.Random rnd = new System.Random();
                 int r = survivorsToBeFound.Count;
                 Survivor addition = survivorsToBeFound[rnd.Next(r)];
