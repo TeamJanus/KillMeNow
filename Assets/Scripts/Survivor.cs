@@ -20,8 +20,7 @@ public class Survivor : MonoBehaviour,
     private SpriteRenderer sprite;
     private Transform slot;
 
-    [SerializeField]
-    private Canvas canvas;
+    public Canvas canvas;
     [SerializeField]
     private Button defendButton; 
     [SerializeField]
@@ -35,6 +34,7 @@ public class Survivor : MonoBehaviour,
     private VerticalLayoutGroup supportMenu;
     [SerializeField]
     private Button[] supportButtons = new Button[GameManager.SURVIVOR_SLOTS];
+    private Survivor supportTarget;
 
     private ColorBlock baseColors;
 
@@ -113,13 +113,7 @@ public class Survivor : MonoBehaviour,
                 break;
         }
 
-        foreach(Button block in GetComponentsInChildren<Button>()) {
-            block.colors = baseColors;
-        }
-
-        ColorBlock colors = choice.colors;
-        colors.normalColor = colors.highlightedColor;
-        choice.colors = colors;
+        KeepHighlight(choice);
 
         GameManager.gm.CheckActions();
     }
@@ -143,7 +137,34 @@ public class Survivor : MonoBehaviour,
         supportMenu.gameObject.SetActive(false);
     }
 
+    public void SetSupportTarget(Button choice) {
+        Survivor[] survivors = GameManager.gm.GetSurvivors();
+        int i = Array.IndexOf(supportButtons, choice);
+        supportTarget = survivors[i];
+
+        KeepHighlight(choice);
+    }
+
+    public Survivor GetSupportTarget() {
+        return supportTarget;
+    }
+
+    private void KeepHighlight(Button choice) {
+        ResetHighlight();
+
+        ColorBlock colors = choice.colors;
+        colors.normalColor = colors.highlightedColor;
+        choice.colors = colors;
+    }
+
+    public void ResetHighlight() {
+        foreach (Button block in GetComponentsInChildren<Button>()) { 
+            block.colors = baseColors;
+        }
+    }
+
     public void ResetAction() {
+        DeactivateSupportMenu();
         action = Action.None;
     }
 

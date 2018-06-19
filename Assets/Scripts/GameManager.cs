@@ -88,6 +88,14 @@ public class GameManager : MonoBehaviour {
         barrierText.text = barrierCount.ToString();
         foodText.text = foodCount.ToString();
         zombieText.text = zombieCount.ToString();
+
+        // TODO: figure out if this awful active not active pattern can be removed
+        // This resets the highlighting on all the buttons in each survivor
+        foreach (Survivor survivor in survivors) {
+            survivor.canvas.gameObject.SetActive(true);
+            survivor.ResetHighlight();
+            survivor.canvas.gameObject.SetActive(false);
+        }
     }
 
     public void AdvanceDay() {

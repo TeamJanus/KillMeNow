@@ -1101,7 +1101,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114658550397274592}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114570076674515942}
+        m_MethodName: SetSupportTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 114691237997393664}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114892385167061958
@@ -1142,7 +1153,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114084404093233486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114570076674515942}
+        m_MethodName: SetSupportTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 114892385167061958}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114909270346876260
@@ -1262,7 +1284,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114561534926686960}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114570076674515942}
+        m_MethodName: SetSupportTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 114965184927043248}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114982421195057634
