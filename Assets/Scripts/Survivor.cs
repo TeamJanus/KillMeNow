@@ -81,9 +81,9 @@ public class Survivor : MonoBehaviour,
         }
 
         if (GameManager.gm.survivorCount < 2) {
-            if (supportButton.interactable) supportButton.interactable = false;
+            supportButton.interactable = false;
         } else {
-            if (!supportButton.interactable) supportButton.interactable = true;
+            supportButton.interactable = true;
         }
     }
 
