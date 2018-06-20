@@ -17,7 +17,6 @@ public class Survivor : MonoBehaviour,
     private const string SUPPORT_BUTTON_NAME = "SupportButton";
     private const string LAST_CHANCE_BUTTON_NAME = "LastChanceButton";
 
-    private SpriteRenderer sprite;
     private Transform slot;
 
     public Canvas canvas;
@@ -57,7 +56,6 @@ public class Survivor : MonoBehaviour,
     private bool firstLoad = true;
 
     private void Awake() {
-        sprite = GetComponent<SpriteRenderer>();
         slot = gameObject.transform.parent;
 
         nameText.text = charName;
@@ -127,7 +125,18 @@ public class Survivor : MonoBehaviour,
             case SUPPORT_BUTTON_NAME:
                 this.action = Action.Support;
                 ActivateSupportMenu();
-                SetSupportTarget(supportButtons[0]);
+
+                bool found = false;
+                int i = 0;
+                while (!found) {
+                    if (supportButtons[i].IsActive()) {
+                        SetSupportTarget(supportButtons[i]);
+                        found = true;
+                    } else {
+                        i += 1;
+                    }
+                }
+
                 break;
             case LAST_CHANCE_BUTTON_NAME:
                 this.action = Action.LastChance;
@@ -151,6 +160,7 @@ public class Survivor : MonoBehaviour,
             button.gameObject.SetActive(true);
             if (i < survivors.Length) {
                 button.GetComponentInChildren<Text>().text = survivors[i].charName;
+                if (button.GetComponentInChildren<Text>().text.Equals(this.charName)) button.gameObject.SetActive(false);
             } else {
                 button.gameObject.SetActive(false);
             }

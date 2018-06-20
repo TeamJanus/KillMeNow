@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -31,6 +30,8 @@ public class GameManager : MonoBehaviour {
     public Text actionReport;
     public Text numbersReport;
 
+    private List<Survivor.Status> allStatuses = new List<Survivor.Status>();
+
     private int dayCount = 1;
     private int barrierCount = 100;
     private int foodCount = 100;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour {
                                                          "The survivors grab a few hours of uneasy sleep.",
                                                          "Night watch catches glimpses of strange shapes in the fading light" };
 
+
     private void Awake() {
         if (gm == null) gm = this;
         else if (gm != this) Destroy(gameObject);
@@ -52,6 +54,11 @@ public class GameManager : MonoBehaviour {
         survivorSlots = GameObject.Find("Survivor Slots");
         survivors = survivorSlots.GetComponentsInChildren<Survivor>();
         nextDayButton.interactable = false;
+
+        // I'm doing this manually since I'm not sure yet how otherwise
+        // TODO: Determine viability of not doing this by hand
+        allStatuses.Add(Survivor.Status.Frightened);
+        allStatuses.Add(Survivor.Status.Hurt);
     }
 
     private void Start() {
@@ -228,14 +235,22 @@ public class GameManager : MonoBehaviour {
             }
         } else {
             // Bad Stuff
-            switch (Random.Range(1,3)) {
-                case 1:
+            List<Survivor.Status> allStatusesCopy = new List<Survivor.Status>(allStatuses);
+            foreach (Survivor.Status status in survivor.GetStatuses()) {
+                allStatusesCopy.Remove(status);
+            }
+
+            int index = Random.Range(0, allStatusesCopy.Count);
+            Survivor.Status affliction = allStatusesCopy[index];
+
+            switch (affliction) {
+                case Survivor.Status.Frightened:
                     survivor.AddStatus(Survivor.Status.Frightened);
                     output += survivor.charName + " sees something beyond comprehension.\r\n" + survivor.pronounSubject + " returns to the library jumping at every bump and screech.\r\n";
                     break;
-                case 2:
-                    output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + " returns to the library bleeding and weak.\r\n";
+                case Survivor.Status.Hurt:
                     survivor.AddStatus(Survivor.Status.Hurt);
+                    output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + " returns to the library bleeding and weak.\r\n";
                     break;
             }
         }
