@@ -1112,7 +1112,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rally the Others
+  m_Text: Support Someone
 --- !u!114 &114888920545211512
 MonoBehaviour:
   m_ObjectHideFlags: 1
