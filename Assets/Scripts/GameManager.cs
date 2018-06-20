@@ -102,11 +102,12 @@ public class GameManager : MonoBehaviour {
         dayCount += 1;
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
         foodCount -= HUNGER_SCORE * survivorCount;
-        zombieCount += 1;
 
         if (barrierCount <= 0 || foodCount <= 0) LoseGame();
         else if (dayCount >= 10) WinGame();
         else ContinueGame();
+
+        zombieCount += 1;
     }
 
     private void ContinueGame() {
@@ -149,8 +150,7 @@ public class GameManager : MonoBehaviour {
         foreach (Survivor survivor in survivors) {
             switch (survivor.action) {
                 case Survivor.Action.Build:
-                    barrierCount += survivor.build / 10;
-                    output += survivor.charName + " restores the barrier by " + survivor.build / 10 + " points.\r\n";
+                    output += EvaluateDefending(survivor);
                     break;
                 case Survivor.Action.Loot:
                     output += EvaluateLooting(survivor);
@@ -168,6 +168,22 @@ public class GameManager : MonoBehaviour {
         }
 
         output += "\r\n" + neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
+        return output;
+    }
+
+    private string EvaluateDefending(Survivor survivor) {
+        string output = "";
+
+        if (Random.Range(1,100) <= survivor.combat) {
+            if (zombieCount > 0) {
+                zombieCount -= 1;
+                output += survivor.charName + " manages to crush a monster's skull \r\n with a hammer through a hole in the barrier.\r\n";
+            }
+        }
+
+        barrierCount += survivor.build / 10;
+        output += survivor.charName + " restores the barrier by " + survivor.build / 10 + " points.\r\n";
+
         return output;
     }
 
