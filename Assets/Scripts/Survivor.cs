@@ -79,6 +79,12 @@ public class Survivor : MonoBehaviour,
             Vector2 suppPos = supportMenu.transform.localPosition;
             supportMenu.transform.localPosition = new Vector2(suppPos.x * -1, suppPos.y);
         }
+
+        if (GameManager.gm.survivorCount < 2) {
+            if (supportButton.interactable) supportButton.interactable = false;
+        } else {
+            if (!supportButton.interactable) supportButton.interactable = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData) {

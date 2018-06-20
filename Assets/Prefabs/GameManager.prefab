@@ -55,7 +55,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  survivorsToBeFound:
+  - {fileID: 114570076674515942, guid: 0c23024f825f363439849f358e374522, type: 2}
   nextDayButton: {fileID: 0}
+  storiesButton: {fileID: 0}
   dayText: {fileID: 0}
   barrierText: {fileID: 0}
   foodText: {fileID: 0}
@@ -64,3 +67,4 @@ MonoBehaviour:
   dayReport: {fileID: 0}
   actionReport: {fileID: 0}
   numbersReport: {fileID: 0}
+  survivorCount: 2

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
     private int barrierCount = 100;
     private int foodCount = 100;
     private int zombieCount = 1;
-    private int survivorCount = 2;
+    public int survivorCount = 2;
 
     private int daysLeft = 10;
     private string[] neutralDescriptors = new string[] { "The banging at the door grows louder tonight.",
