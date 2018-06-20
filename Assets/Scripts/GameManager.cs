@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        output += neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
+        output += "\r\n" + neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
         return output;
     }
 
@@ -181,13 +181,12 @@ public class GameManager : MonoBehaviour {
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {  
-                System.Random rnd = new System.Random();
-                int r = survivorsToBeFound.Count;
-                Survivor addition = survivorsToBeFound[rnd.Next(r)];
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
+                int index = Random.Range(0, survivorsToBeFound.Count);
+                Survivor addition = survivorsToBeFound[index];
                 survivorsToBeFound.Remove(addition);
 
-                output += survivor.charName + " stumbles upon someone wielding a spiked bat with ease.\r\n" +
+                output += "\r\n" + survivor.charName + " stumbles upon someone wielding a spiked bat with ease.\r\n" +
                           "In between giant swings she introduces herself as Mimi Necrosynth, Dread Queen.\r\n" +
                           "Mimi accompanies " + survivor.charName + " back to the library.\r\n";
 
@@ -200,10 +199,10 @@ public class GameManager : MonoBehaviour {
             switch (Random.Range(1,2)) {
                 case 1:
                     survivor.AddStatus(Survivor.Status.Frightened);
-                    output += survivor.charName + " sees something beyond comprehension.\r\n" + survivor.pronounSubject + "returns to the library jumping at every bump and screech.\r\n";
+                    output += survivor.charName + " sees something beyond comprehension.\r\n" + survivor.pronounSubject + " returns to the library jumping at every bump and screech.\r\n";
                     break;
                 case 2:
-                    output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + "returns to the library bleeding and weak.\r\n";
+                    output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + " returns to the library bleeding and weak.\r\n";
                     survivor.AddStatus(Survivor.Status.Hurt);
                     break;
             }
@@ -247,14 +246,9 @@ public class GameManager : MonoBehaviour {
     private string EvaluateLastChance(Survivor survivor) {
         string output = "";
 
-        if (Random.Range(1, 100) > 50) {
-            if (survivor.GetStatuses().Contains(Survivor.Status.Frightened)) {
-                survivor.RemoveStatus(Survivor.Status.Frightened);
-                output += survivor.charName + " uses the pain to sharpen " + survivor.pronounObject.ToLower() + " resolve. " + survivor.pronounSubject + " gets up, ready.\r\n";
-            } else {
-                survivor.RemoveStatus(Survivor.Status.Hurt);
-                output += survivor.charName + " panics and raids the medical suppies. " + survivor.pronounSubject.ToLower() + " is ready to defend the library again.\r\n";
-            }
+        if (Random.Range(1, 2) == 2) {
+            survivor.RemoveStatus(Survivor.Status.Frightened);
+            output += survivor.charName + " uses the pain to sharpen " + survivor.pronounObject.ToLower() + " resolve. " + survivor.pronounSubject + " gets up, ready.\r\n";
         } else {
             output += survivor.charName + " is too scared and hurt to get up. " + survivor.pronounSubject + " remains incapacitated.\r\n";
         }
