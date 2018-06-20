@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    // Keep in mind that all random comparisons should be RandomValue <= SurvivorStat
     private string EvaluateAction() {
         string output = "";
 
@@ -149,7 +150,7 @@ public class GameManager : MonoBehaviour {
             switch (survivor.action) {
                 case Survivor.Action.Build:
                     barrierCount += survivor.build / 10;
-                    output += survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
+                    output += survivor.charName + " restors the barrier by " + survivor.build / 10 + " points.\r\n";
                     break;
                 case Survivor.Action.Loot:
                     output += EvaluateLooting(survivor);
@@ -172,15 +173,15 @@ public class GameManager : MonoBehaviour {
 
     private string EvaluateLooting(Survivor survivor) {
         string output = "";
-        if (Random.Range(1, 100) < survivor.loot) {
+        if (Random.Range(1, 100) <= survivor.loot) {
             // Good Stuff
             int foodFound = Random.Range(3, 8);
             foodCount += foodFound;
-            output += survivor.charName + " braved the outside world and found " + foodFound + " units of food.\r\n";
+            output += survivor.charName + " braves the outside world and finds " + foodFound + " units of food.\r\n";
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) < survivor.loot / 2) {  
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {  
                 System.Random rnd = new System.Random();
                 int r = survivorsToBeFound.Count;
                 Survivor addition = survivorsToBeFound[rnd.Next(r)];
@@ -196,10 +197,10 @@ public class GameManager : MonoBehaviour {
             }
         } else {
             // Bad Stuff
-            switch (Random.Range(1,3)) {
+            switch (Random.Range(1,2)) {
                 case 1:
                     survivor.AddStatus(Survivor.Status.Frightened);
-                    output += survivor.charName + " saw something beyond comprehension.\r\n" + survivor.pronounSubject + "returns to the library jumping at every bump and screech.\r\n";
+                    output += survivor.charName + " sees something beyond comprehension.\r\n" + survivor.pronounSubject + "returns to the library jumping at every bump and screech.\r\n";
                     break;
                 case 2:
                     output += survivor.charName + " gets clipped by something sharp.\r\n" + survivor.pronounSubject + "returns to the library bleeding and weak.\r\n";
@@ -210,50 +211,36 @@ public class GameManager : MonoBehaviour {
         return output;
     }
 
-    private string EvaluateSupport(Survivor survivor) {
+    private string EvaluateSupport(Survivor helper) {
         string output = "";
 
-        //System.Random rnd = new System.Random();
-        // TODO: Figure out how to make this loop randomly and using awful bools for breaking loops
-        List<Survivor> evalSurv = survivors.ToList();
-        evalSurv.Remove(survivor);
-        bool checkSurvivor = false;
-        for (int i = 0; i < evalSurv.Count; i++) {
-            if (!checkSurvivor) {
-                if (evalSurv[i].GetStatuses().Count > 0) {
-                    checkSurvivor = true;
-                    if (survivor.rally < Random.Range(1, 100)) {
-                        bool checkStatus = false;
-                        foreach (Survivor.Status status in evalSurv[i].GetStatuses()) {
-                            if (!checkStatus) {
-                                switch (status) {
-                                    case Survivor.Status.Frightened:
-                                        evalSurv[i].RemoveStatus(status);
-                                        output += survivor.charName + " soothes " + evalSurv[i].charName + "'s frayed nerves. \r\n" +
-                                                    evalSurv[i].charName + " is ready to go out again.\r\n";
-                                        checkStatus = true;
-                                        break;
-                                    case Survivor.Status.Hurt:
-                                        evalSurv[i].RemoveStatus(status);
-                                        output += survivor.charName + " cleans and sets " + evalSurv[i].charName + "'s wounds. \r\n" +
-                                                    evalSurv[i].charName + " can do heavy work again.\r\n";
-                                        checkStatus = true;
-                                        break;
-                                }
-                            }
-                        }
-                    } else {
-                        output += survivor.charName + " can't help " + evalSurv[i].charName + "'s wounds. \r\n" +
-                                    evalSurv[i].charName + " is no better than " + evalSurv[i].pronounSubject.ToLower() + " was before.\r\n";
-                    }
-                } else {
-                    checkSurvivor = true;
-                    barrierCount += survivor.build / 10;
-                    output += survivor.charName + " doesn't see anyone in need of help.\r\n" +
-                                survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
-                }
+        //output += survivor.charName + " soothes " + evalSurv[i].charName + "'s frayed nerves. \r\n" +
+        //          evalSurv[i].charName + " is ready to go out again.\r\n";
+
+        //output += survivor.charName + " cleans and sets " + evalSurv[i].charName + "'s wounds. \r\n" +
+        //          evalSurv[i].charName + " can do heavy work again.\r\n";
+
+        //output += survivor.charName + " can't help " + evalSurv[i].charName + "'s wounds. \r\n" +
+        //          evalSurv[i].charName + " is no better than " + evalSurv[i].pronounSubject.ToLower() + " was before.\r\n";
+
+        //output += survivor.charName + " doesn't see anyone in need of help.\r\n" +
+        //          survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
+
+        Survivor target = helper.GetSupportTarget();
+        if (target.GetStatuses().Count > 0) {
+
+        } else {
+            output += helper.charName + " takes a moment to comfort " + target.charName + ".\r\n";
+
+            if (Random.Range(1, 100) <= (helper.rally + (target.rally / 2))) {
+                output += "Insert some kind of good buff for giving nice support.\r\n";
+            } else {
+                barrierCount += helper.build / 10;
+                output += "The two don't make much of a connection.\r\n";
+                output += helper.charName + " rebuilds the barrier for " + helper.build / 10 + " points.\r\n";
             }
-        } 
+        }
+
         return output;
     }
 
