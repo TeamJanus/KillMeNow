@@ -52,7 +52,9 @@ public class Survivor : MonoBehaviour,
     public int rally = 1;
 
     public Action action = Action.None;
-    private List<Status> statuses = new List<Status>(); 
+    private List<Status> statuses = new List<Status>();
+
+    private bool firstLoad = true;
 
     private void Awake() {
         sprite = GetComponent<SpriteRenderer>();
@@ -64,6 +66,19 @@ public class Survivor : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData) {
         canvas.gameObject.SetActive(true);
+
+        if (slot.name.Equals("1") && firstLoad) {
+            firstLoad = false;
+
+            Vector2 canvasPos = canvas.transform.localPosition;
+            canvas.transform.localPosition = new Vector2(canvasPos.x * -1, canvasPos.y);
+
+            Vector2 namePos = nameText.transform.localPosition;
+            nameText.transform.localPosition = new Vector2(namePos.x * -1, namePos.y);
+
+            Vector2 suppPos = supportMenu.transform.localPosition;
+            supportMenu.transform.localPosition = new Vector2(suppPos.x * -1, suppPos.y);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData) {
