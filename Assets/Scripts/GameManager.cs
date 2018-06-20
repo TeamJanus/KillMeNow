@@ -174,17 +174,33 @@ public class GameManager : MonoBehaviour {
     private string EvaluateDefending(Survivor survivor) {
         string output = "";
 
-        if (Random.Range(1,100) <= survivor.combat) {
+        if (Random.Range(1, 100) <= survivor.combat) {
             if (zombieCount > 0) {
                 zombieCount -= 1;
                 output += survivor.charName + " manages to crush a monster's skull \r\n with a hammer through a hole in the barrier.\r\n";
             }
         }
 
-        barrierCount += survivor.build / 10;
-        output += survivor.charName + " restores the barrier by " + survivor.build / 10 + " points.\r\n";
+        int buildPoints = GetBuildPoints(survivor.build);
+
+        if (buildPoints > 0) {
+            barrierCount += buildPoints;
+            output += survivor.charName + " restores the barrier by " + buildPoints + " points.\r\n";
+        } else {
+            output += "The barrier is as sturdy as it's going to get. " + survivor.charName + " looks outside nervously.\r\n";
+        }
 
         return output;
+    }
+
+    private int GetBuildPoints(int buildStat) {
+        int buildPoints = barrierCount + buildStat / 10;
+        if (buildPoints > 100) {
+            buildPoints = 100 - barrierCount;
+            return buildPoints;
+        }
+
+        return buildStat / 10;
     }
 
     private string EvaluateLooting(Survivor survivor) {
@@ -259,9 +275,16 @@ public class GameManager : MonoBehaviour {
             if (Random.Range(1, 100) <= (helper.rally + (target.rally / 2))) {
                 output += "Insert some kind of good buff for giving nice support.\r\n";
             } else {
-                barrierCount += helper.build / 10;
                 output += "The two don't make much of a connection.\r\n";
-                output += helper.charName + " rebuilds the barrier for " + helper.build / 10 + " points.\r\n";
+
+                int buildPoints = GetBuildPoints(helper.build);
+
+                if (buildPoints > 0) {
+                    barrierCount += buildPoints;
+                    output += helper.charName + " restores the barrier by " + buildPoints + " points.\r\n";
+                } else {
+                    output += helper.charName + " looks outside nervously.\r\n";
+                }
             }
         }
 
