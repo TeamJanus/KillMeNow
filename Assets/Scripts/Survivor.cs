@@ -112,23 +112,26 @@ public class Survivor : MonoBehaviour,
         switch (choice.name) {
             case DEFEND_BUTTON_NAME:
                 this.action = Action.Build;
+                KeepHighlight(choice);
                 break;
             case LOOT_BUTTON_NAME:
                 this.action = Action.Loot;
+                KeepHighlight(choice);
                 break;
             case SUPPORT_BUTTON_NAME:
                 this.action = Action.Support;
                 ActivateSupportMenu();
+                SetSupportTarget(supportButtons[0]);
                 break;
             case LAST_CHANCE_BUTTON_NAME:
                 this.action = Action.LastChance;
+                KeepHighlight(choice);
                 break;
             default:
                 this.action = Action.None;
+                ResetHighlight();
                 break;
         }
-
-        KeepHighlight(choice);
 
         GameManager.gm.CheckActions();
     }
@@ -168,7 +171,7 @@ public class Survivor : MonoBehaviour,
         ResetHighlight();
 
         ColorBlock colors = choice.colors;
-        colors.normalColor = colors.highlightedColor;
+        colors.normalColor = Color.blue;
         choice.colors = colors;
     }
 
