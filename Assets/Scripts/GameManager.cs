@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour {
             switch (survivor.action) {
                 case Survivor.Action.Build:
                     barrierCount += survivor.build / 10;
-                    output += survivor.charName + " restors the barrier by " + survivor.build / 10 + " points.\r\n";
+                    output += survivor.charName + " restores the barrier by " + survivor.build / 10 + " points.\r\n";
                     break;
                 case Survivor.Action.Loot:
                     output += EvaluateLooting(survivor);
@@ -213,21 +213,30 @@ public class GameManager : MonoBehaviour {
     private string EvaluateSupport(Survivor helper) {
         string output = "";
 
-        //output += survivor.charName + " soothes " + evalSurv[i].charName + "'s frayed nerves. \r\n" +
-        //          evalSurv[i].charName + " is ready to go out again.\r\n";
-
-        //output += survivor.charName + " cleans and sets " + evalSurv[i].charName + "'s wounds. \r\n" +
-        //          evalSurv[i].charName + " can do heavy work again.\r\n";
-
-        //output += survivor.charName + " can't help " + evalSurv[i].charName + "'s wounds. \r\n" +
-        //          evalSurv[i].charName + " is no better than " + evalSurv[i].pronounSubject.ToLower() + " was before.\r\n";
-
-        //output += survivor.charName + " doesn't see anyone in need of help.\r\n" +
-        //          survivor.charName + " restored the barrier by " + survivor.build / 10 + " points.\r\n";
-
         Survivor target = helper.GetSupportTarget();
-        if (target.GetStatuses().Count > 0) {
 
+        if (target.GetStatuses().Count > 0) {
+            if (Random.Range(1, 100) <= helper.rally) {
+                List<Survivor.Status> statuses = target.GetStatuses();
+
+                int index = Random.Range(0, statuses.Count);
+                Survivor.Status status = statuses[index];
+                target.RemoveStatus(status);
+
+                switch (status) {
+                    case Survivor.Status.Frightened:
+                        output += helper.charName + " soothes " + target.charName + "'s frayed nerves. \r\n" +
+                                  target.charName + " is ready to go out again.\r\n";
+                        break;
+                    case Survivor.Status.Hurt:
+                        output += helper.charName + " cleans and sets " + target.charName + "'s wounds. \r\n" +
+                                  target.charName + " can do heavy work again.\r\n";
+                        break;
+                }
+            } else {
+                output += helper.charName + " can't help " + target.charName + "'s wounds. \r\n" +
+                          target.charName + " is no better than " + target.pronounSubject.ToLower() + " was before.\r\n";
+            }
         } else {
             output += helper.charName + " takes a moment to comfort " + target.charName + ".\r\n";
 
