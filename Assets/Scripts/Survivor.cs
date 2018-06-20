@@ -82,7 +82,7 @@ public class Survivor : MonoBehaviour,
 
         if (GameManager.gm.survivorCount < 2) {
             supportButton.interactable = false;
-        } else {
+        } else if (statuses.Count == 0) {
             supportButton.interactable = true;
         }
     }
@@ -98,7 +98,7 @@ public class Survivor : MonoBehaviour,
 
     public void AddStatus(Status status) {
         statuses.Add(status);
-        if (supportButton.IsInteractable()) supportButton.interactable = false;
+        supportButton.interactable = false;
         if (status == Status.Frightened) lootButton.interactable = false;
         if (status == Status.Hurt) defendButton.interactable = false;
         if (statuses.Count == TOTAL_STATUSES) lastChanceButton.interactable = true;
@@ -109,7 +109,7 @@ public class Survivor : MonoBehaviour,
         if (status == Status.Frightened) lootButton.interactable = true;
         if (status == Status.Hurt) defendButton.interactable = true;
         if (statuses.Count == 0) supportButton.interactable = true;
-        if (lastChanceButton.IsInteractable() && statuses.Count > TOTAL_STATUSES) lastChanceButton.interactable = false;
+        if (statuses.Count > 0) lastChanceButton.interactable = false;
     }
 
     public void SetAction(Button choice) {

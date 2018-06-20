@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour {
             }
         } else {
             // Bad Stuff
-            switch (Random.Range(1,2)) {
+            switch (Random.Range(1,3)) {
                 case 1:
                     survivor.AddStatus(Survivor.Status.Frightened);
                     output += survivor.charName + " sees something beyond comprehension.\r\n" + survivor.pronounSubject + " returns to the library jumping at every bump and screech.\r\n";
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour {
     private string EvaluateLastChance(Survivor survivor) {
         string output = "";
 
-        if (Random.Range(1, 2) == 2) {
+        if (Random.Range(1, 3) == 2) {
             survivor.RemoveStatus(Survivor.Status.Frightened);
             output += survivor.charName + " uses the pain to sharpen " + survivor.pronounObject.ToLower() + " resolve. " + survivor.pronounSubject + " gets up, ready.\r\n";
         } else {
