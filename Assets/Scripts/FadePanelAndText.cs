@@ -26,11 +26,9 @@ public class FadePanelAndText : MonoBehaviour {
     private void Start() {
         blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 1f);
 
-        // This is the topmost text on the panel
-        texts[0].color = new Color(texts[0].color.r, texts[0].color.g, texts[0].color.b, 1f);
-
-        // This is the bottommost text on the panel
-        texts[texts.Length - 1].color = new Color(texts[texts.Length - 1].color.r, texts[texts.Length - 1].color.g, texts[texts.Length - 1].color.b, 1f);
+        foreach (Text text in texts) {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        }
 
         gameObject.SetActive(true);
     }
@@ -109,12 +107,11 @@ public class FadePanelAndText : MonoBehaviour {
             alpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
             blackPanel.color = alpha;
 
-            Color textTopAlpha = texts[0].color;
-            Color textBottomAlpha = texts[texts.Length - 1].color;
-            textTopAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
-            textBottomAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
-            texts[0].color = textTopAlpha;
-            texts[texts.Length - 1].color = textBottomAlpha;
+            foreach (Text text in texts) {
+                Color textAlpha = text.color;
+                textAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+                text.color = textAlpha;
+            }
 
             yield return null;
         }
