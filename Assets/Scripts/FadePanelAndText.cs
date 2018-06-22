@@ -15,6 +15,7 @@ public class FadePanelAndText : MonoBehaviour {
 
     private bool newGame = false;
     private bool firstLoad = true;
+    private bool fading = false;
 
     private void Awake() {
         blackPanel = GetComponent<Image>();
@@ -46,13 +47,12 @@ public class FadePanelAndText : MonoBehaviour {
 
     public void FadeOut() {
         if (!newGame) {
+            fading = true;
             if (firstLoad) {
-                firstLoad = false;
-                StartCoroutine(DoFirstFadeOut());
+                StartCoroutine(DoFadeOut());
             } else {
                 GameManager.gm.UpdateGUI();
                 StartCoroutine(DoFadeOut());
-                trigger.enabled = false;
             }
         } else {
             GameManager.gm.ReloadLevel();
@@ -80,36 +80,23 @@ public class FadePanelAndText : MonoBehaviour {
         yield return null;
     }
 
-    IEnumerator DoFadeOut() { 
-        Color alpha = blackPanel.color;
-        while (alpha.a > 0f) {
-            alpha.a -= Time.deltaTime / FADE_SPEED;
-            blackPanel.color = alpha;
-
-            foreach (Text text in texts) {
-                Color textAlpha = text.color;
-                textAlpha.a -= Time.deltaTime / FADE_SPEED;
-                text.color = textAlpha;
-            }
-
-            yield return null;
-        }
-        gameObject.SetActive(false);
-
-        yield return null;
-    }
-
-    IEnumerator DoFirstFadeOut() {
+    IEnumerator DoFadeOut() {
         trigger.enabled = false;
 
+        int speed = FADE_SPEED;
+        if (firstLoad) {
+            firstLoad = false;
+            speed = FIRST_FADE_SPEED;
+        }
+
         Color alpha = blackPanel.color;
         while (alpha.a > 0f) {
-            alpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+            alpha.a -= Time.deltaTime / speed;
             blackPanel.color = alpha;
 
             foreach (Text text in texts) {
                 Color textAlpha = text.color;
-                textAlpha.a -= Time.deltaTime / FIRST_FADE_SPEED;
+                textAlpha.a -= Time.deltaTime / speed;
                 text.color = textAlpha;
             }
 
