@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 
     private int dayCount = 1;
     private int barrierCount = 100;
-    private int foodCount = 100;
+    private int foodCount = 0;
     private int zombieCount = 1;
     public int survivorCount = 2;
 
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
                                                          "The survivors grab a few hours of uneasy sleep.",
                                                          "Night watch catches glimpses of strange shapes in the fading light" };
 
+    private bool gameOver = false;
 
     private void Awake() {
         if (gm == null) gm = this;
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour {
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
         foodCount -= HUNGER_SCORE * survivorCount;
 
-        if (barrierCount <= 0 || foodCount <= 0) LoseGame();
+        if (barrierCount <= 0) LoseGame();
         else if (dayCount >= 10) WinGame();
         else ContinueGame();
 
@@ -123,14 +124,16 @@ public class GameManager : MonoBehaviour {
 
         actionReport.text = EvaluateAction();
 
-        numbersReport.text = EvaluateNumbers();
+        if (!gameOver) {
+            numbersReport.text = EvaluateNumbers();
 
-        ResetActions();
+            ResetActions();
+        }
     }
 
     private void WinGame() {
-        dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops." + 
-                         "\r\nYou join up with the survivor army and live to fight another day.";
+        dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops.\r\n" + 
+                         "You join up with the survivor army and live to fight another day.";
         actionReport.text = "Click to play again.";
         numbersReport.enabled = false;
 
@@ -138,10 +141,17 @@ public class GameManager : MonoBehaviour {
     }
 
     private void LoseGame() {
-        dayReport.text = "The door bursts open and stumbling shapes outside pour in." +
-                         "\r\nThe survivors are too weak to protest as they are torn apart.";
-        actionReport.text = "Click to play again.";
-        numbersReport.enabled = false;
+        gameOver = true;
+
+        if (barrierCount <= 0) {
+            dayReport.text = "The door bursts open and the stumbling shapes outside pour in.\r\n" +
+                             "The survivors are too weak to protest as they are torn apart.";
+        } else if (foodCount < 0) {
+            dayReport.text = "The food reserves have run too low. The survivors are too weak to go on.\r\n" +
+                             "The monsters outside find slim pickings when they burst through the barricade.";
+        }
+        actionReport.enabled = false;
+        numbersReport.text = "Click to play again.";
 
         nightlyNews.NewGame();
     }
@@ -173,6 +183,8 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+
+        if (foodCount < 0) LoseGame();
 
         output += "\r\n" + neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
         return output;
@@ -320,7 +332,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private string EvaluateNumbers() {
-        string output = string.Format("Barrier took {0} damage. {1} units of food left. {2} horrors at the door.",
+        string output = string.Format("Barrier took {0} net damage. {1} units of food left. {2} horrors at the door.",
                                             ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
 
         return output;
