@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 
     private int dayCount = 1;
     private int barrierCount = 100;
-    private int foodCount = 0;
+    private int foodCount = 50;
     private int zombieCount = 1;
     public int survivorCount = 2;
 

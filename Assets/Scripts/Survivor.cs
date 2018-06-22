@@ -45,6 +45,9 @@ public class Survivor : MonoBehaviour,
     public string charName = BASE_NAME;
     public string pronounSubject;
     public string pronounObject;
+
+    public SpriteRenderer deepTalkSign;
+
     public int loot = 1;
     public int combat = 1;
     public int build = 1;
@@ -202,6 +205,8 @@ public class Survivor : MonoBehaviour,
         action = Action.None;
     }
 
-
+    public void DeepTalkBubbleToggle() {
+        deepTalkSign.gameObject.SetActive(true);
+    }
 }
 
