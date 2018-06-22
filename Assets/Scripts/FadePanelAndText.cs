@@ -15,7 +15,6 @@ public class FadePanelAndText : MonoBehaviour {
 
     private bool newGame = false;
     private bool firstLoad = true;
-    private bool fading = false;
 
     private void Awake() {
         blackPanel = GetComponent<Image>();
@@ -47,7 +46,6 @@ public class FadePanelAndText : MonoBehaviour {
 
     public void FadeOut() {
         if (!newGame) {
-            fading = true;
             if (firstLoad) {
                 StartCoroutine(DoFadeOut());
             } else {
@@ -62,8 +60,17 @@ public class FadePanelAndText : MonoBehaviour {
     IEnumerator DoFadeIn() {
         trigger.enabled = false;
 
-        Color alpha = blackPanel.color;
-        while (alpha.a < 1f) {
+        while (blackPanel.color.a < 1f) {
+            if (Input.GetMouseButtonDown(0)) {
+                blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 1f);
+
+                foreach (Text text in texts) {
+                    text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+                }
+                yield return null;
+            }
+
+            Color alpha = blackPanel.color;
             alpha.a += Time.deltaTime / FADE_SPEED;
             blackPanel.color = alpha;
 
@@ -89,8 +96,18 @@ public class FadePanelAndText : MonoBehaviour {
             speed = FIRST_FADE_SPEED;
         }
 
-        Color alpha = blackPanel.color;
-        while (alpha.a > 0f) {
+        while (blackPanel.color.a > 0f) {
+            if (Input.GetMouseButtonDown(0)) {
+                blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, 0f);
+
+                foreach (Text text in texts) {
+                    text.color = new Color(text.color.r, text.color.g, text.color.b, 0f);
+                }
+                yield return null;
+            }
+
+            Color alpha = blackPanel.color;
+
             alpha.a -= Time.deltaTime / speed;
             blackPanel.color = alpha;
 
