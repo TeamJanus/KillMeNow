@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour {
                     output += survivor.charName + " curls up and bides " + survivor.pronounObject.ToLower() + " time, dreaming of better times.\r\n";
                     break;
                 default:
-                    Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + "doesn't have an action selected.");
+                    Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + " doesn't have an action selected.");
                     break;
             }
         }
