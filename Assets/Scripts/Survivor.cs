@@ -15,6 +15,7 @@ public class Survivor : MonoBehaviour,
     private const string DEFEND_BUTTON_NAME = "DefendButton";
     private const string LOOT_BUTTON_NAME = "LootButton";
     private const string SUPPORT_BUTTON_NAME = "SupportButton";
+    private const string NONE_BUTTON_NAME = "NoneButton";
     private const string LAST_CHANCE_BUTTON_NAME = "LastChanceButton";
 
     private Transform slot;
@@ -26,6 +27,8 @@ public class Survivor : MonoBehaviour,
     private Button lootButton;
     [SerializeField]
     private Button supportButton;
+    [SerializeField]
+    private Button noneButton;
     [SerializeField]
     private Button lastChanceButton;
 
@@ -39,7 +42,7 @@ public class Survivor : MonoBehaviour,
 
     public Text nameText;
 
-    public enum Action { Build, Loot, Support, LastChance, None };
+    public enum Action { Build, Loot, Support, LastChance, None, Empty };
     public enum Status { Frightened, Hurt };
 
     public string charName = BASE_NAME;
@@ -53,7 +56,7 @@ public class Survivor : MonoBehaviour,
     public int build = 1;
     public int rally = 1;
 
-    public Action action = Action.None;
+    public Action action = Action.Empty;
     private List<Status> statuses = new List<Status>();
 
     private bool firstLoad = true;
@@ -141,13 +144,13 @@ public class Survivor : MonoBehaviour,
                 }
 
                 break;
+            case NONE_BUTTON_NAME:
+                this.action = Action.None;
+                KeepHighlight(choice);
+                break;
             case LAST_CHANCE_BUTTON_NAME:
                 this.action = Action.LastChance;
                 KeepHighlight(choice);
-                break;
-            default:
-                this.action = Action.None;
-                ResetHighlight();
                 break;
         }
 
@@ -202,7 +205,7 @@ public class Survivor : MonoBehaviour,
 
     public void ResetAction() {
         DeactivateSupportMenu();
-        action = Action.None;
+        action = Action.Empty;
     }
 
     public void DeepTalkBubbleToggle() {

@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
     private int zombieCount = 1;
     public int survivorCount = 2;
 
+    private int howManyActions = 0;
+
     private int daysLeft = 10;
     private string[] neutralDescriptors = new string[] { "The banging at the door grows louder tonight.",
                                                          "The survivors grab a few hours of uneasy sleep.",
@@ -76,13 +78,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CheckActions() {
-        int howManyActions = 0;
+        howManyActions += 1;
 
-        foreach (Survivor survivor in survivors) {
-            if (survivor.action != Survivor.Action.None) howManyActions += 1; 
-        }
-
-        if (howManyActions == survivorCount) nextDayButton.interactable = true;
+        if (howManyActions >= survivorCount) nextDayButton.interactable = true;
         else nextDayButton.interactable = false;
     }
 
@@ -104,6 +102,8 @@ public class GameManager : MonoBehaviour {
             survivor.ResetHighlight();
             survivor.canvas.gameObject.SetActive(false);
         }
+
+        howManyActions = 0;
     }
 
     public void AdvanceDay() {
@@ -177,6 +177,9 @@ public class GameManager : MonoBehaviour {
                     break;
                 case Survivor.Action.LastChance:
                     output += EvaluateLastChance(survivor);
+                    break;
+                case Survivor.Action.None:
+                    output += survivor.charName + " curls up and bides " + survivor.pronounObject.ToLower() + " time, dreaming of better times.\r\n";
                     break;
                 default:
                     Debug.LogError("Survivor " + survivor.charName + " in slot " + System.Array.IndexOf(survivors, survivor) + "doesn't have an action selected.");
