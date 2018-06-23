@@ -52,18 +52,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4715616698624956, guid: afd4d50e411ba5642879a5373eb32d62, type: 2}
+  - {fileID: 4176146371224040, guid: afd4d50e411ba5642879a5373eb32d62, type: 2}
+  - {fileID: 4191410741128400, guid: afd4d50e411ba5642879a5373eb32d62, type: 2}
   survivorsToBeFound:
   - {fileID: 114570076674515942, guid: 0c23024f825f363439849f358e374522, type: 2}
-  nextDayButton: {fileID: 0}
-  storiesButton: {fileID: 0}
-  dayText: {fileID: 0}
-  barrierText: {fileID: 0}
-  foodText: {fileID: 0}
-  zombieText: {fileID: 0}
-  nightlyNews: {fileID: 0}
+  nextDayButton: {fileID: 114942895273590038, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  storiesButton: {fileID: 114739754689084038, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  dayText: {fileID: 114620667867527086, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
+  barrierText: {fileID: 114505743491270414, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  foodText: {fileID: 114072093660655322, guid: 10d406886433b0c4fbd26f9e592496b9, type: 2}
+  zombieText: {fileID: 114455460850490648, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
+  nightlyNews: {fileID: 114961645445762548, guid: 10d406886433b0c4fbd26f9e592496b9,
+    type: 2}
   dayReport: {fileID: 0}
   actionReport: {fileID: 0}
   numbersReport: {fileID: 0}
