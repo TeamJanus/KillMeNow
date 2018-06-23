@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour {
     public Text zombieText;
 
     public FadePanelAndText nightlyNews;
-    public Text dayReport;
-    public Text actionReport;
-    public Text numbersReport;
+    private Text dayReport;
+    private Text actionReport;
+    private Text numbersReport;
 
     private List<Survivor.Status> allStatuses = new List<Survivor.Status>();
 
@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour {
         // TODO: Determine viability of not doing this by hand
         allStatuses.Add(Survivor.Status.Frightened);
         allStatuses.Add(Survivor.Status.Hurt);
+
+        Text[] texts = nightlyNews.GetComponentsInChildren<Text>();
+        dayReport = texts[0];
+        actionReport = texts[1];
+        numbersReport = texts[2];
     }
 
     private void Start() {
