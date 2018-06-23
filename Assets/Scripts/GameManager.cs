@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    private const int ZOMBIE_DAMAGE = 5;
-    private const int HUNGER_SCORE = 5;
+    private const int  ZOMBIE_DAMAGE = 5;
+    private const int HUNGER_SCORE = 1;
     public const int SURVIVOR_SLOTS = 3;
 
     public static GameManager gm = null;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 
     private int dayCount = 1;
     private int barrierCount = 100;
-    private int foodCount = 50;
+    private int foodCount = 8;
     private int zombieCount = 1;
     public int survivorCount = 2;
 
@@ -110,12 +110,12 @@ public class GameManager : MonoBehaviour {
         dayCount += 1;
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
         foodCount -= HUNGER_SCORE * survivorCount;
+        zombieCount += 1;
 
         if (barrierCount <= 0) LoseGame();
         else if (dayCount >= 10) WinGame();
         else ContinueGame();
 
-        zombieCount += 1;
     }
 
     private void ContinueGame() {
@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour {
         if (Random.Range(1, 100) <= survivor.combat) {
             if (zombieCount > 0) {
                 zombieCount -= 1;
-                output += survivor.charName + " manages to crush a monster's skull \r\n with a hammer through a hole in the barrier.\r\n";
+                output += survivor.charName + " manages to crush a monster's skull with a hammer through a hole in the barrier. ";
             }
         }
 
@@ -226,9 +226,9 @@ public class GameManager : MonoBehaviour {
         string output = "";
         if (Random.Range(1, 100) <= survivor.loot) {
             // Good Stuff
-            int foodFound = Random.Range(3, 8);
+            int foodFound = Random.Range(1, 3);
             foodCount += foodFound;
-            output += survivor.charName + " braves the outside world and finds " + foodFound + " units of food.\r\n";
+            output += survivor.charName + " braves the outside world and finds " + foodFound + " ration's worth of food.\r\n";
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
@@ -237,8 +237,8 @@ public class GameManager : MonoBehaviour {
                 Survivor addition = survivorsToBeFound[index];
                 survivorsToBeFound.Remove(addition);
 
-                output += "\r\n" + survivor.charName + " stumbles upon someone wielding a spiked bat with ease.\r\n" +
-                          "In between giant swings she introduces herself as Mimi Necrosynth, Dread Queen.\r\n" +
+                output += "\r\n" + survivor.charName + " stumbles upon someone wielding a spiked bat with ease. " +
+                          "In between giant swings she introduces herself as Mimi Necrosynth, Dread Queen. " +
                           "Mimi accompanies " + survivor.charName + " back to the library.\r\n";
 
                 Instantiate(addition, slots[1]);
@@ -332,8 +332,21 @@ public class GameManager : MonoBehaviour {
     }
 
     private string EvaluateNumbers() {
-        string output = string.Format("Barrier took {0} net damage. {1} units of food left. {2} horrors at the door.",
-                                            ZOMBIE_DAMAGE * zombieCount, foodCount, zombieCount);
+        string output = "";
+
+        output += string.Format("Barrier took {0} net damage. ", ZOMBIE_DAMAGE * zombieCount);
+
+        output += string.Format("{0} horror{1} at the door.\r\n", zombieCount, zombieCount == 1 ? "" : "s");
+
+        if (foodCount == 0) {
+            output += "There's no more food. The survivors must find more.";
+        } else if (foodCount < survivorCount) {
+            output += "The survivors must find more food to make it another day.";
+        } else if (foodCount == survivorCount) {
+            output += "The survivors have enough food for one more day.";
+        } else {
+            output += string.Format("The survivors have {0} full days of food left.", foodCount / survivorCount);
+        }
 
         return output;
     }
