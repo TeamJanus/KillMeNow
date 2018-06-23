@@ -95,13 +95,18 @@ public class GameManager : MonoBehaviour {
         foodText.text = foodCount.ToString();
         zombieText.text = zombieCount.ToString();
 
+        int frightCount = 0;
         // TODO: figure out if this awful active not active pattern can be removed
         // This resets the highlighting on all the buttons in each survivor
         foreach (Survivor survivor in survivors) {
             survivor.canvas.gameObject.SetActive(true);
             survivor.ResetHighlight();
             survivor.canvas.gameObject.SetActive(false);
+
+            if (survivor.GetStatuses().Count == 1 && survivor.GetStatuses().Contains(Survivor.Status.Frightened)) frightCount += 1;
         }
+
+        if (frightCount == survivorCount) storiesButton.gameObject.SetActive(true);
 
         howManyActions = 0;
     }
@@ -247,6 +252,7 @@ public class GameManager : MonoBehaviour {
                 Instantiate(addition, slots[1]);
                 survivors = survivorSlots.GetComponentsInChildren<Survivor>();
                 survivorCount = survivors.Length;
+                Debug.Log(survivors.Length);
             }
         } else {
             // Bad Stuff
