@@ -18,6 +18,8 @@ public class Survivor : MonoBehaviour,
     private const string NONE_BUTTON_NAME = "NoneButton";
     private const string LAST_CHANCE_BUTTON_NAME = "LastChanceButton";
 
+    public Sprite portrait;
+
     private Transform slot;
 
     public Canvas canvas;
@@ -31,7 +33,6 @@ public class Survivor : MonoBehaviour,
     private Button noneButton;
     [SerializeField]
     private Button lastChanceButton;
-
     [SerializeField]
     private VerticalLayoutGroup supportMenu;
     [SerializeField]
@@ -49,8 +50,6 @@ public class Survivor : MonoBehaviour,
     public string pronounSubject;
     public string pronounObject;
 
-    public SpriteRenderer deepTalkSign;
-
     public int loot = 1;
     public int combat = 1;
     public int build = 1;
@@ -58,6 +57,10 @@ public class Survivor : MonoBehaviour,
 
     public Action action = Action.Empty;
     public List<Status> statuses = new List<Status>();
+
+    public SpriteRenderer deepTalkSign;
+
+    public Canvas talkCanvas;
 
     private bool firstLoad = true;
 
@@ -105,11 +108,15 @@ public class Survivor : MonoBehaviour,
         supportButton.interactable = false;
         if (status == Status.Frightened) lootButton.interactable = false;
         if (status == Status.Hurt) defendButton.interactable = false;
-        if (statuses.Count == TOTAL_STATUSES) lastChanceButton.interactable = true;
+        if (statuses.Count == TOTAL_STATUSES) {
+            noneButton.interactable = false;
+            lastChanceButton.interactable = true;
+        }
     }
 
     public void RemoveStatus(Status status) {
         statuses.Remove(status);
+        if (!noneButton.interactable) noneButton.interactable = true;
         if (status == Status.Frightened) lootButton.interactable = true;
         if (status == Status.Hurt) defendButton.interactable = true;
         if (statuses.Count == 0) supportButton.interactable = true;
@@ -210,6 +217,16 @@ public class Survivor : MonoBehaviour,
 
     public void DeepTalkBubbleToggle() {
         deepTalkSign.gameObject.SetActive(true);
+    }
+
+    public void TalkCanvasToggle() {
+        talkCanvas.gameObject.SetActive(true);
+
+        Image[] comps = talkCanvas.GetComponentsInChildren<Image>();
+        comps[1].GetComponentInChildren<Image>().sprite = portrait;
+        comps[3].GetComponentInChildren<Text>().text = charName;
+        comps[4].GetComponentInChildren<Text>().text = "What's up friendo?";
+
     }
 }
 
