@@ -57,7 +57,7 @@ public class Survivor : MonoBehaviour,
     public int rally = 1;
 
     public Action action = Action.Empty;
-    private List<Status> statuses = new List<Status>();
+    public List<Status> statuses = new List<Status>();
 
     private bool firstLoad = true;
 

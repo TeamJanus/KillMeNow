@@ -44,6 +44,12 @@ public class FadePanelAndText : MonoBehaviour {
         StartCoroutine(DoFadeIn());
     }
 
+    public void TellStoriesFadeIn() {
+        gameObject.SetActive(true);
+        GameManager.gm.TellStoriesAndAdvanceDay();
+        StartCoroutine(DoFadeIn());
+    }
+
     public void FadeOut() {
         if (!newGame) {
             if (firstLoad) {

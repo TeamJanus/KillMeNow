@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour {
             if (survivor.GetStatuses().Count == 1 && survivor.GetStatuses().Contains(Survivor.Status.Frightened)) frightCount += 1;
         }
 
-        if (frightCount == survivorCount) storiesButton.gameObject.SetActive(true);
+        if (survivors.Length > 1 && frightCount == survivorCount) storiesButton.gameObject.SetActive(true);
 
         howManyActions = 0;
     }
@@ -358,5 +358,37 @@ public class GameManager : MonoBehaviour {
         }
 
         return output;
+    }
+
+    public void TellStoriesAndAdvanceDay() {
+        dayCount += 1;
+        barrierCount -= ZOMBIE_DAMAGE * zombieCount;
+        foodCount -= HUNGER_SCORE * survivorCount;
+        zombieCount += 1;
+
+        if (barrierCount <= 0 || foodCount < 0) LoseGame();
+        else if (dayCount >= 10) WinGame();
+        else {
+            dayReport.text = "";
+
+            actionReport.text = "The terrified survivors gather around the torch and take turns telling stories of comfort and bravery. ";
+            actionReport.text += survivors[0].charName;
+            if (survivors.Length == 2) {
+                actionReport.text += " and " + survivors[1].charName;
+            } else if (survivors.Length == 3) {
+                actionReport.text += ", " + survivors[1].charName + ", and " + survivors[2].charName;
+            }
+            actionReport.text += " take the lessons to heart and get ready to face the hell outside again.";
+            actionReport.text += "\r\n" + neutralDescriptors[Random.Range(0, neutralDescriptors.Length)];
+
+            foreach (Survivor survivor in survivors) {
+                survivor.RemoveStatus(Survivor.Status.Frightened);
+            }
+
+            numbersReport.text = EvaluateNumbers();
+        }
+
+        storiesButton.gameObject.SetActive(false);
+
     }
 }
