@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void UpdateGUI() {
-        dayText.text = dayCount.ToString();
-        barrierText.text = barrierCount.ToString();
-        foodText.text = foodCount.ToString();
-        zombieText.text = zombieCount.ToString();
+        dayText.text = "Day " + dayCount.ToString();
+        barrierText.text = "Barrier Strength: " + barrierCount.ToString();
+        foodText.text = "Food Count: " + foodCount.ToString();
+        zombieText.text = "Monsters Outside: " + zombieCount.ToString();
 
         int frightCount = 0;
         // TODO: figure out if this awful active not active pattern can be removed
