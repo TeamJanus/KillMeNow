@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 114293400096796068}
   - component: {fileID: 61777194622059510}
   m_Layer: 0
-  m_Name: Protagonist
+  m_Name: Johnny Jacket
   m_TagString: Survivor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
