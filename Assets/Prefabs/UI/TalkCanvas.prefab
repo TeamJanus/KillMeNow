@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1541515871602782
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 224134581125631230}
   - component: {fileID: 222081086461339952}
   - component: {fileID: 114638078388750340}
+  - component: {fileID: 114598166371368566}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -296,6 +297,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114598166371368566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1757815281199432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c98e6247f425fd54885ab2cb9a230e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 114638078388750340}
+  speed: 0.05
 --- !u!114 &114638078388750340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,7 +342,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ramble
+  m_Text: 
 --- !u!114 &114656104989197630
 MonoBehaviour:
   m_ObjectHideFlags: 1

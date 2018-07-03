@@ -26,7 +26,7 @@ public class JohnnyJacket : Survivor {
         Image[] comps = talkCanvas.GetComponentsInChildren<Image>();
         comps[1].GetComponentInChildren<Image>().sprite = portrait;
         comps[3].GetComponentInChildren<Text>().text = charName;
-        comps[4].GetComponentInChildren<Text>().text = message;
+        comps[4].GetComponentInChildren<AnimatedText>().SetTextString(message);
     }
 
     public void TriggerQuest() {
