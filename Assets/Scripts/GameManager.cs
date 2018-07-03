@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour {
         string output = "";
         if (Random.Range(1, 100) <= survivor.loot) {
             // Good Stuff
-            int foodFound = Random.Range(1, 3);
+            int foodFound = Random.Range(2, 5);
             foodCount += foodFound;
             output += survivor.charName + " braves the outside world and finds " + foodFound + " ration's worth of food.\r\n";
 
