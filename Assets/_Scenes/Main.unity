@@ -454,12 +454,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 767311830}
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &992849202 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114745230541533406, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  m_PrefabInternal: {fileID: 767311830}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1041810583
 Prefab:
   m_ObjectHideFlags: 0
@@ -597,30 +591,9 @@ Prefab:
       propertyPath: nightlyNews
       value: 
       objectReference: {fileID: 842915713}
-    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
-        type: 2}
-      propertyPath: dayReport
-      value: 
-      objectReference: {fileID: 1719436408}
-    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
-        type: 2}
-      propertyPath: actionReport
-      value: 
-      objectReference: {fileID: 992849202}
-    - target: {fileID: 114115887531784002, guid: bab8be6d72253264a9815f7830033666,
-        type: 2}
-      propertyPath: numbersReport
-      value: 
-      objectReference: {fileID: 1114167996}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bab8be6d72253264a9815f7830033666, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1114167996 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114499906359691352, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  m_PrefabInternal: {fileID: 767311830}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1218458391
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,12 +872,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1719436408 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114445674679814718, guid: 10d406886433b0c4fbd26f9e592496b9,
-    type: 2}
-  m_PrefabInternal: {fileID: 767311830}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1808794152 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114072093660655322, guid: 10d406886433b0c4fbd26f9e592496b9,
