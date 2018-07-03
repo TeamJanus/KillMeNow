@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -257,7 +258,15 @@ public class GameManager : MonoBehaviour {
                 Instantiate(addition, slots[1]);
                 survivors = survivorSlots.GetComponentsInChildren<Survivor>();
                 survivorCount = survivors.Length;
-                Debug.Log(survivors.Length);
+
+                // TODO: Can I do this loop better?
+                foreach (Survivor surv in survivors) {
+                    if (surv.charName.Equals(JohnnyJacket.charName)) {
+                        JohnnyJacket johnny = surv as JohnnyJacket;
+                        johnny.TriggerQuest();
+                        break;
+                    }
+                }
             }
         } else {
             // Bad Stuff

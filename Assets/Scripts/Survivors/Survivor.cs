@@ -215,7 +215,7 @@ public class Survivor : MonoBehaviour,
     }
 
     public void DeepTalkBubbleToggle() {
-        deepTalkSign.gameObject.SetActive(true);
+        deepTalkSign.gameObject.SetActive(!deepTalkSign.gameObject.activeSelf);
     }
 
     public void TalkCanvasToggle() {

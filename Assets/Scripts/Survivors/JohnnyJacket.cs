@@ -7,6 +7,8 @@ public class JohnnyJacket : Survivor {
 
     private const string message = "What's up friendo? I'm Johnny Jacket";
 
+    public new const string charName = "Johnny Jacket";
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,5 +27,9 @@ public class JohnnyJacket : Survivor {
         comps[1].GetComponentInChildren<Image>().sprite = portrait;
         comps[3].GetComponentInChildren<Text>().text = charName;
         comps[4].GetComponentInChildren<Text>().text = message;
+    }
+
+    public void TriggerQuest() {
+        this.DeepTalkBubbleToggle();
     }
 }
