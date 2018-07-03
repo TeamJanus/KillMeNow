@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
+        SoundManager.sm.PlayGameMain();
         UpdateGUI();
         nextDayButton.interactable = false;
     }
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void WinGame() {
+        SoundManager.sm.PlayGameWin();
         dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops.\r\n" + 
                          "You join up with the survivor army and live to fight another day.";
         actionReport.text = "Click to play again.";
@@ -153,6 +155,7 @@ public class GameManager : MonoBehaviour {
 
     private void LoseGame() {
         gameOver = true;
+        SoundManager.sm.PlayGameOver();
 
         if (barrierCount <= 0) {
             dayReport.text = "The door bursts open and the stumbling shapes outside pour in.\r\n" +

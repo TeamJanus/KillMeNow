@@ -8,6 +8,10 @@ public class SoundManager : MonoBehaviour {
     public AudioSource musicSource;
     public static SoundManager sm = null;
 
+    public AudioClip gameMain;
+    public AudioClip gameOver;
+    public AudioClip gameWin;
+
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
 
@@ -16,6 +20,24 @@ public class SoundManager : MonoBehaviour {
         else if (sm != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void PlayGameMain() {
+        musicSource.clip = gameMain;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayGameOver() {
+        musicSource.clip = gameOver;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayGameWin() {
+        musicSource.clip = gameWin;
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void PlaySingle(AudioClip clip) {
