@@ -124,6 +124,8 @@ public class Survivor : MonoBehaviour,
     public void SetAction(Button choice) {
         DeactivateSupportMenu();
 
+        if (this.action == Action.Empty) GameManager.gm.CheckActions();
+
         switch (choice.name) {
             case DEFEND_BUTTON_NAME:
                 this.action = Action.Build;
@@ -159,7 +161,6 @@ public class Survivor : MonoBehaviour,
                 break;
         }
 
-        GameManager.gm.CheckActions();
     }
 
     private void ActivateSupportMenu() {
