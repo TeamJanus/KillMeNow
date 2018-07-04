@@ -1184,7 +1184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfff25b771a5042439a703588d43af4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 6549713d1ff0f0947b53b3e471c7881e, type: 3}
   canvas: {fileID: 223078947656369156}
   defendButton: {fileID: 114338792936904824}
   lootButton: {fileID: 114388666892407688}
@@ -1207,8 +1207,7 @@ MonoBehaviour:
   action: 5
   statuses: 
   deepTalkSign: {fileID: 212320818850478516}
-  talkCanvas: {fileID: 223248312438276674, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
-    type: 2}
+  talkCanvas: {fileID: 0}
 --- !u!114 &114623834649971158
 MonoBehaviour:
   m_ObjectHideFlags: 1

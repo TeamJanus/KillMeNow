@@ -6,21 +6,23 @@ using UnityEngine.UI;
 // Adapted from Tony Morelli's video, "Unity 5.3 2D Animated Text Display," found at https://youtu.be/oWpCBGtjBm8
 public class AnimatedText : MonoBehaviour {
 
+    public Canvas parentCanvas;
+
     public Text text;
     public float speed = 0.1f;
 
-    private string textString;
+    private string[] textStrings;
+    private int stringIndex = 0;
     private int characterIndex = 0;
 
-	// Use this for initialization
-	void Start () {
+    private void Start() {
         StartCoroutine(DisplayTimer());
-	}
+    }
 
     IEnumerator DisplayTimer() {
-        while (characterIndex <= textString.Length) {
+        while (characterIndex < textStrings[stringIndex].Length) {
             yield return new WaitForSeconds(speed);
-            text.text = textString.Substring(0, characterIndex);
+            text.text = textStrings[stringIndex].Substring(0, characterIndex);
             characterIndex++;
         }
     }
@@ -28,15 +30,26 @@ public class AnimatedText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonUp(0)) {
-            if (characterIndex < textString.Length) {
-                characterIndex = textString.Length;
+            if (characterIndex < textStrings[stringIndex].Length) {
+                characterIndex = textStrings[stringIndex].Length;
+            } else if (stringIndex < textStrings.Length - 1) {
+                stringIndex++;
+                characterIndex = 0;
+                StartCoroutine(DisplayTimer());
             } else {
-
+                stringIndex = 0;
+                characterIndex = 0;
+                text.text = "";
+                parentCanvas.gameObject.SetActive(false);
             }
         }
 	}
 
-    public void SetTextString(string msg) {
-        textString = msg;
+    public void SetTextString(string[] msg) {
+        textStrings = msg;
+    }
+
+    public void StartScrolling() {
+        StartCoroutine(DisplayTimer());
     }
 }
