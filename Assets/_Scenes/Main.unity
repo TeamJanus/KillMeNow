@@ -437,6 +437,14 @@ Prefab:
       propertyPath: talkCanvas
       value: 
       objectReference: {fileID: 1537091190}
+    - target: {fileID: 1841681070373326, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571512515463032, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
   m_IsPrefabParent: 0
