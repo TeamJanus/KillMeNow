@@ -326,7 +326,10 @@ public class GameManager : MonoBehaviour {
             output += helper.charName + " takes a moment to comfort " + target.charName + ".\r\n";
 
             if (Random.Range(1, 100) <= (helper.rally + (target.rally / 2))) {
-                output += "Insert some kind of good buff for giving nice support.\r\n";
+                // TODO: revamp this. Maybe not make it permanent per playthrough.
+                output += target.charName + " receives " + helper.charName + " warmly. " + 
+                          target.pronounSubject + " is energized and ready to be more attentive.\r\n";
+                target.rally += 5;
             } else {
                 output += "The two don't make much of a connection.\r\n";
 
