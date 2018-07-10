@@ -28,7 +28,7 @@ public class Mimi : Survivor {
         comps[1].GetComponentsInChildren<Image>()[1].sprite = portrait;
         comps[3].GetComponentInChildren<Text>().text = charName;
         AnimatedText at = comps[4].GetComponentInChildren<AnimatedText>();
-        at.SetTextString(this.message);
+        at.SetTextStringAndSurvivor(this.message, this);
         at.StartScrolling();
     }
 }

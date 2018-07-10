@@ -15,6 +15,8 @@ public class AnimatedText : MonoBehaviour {
     private int stringIndex = 0;
     private int characterIndex = 0;
 
+    private Survivor caller;
+
     private void Start() {
         StartCoroutine(DisplayTimer());
     }
@@ -40,13 +42,15 @@ public class AnimatedText : MonoBehaviour {
                 stringIndex = 0;
                 characterIndex = 0;
                 text.text = "";
+                caller.DeepTalkBubbleToggle();
                 parentCanvas.gameObject.SetActive(false);
             }
         }
 	}
 
-    public void SetTextString(string[] msg) {
+    public void SetTextStringAndSurvivor(string[] msg, Survivor survivor) {
         textStrings = msg;
+        caller = survivor;
     }
 
     public void StartScrolling() {
