@@ -249,8 +249,8 @@ public class GameManager : MonoBehaviour {
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            //if (true) { 
-            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
+            if (true) {
+                //if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
                 int index = Random.Range(0, survivorsToBeFound.Count);
                 Survivor addition = survivorsToBeFound[index];
                 survivorsToBeFound.Remove(addition);

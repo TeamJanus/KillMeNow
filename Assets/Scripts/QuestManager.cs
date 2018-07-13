@@ -6,15 +6,14 @@ using UnityEngine.UI;
 public class QuestManager : MonoBehaviour {
 
     public static QuestManager qm = null;
-    public Image questPanel;
     public Button questsButton;
+    public Image questPanel;
+    public Image questInfoPanel;
 
     public GameObject buttonPrefab;
 
-    private Button johnnyButton;
-
     private List<Survivor> questers = new List<Survivor>();
-    private bool johnnyActive = false;
+    private List<Button> questButtons = new List<Button>();
 
     private void Awake() {
         if (qm == null) qm = this;
@@ -22,18 +21,15 @@ public class QuestManager : MonoBehaviour {
     }
 
     public void ActivateQuest(Survivor survivor) {
-        switch(survivor.charName) {
-            case JohnnyJacket.charName:
-                GameObject johnnyObject = (GameObject)Instantiate(buttonPrefab);
-                johnnyButton = johnnyObject.GetComponent<Button>();
-                johnnyButton.transform.SetParent(questPanel.transform, false);
-                johnnyButton.GetComponentInChildren<Text>().text = JohnnyJacket.charName;
 
-                johnnyButton.onClick.AddListener(() => ShowQuestInfo(survivor));
+        GameObject tempObject = (GameObject)Instantiate(buttonPrefab);
+        Button tempButton = tempObject.GetComponent<Button>();
+        tempButton.transform.SetParent(questPanel.transform, false);
+        tempButton.GetComponentInChildren<Text>().text = survivor.charName;
 
-                
-                break;
-        }
+        tempButton.onClick.AddListener(() => ShowQuestInfo(survivor));
+
+        questButtons.Add(tempButton);
 
         questers.Add(survivor);
         if (questers.Count > 0) {
@@ -42,11 +38,10 @@ public class QuestManager : MonoBehaviour {
     }
 
     public void CompleteQuest(Survivor survivor) {
-        switch(survivor.charName) {
-            case JohnnyJacket.charName:
-                Destroy(johnnyButton.gameObject);
-                break;
-        }
+
+        int index = questers.IndexOf(survivor);
+        Destroy(questButtons[index]);
+        questButtons.RemoveAt(index);
 
         questers.Remove(survivor);
         if (questers.Count == 0) {

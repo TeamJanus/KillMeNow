@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6868b7b6e9afd28458c8f07a686616c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questPanel: {fileID: 0}
   questsButton: {fileID: 0}
+  questPanel: {fileID: 0}
+  questInfoPanel: {fileID: 0}
   buttonPrefab: {fileID: 1218007682863792, guid: c914aaa7a5ebd874782a0a7305cb2a19,
     type: 2}
