@@ -13,7 +13,6 @@ public class QuestManager : MonoBehaviour {
     public GameObject buttonPrefab;
 
     private List<Survivor> questers = new List<Survivor>();
-    private List<Button> questButtons = new List<Button>();
 
     private void Awake() {
         if (qm == null) qm = this;
@@ -26,12 +25,12 @@ public class QuestManager : MonoBehaviour {
         Button tempButton = tempObject.GetComponent<Button>();
         tempButton.transform.SetParent(questPanel.transform, false);
         tempButton.GetComponentInChildren<Text>().text = survivor.charName;
+        tempButton.gameObject.name = survivor.charName + " Button";
 
         tempButton.onClick.AddListener(() => ShowQuestInfo(survivor));
 
-        questButtons.Add(tempButton);
-
         questers.Add(survivor);
+
         if (questers.Count > 0) {
             questsButton.interactable = true;
         }
@@ -39,9 +38,8 @@ public class QuestManager : MonoBehaviour {
 
     public void CompleteQuest(Survivor survivor) {
 
-        int index = questers.IndexOf(survivor);
-        Destroy(questButtons[index]);
-        questButtons.RemoveAt(index);
+        GameObject button = GameObject.Find(survivor.charName + " Button");
+        Destroy(button);
 
         questers.Remove(survivor);
         if (questers.Count == 0) {
