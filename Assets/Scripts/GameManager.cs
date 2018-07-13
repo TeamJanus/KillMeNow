@@ -411,4 +411,8 @@ public class GameManager : MonoBehaviour {
         storiesButton.gameObject.SetActive(false);
 
     }
+
+    public void DoAQuit() {
+        Application.Quit();
+    }
 }
