@@ -7,10 +7,14 @@ public class QuestManager : MonoBehaviour {
 
     public static QuestManager qm = null;
     public Image questPanel;
+    public Button questsButton;
 
     public GameObject buttonPrefab;
 
     private Button johnnyButton;
+
+    private List<Survivor> questers = new List<Survivor>();
+    private bool johnnyActive = false;
 
     private void Awake() {
         if (qm == null) qm = this;
@@ -26,7 +30,14 @@ public class QuestManager : MonoBehaviour {
                 johnnyButton.GetComponentInChildren<Text>().text = JohnnyJacket.charName;
 
                 johnnyButton.onClick.AddListener(() => ShowQuestInfo(survivor));
+
+                
                 break;
+        }
+
+        questers.Add(survivor);
+        if (questers.Count > 0) {
+            questsButton.interactable = true;
         }
     }
 
@@ -35,6 +46,11 @@ public class QuestManager : MonoBehaviour {
             case JohnnyJacket.charName:
                 Destroy(johnnyButton.gameObject);
                 break;
+        }
+
+        questers.Remove(survivor);
+        if (questers.Count == 0) {
+            questsButton.interactable = false;
         }
     }
 
@@ -45,5 +61,6 @@ public class QuestManager : MonoBehaviour {
                 break;
         }
     }
+
 
 }
