@@ -27,6 +27,10 @@ public class AnimatedText : MonoBehaviour {
             text.text = textStrings[stringIndex].Substring(0, characterIndex);
             characterIndex++;
         }
+
+        // This ensures we don't get a weird error about startIndex + length > this.length. Really not sure what it's about.
+        yield return new WaitForSeconds(speed);
+        characterIndex++;
     }
 	
 	// Update is called once per frame

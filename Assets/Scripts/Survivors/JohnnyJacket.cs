@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class JohnnyJacket : Survivor {
 
     private readonly string[] message = { "What's up friendo? I'm Johnny Jacket.",
-                                                 "I'm pretty inspired by Mimi's bat. Wonder if she can teach me a thing or two?"};
+                                          "I'm pretty inspired by Mimi's moves. Wonder if she can teach me a thing or two? "};
 
     public new const string charName = "Johnny Jacket";
 
@@ -35,5 +35,6 @@ public class JohnnyJacket : Survivor {
 
     public void TriggerQuest() {
         this.DeepTalkBubbleToggle();
+        QuestManager.qm.ActivateJohnnyQuest();
     }
 }
