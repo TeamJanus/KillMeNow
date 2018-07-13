@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class JohnnyJacket : Survivor {
 
     private readonly string[] message = { "What's up friendo? I'm Johnny Jacket.",
-                                          "I'm pretty inspired by Mimi's moves. Wonder if she can teach me a thing or two? "};
+                                          "I wonder if Mimi can teach me a thing or two about fending off those monsters outside? "};
+
+    private const string questDesc = "It's crawling with crazies outside. I should talk to Mimi and see if she'll teach me how she managed to survive outside.\r\n"
+                                       + "\r\nPress Mimi's quest icon.";
 
     public new const string charName = "Johnny Jacket";
 
@@ -32,4 +35,9 @@ public class JohnnyJacket : Survivor {
         at.SetTextStringAndSurvivor(this.message, this);
         at.StartScrolling();
     }
+
+    public string GetQuestDesc() {
+        return questDesc;
+    }
+
 }

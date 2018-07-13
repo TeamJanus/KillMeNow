@@ -48,11 +48,21 @@ public class QuestManager : MonoBehaviour {
     }
 
     private void ShowQuestInfo(Survivor survivor) {
-        switch(survivor.charName) {
+        Image[] images = questInfoPanel.GetComponentsInChildren<Image>();
+        Text[] words = questInfoPanel.GetComponentsInChildren<Text>();
+
+        switch (survivor.charName) {
             case JohnnyJacket.charName:
-                Debug.Log("Clicked Johnny's Quest");
+                JohnnyJacket johnny = survivor as JohnnyJacket;
+                words[1].text = johnny.GetQuestDesc();
                 break;
         }
+
+        images[1].sprite = survivor.portrait;
+        words[0].text = survivor.charName;
+
+        SlidePanel slideScript = questInfoPanel.GetComponent<SlidePanel>();
+        slideScript.CallSlide();
     }
 
 

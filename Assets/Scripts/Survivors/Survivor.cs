@@ -221,7 +221,7 @@ public class Survivor : MonoBehaviour,
         } else {
             deepTalkSign.gameObject.SetActive(true);
         }
-    }   
+    }
 
 }
 

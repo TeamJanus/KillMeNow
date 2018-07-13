@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 114732666152476526}
   - component: {fileID: 61678375435124198}
   m_Layer: 0
-  m_Name: Johnny Jacket
+  m_Name: JohnnyJacket
   m_TagString: Survivor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -441,7 +441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1577578298406050
 GameObject:
   m_ObjectHideFlags: 1
@@ -702,7 +702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1872773542571448
 GameObject:
   m_ObjectHideFlags: 1

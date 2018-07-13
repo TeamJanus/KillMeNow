@@ -500,24 +500,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114732666152476526, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7,
-        type: 2}
-      propertyPath: talkCanvas
-      value: 
-      objectReference: {fileID: 1537091190}
     - target: {fileID: 114901112503289212, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7,
         type: 2}
       propertyPath: talkCanvas
       value: 
       objectReference: {fileID: 1537091190}
-    - target: {fileID: 1841681070373326, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571512515463032, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 114732666152476526, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7,
+        type: 2}
+      propertyPath: talkCanvas
+      value: 
+      objectReference: {fileID: 1537091190}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dfffd1a1ef0a9743bf38f7d8ccfacc7, type: 2}
   m_IsPrefabParent: 0
