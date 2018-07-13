@@ -215,7 +215,12 @@ public class Survivor : MonoBehaviour,
     }
 
     public void DeepTalkBubbleToggle() {
-        deepTalkSign.gameObject.SetActive(!deepTalkSign.gameObject.activeSelf);
+        if (deepTalkSign.gameObject.activeSelf) {
+            deepTalkSign.gameObject.SetActive(false);
+            QuestManager.qm.ActivateQuest(this);
+        } else {
+            deepTalkSign.gameObject.SetActive(true);
+        }
     }   
 
 }

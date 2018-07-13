@@ -32,9 +32,4 @@ public class JohnnyJacket : Survivor {
         at.SetTextStringAndSurvivor(this.message, this);
         at.StartScrolling();
     }
-
-    public void TriggerQuest() {
-        this.DeepTalkBubbleToggle();
-        QuestManager.qm.ActivateJohnnyQuest();
-    }
 }
