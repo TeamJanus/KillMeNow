@@ -7,19 +7,14 @@ using UnityEngine.UI;
 public class AnimatedText : MonoBehaviour {
 
     public Canvas parentCanvas;
-
-    public Text text;
     public float speed = 0.1f;
+    public Text text;
 
     private string[] textStrings;
     private int stringIndex = 0;
     private int characterIndex = 0;
 
     private Survivor caller;
-
-    private void Start() {
-        StartCoroutine(DisplayTimer());
-    }
 
     IEnumerator DisplayTimer() {
         while (characterIndex < textStrings[stringIndex].Length) {

@@ -58,8 +58,6 @@ public class Survivor : MonoBehaviour,
 
     public SpriteRenderer deepTalkSign;
 
-    public Canvas talkCanvas;
-
     private bool firstLoad = true;
 
     private void Awake() {
@@ -67,6 +65,9 @@ public class Survivor : MonoBehaviour,
 
         nameText.text = charName;
         baseColors = defendButton.colors;
+    }
+
+    private void Start() {
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -217,7 +218,6 @@ public class Survivor : MonoBehaviour,
     public void DeepTalkBubbleToggle() {
         if (deepTalkSign.gameObject.activeSelf) {
             deepTalkSign.gameObject.SetActive(false);
-            QuestManager.qm.ActivateQuest(this);
         } else {
             deepTalkSign.gameObject.SetActive(true);
         }

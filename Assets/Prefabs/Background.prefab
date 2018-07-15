@@ -2556,7 +2556,8 @@ MonoBehaviour:
   action: 5
   statuses: 
   deepTalkSign: {fileID: 212375421171522070}
-  talkCanvas: {fileID: 0}
+  talkCanvasPrefab: {fileID: 1454221721134730, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
+    type: 2}
 --- !u!114 &114747346586034620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3059,7 +3060,8 @@ MonoBehaviour:
   action: 5
   statuses: 
   deepTalkSign: {fileID: 212961517667621856}
-  talkCanvas: {fileID: 0}
+  talkCanvasPrefab: {fileID: 1454221721134730, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
+    type: 2}
 --- !u!114 &114917865395088884
 MonoBehaviour:
   m_ObjectHideFlags: 1

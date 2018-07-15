@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -47,6 +46,8 @@ public class GameManager : MonoBehaviour {
                                                          "Night watch catches glimpses of strange shapes in the fading light" };
 
     private bool gameOver = false;
+
+    public Canvas talkCanvas;
 
     private void Awake() {
         if (gm == null) gm = this;
@@ -118,6 +119,10 @@ public class GameManager : MonoBehaviour {
         howManyActions = 0;
     }
 
+    public Canvas GetTalkCanvas() {
+        return talkCanvas;
+    }
+
     public void AdvanceDay() {
         dayCount += 1;
         barrierCount -= ZOMBIE_DAMAGE * zombieCount;
@@ -143,8 +148,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+
     private void WinGame() {
-        SoundManager.sm.PlayGameWin();
+        // TODO: Find a win game sound
+        //SoundManager.sm.PlayGameWin();
         dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops.\r\n" + 
                          "You join up with the survivor army and live to fight another day.";
         actionReport.text = "Click to play again.";
@@ -266,8 +273,7 @@ public class GameManager : MonoBehaviour {
                 // TODO: Can I do this loop better?
                 foreach (Survivor surv in survivors) {
                     if (surv.charName.Equals(JohnnyJacket.charName)) {
-                        JohnnyJacket johnny = surv as JohnnyJacket;
-                        johnny.DeepTalkBubbleToggle();
+                        QuestManager.qm.ActivateQuest(surv);
                         break;
                     }
                 }

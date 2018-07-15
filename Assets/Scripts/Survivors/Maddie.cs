@@ -11,8 +11,8 @@ public class Maddie : Survivor {
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,6 +20,7 @@ public class Maddie : Survivor {
 	}
 
     public void TalkCanvasToggle() {
+        Canvas talkCanvas = GameManager.gm.GetTalkCanvas();
         talkCanvas.gameObject.SetActive(true);
 
         // TODO: the children get components seems to be deterministic but I'm using magic numbers here. Can I get this not so... guessy?

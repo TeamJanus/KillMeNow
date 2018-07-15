@@ -11,8 +11,8 @@ public class Mimi : Survivor {
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,6 +20,7 @@ public class Mimi : Survivor {
 	}
 
     public void TalkCanvasToggle() {
+        Canvas talkCanvas = GameManager.gm.GetTalkCanvas();
         talkCanvas.gameObject.SetActive(true);
 
         // TODO: the children get components seems to be deterministic but I'm using magic numbers here. Can I get this not so... guessy?
@@ -28,7 +29,12 @@ public class Mimi : Survivor {
         comps[1].GetComponentsInChildren<Image>()[1].sprite = portrait;
         comps[3].GetComponentInChildren<Text>().text = charName;
         AnimatedText at = comps[4].GetComponentInChildren<AnimatedText>();
-        at.SetTextStringAndSurvivor(this.message, this);
+
+        if (QuestManager.qm.mimiActive) {
+            at.SetTextStringAndSurvivor(this.message, this);
+        } else if (QuestManager.qm.johnnyActive) {
+
+        }
         at.StartScrolling();
     }
 }

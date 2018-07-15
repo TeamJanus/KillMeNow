@@ -771,7 +771,8 @@ MonoBehaviour:
   action: 5
   statuses: 
   deepTalkSign: {fileID: 212970561147081540}
-  talkCanvas: {fileID: 0}
+  talkCanvasPrefab: {fileID: 1454221721134730, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
+    type: 2}
 --- !u!114 &114357227330401188
 MonoBehaviour:
   m_ObjectHideFlags: 1

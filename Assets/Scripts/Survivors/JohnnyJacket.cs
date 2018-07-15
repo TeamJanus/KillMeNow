@@ -15,8 +15,8 @@ public class JohnnyJacket : Survivor {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,6 +24,8 @@ public class JohnnyJacket : Survivor {
 	}
 
     public void TalkCanvasToggle() {
+        // TODO: Something about doing this causes the update method to throw Object reference not set errors 
+        Canvas talkCanvas = GameManager.gm.GetTalkCanvas();
         talkCanvas.gameObject.SetActive(true);
 
         // TODO: the children get components seems to be deterministic but I'm using magic numbers here. Can I get this not so... guessy?
@@ -34,6 +36,10 @@ public class JohnnyJacket : Survivor {
         AnimatedText at = comps[4].GetComponentInChildren<AnimatedText>();
         at.SetTextStringAndSurvivor(this.message, this);
         at.StartScrolling();
+
+        GameObject mimiObject = GameObject.Find("Mimi(Clone)");
+        Mimi mimi = mimiObject.GetComponent<Mimi>();
+        mimi.DeepTalkBubbleToggle();
     }
 
     public string GetQuestDesc() {

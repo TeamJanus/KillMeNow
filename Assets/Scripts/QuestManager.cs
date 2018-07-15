@@ -14,12 +14,17 @@ public class QuestManager : MonoBehaviour {
 
     private List<Survivor> questers = new List<Survivor>();
 
+    public bool johnnyActive = false;
+    public bool mimiActive = false;
+    public bool maddieActive = false;
+
     private void Awake() {
         if (qm == null) qm = this;
         else if (qm != this) Destroy(gameObject);
     }
 
     public void ActivateQuest(Survivor survivor) {
+        survivor.DeepTalkBubbleToggle();
 
         GameObject tempObject = (GameObject)Instantiate(buttonPrefab);
         Button tempButton = tempObject.GetComponent<Button>();
@@ -55,6 +60,8 @@ public class QuestManager : MonoBehaviour {
             case JohnnyJacket.charName:
                 JohnnyJacket johnny = survivor as JohnnyJacket;
                 words[1].text = johnny.GetQuestDesc();
+
+                johnnyActive = true;
                 break;
         }
 
