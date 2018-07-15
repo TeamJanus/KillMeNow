@@ -1,7 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Mimi : Survivor {
 
@@ -33,6 +32,7 @@ public class Mimi : Survivor {
             at.SetComponents(this, this.message);
             at.StartScrolling();
         } else if (QuestManager.qm.johnnyActive) {
+            Debug.Log("In Mimi's Johnny Active block");
             GameObject johnnyObject = GameObject.Find("JohnnyJacket");
             JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
 

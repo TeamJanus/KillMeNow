@@ -34,6 +34,8 @@ public class JohnnyJacket : Survivor {
         at.SetComponents(this, this.message);
         at.StartScrolling();
 
+        QuestManager.qm.johnnyActive = true;
+
         GameObject mimiObject = GameObject.Find("Mimi(Clone)");
         Mimi mimi = mimiObject.GetComponent<Mimi>();
         mimi.DeepTalkBubbleToggle();

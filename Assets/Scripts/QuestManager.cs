@@ -15,8 +15,8 @@ public class QuestManager : MonoBehaviour {
     private List<Survivor> questers = new List<Survivor>();
 
     public bool johnnyActive = false;
-    public bool mimiActive = false;
     public bool maddieActive = false;
+    public bool mimiActive = false;
 
     private void Awake() {
         if (qm == null) qm = this;
@@ -60,8 +60,6 @@ public class QuestManager : MonoBehaviour {
             case JohnnyJacket.charName:
                 JohnnyJacket johnny = survivor as JohnnyJacket;
                 words[1].text = johnny.GetQuestDesc();
-
-                johnnyActive = true;
                 break;
         }
 
@@ -72,5 +70,7 @@ public class QuestManager : MonoBehaviour {
         slideScript.CallSlide();
     }
 
-
+    public List<Survivor> GetQuesters() {
+        return questers;
+    }
 }
