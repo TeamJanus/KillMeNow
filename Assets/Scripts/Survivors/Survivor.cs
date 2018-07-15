@@ -219,12 +219,12 @@ public class Survivor : MonoBehaviour,
         action = Action.Empty;
     }
 
-    public void DeepTalkBubbleToggle() {
-        if (deepTalkSign.gameObject.activeSelf) {
-            deepTalkSign.gameObject.SetActive(false);
-        } else {
-            deepTalkSign.gameObject.SetActive(true);
-        }
+    public void DeepTalkBubbleActivate() {
+        deepTalkSign.gameObject.SetActive(true);
+    }
+
+    public void DeepTalkBubbleDeactivate() {
+        deepTalkSign.gameObject.SetActive(false);
     }
 
     public Stats GetHighestStat() {

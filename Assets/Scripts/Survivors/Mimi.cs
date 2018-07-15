@@ -13,6 +13,11 @@ public class Mimi : Survivor {
 
     public new const string charName = "Mimi Necrosnyth, Dread Queen";
 
+    private string questDesc = "Our loot runners keep getting hurt out there. Do you think Johnny would be willing to help me study some new medical procedures?\r\n"
+                             + "\r\nPress Johnny's quest icon.";
+
+    private const string questCompl = "I've learned so much! Thanks Johnny, you're a real boy. ";
+
     // Use this for initialization
     void Start () {
         highest = Stats.Combat;
@@ -33,7 +38,6 @@ public class Mimi : Survivor {
             at.SetComponents(this, this.message);
             at.StartScrolling();
         } else if (QuestManager.qm.johnnyActive) {
-            Debug.Log("In Mimi's Johnny Active block");
             GameObject johnnyObject = GameObject.Find("JohnnyJacket");
             JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
 
@@ -48,5 +52,18 @@ public class Mimi : Survivor {
 
             johnny.UpdateQuestDesc();
         }
+    }
+
+    public string GetQuestDesc() {
+        return questDesc;
+    }
+
+    public string GetQuestCompl() {
+        return questCompl;
+    }
+
+    public void UpdateQuestDesc() {
+        questDesc = "Johnny's willing to help me study some new techniques. I can't wait to get started!\r\n"
+                  + "\r\nHave Mimi support Johnny while Johnny sits still and does nothing.";
     }
 }

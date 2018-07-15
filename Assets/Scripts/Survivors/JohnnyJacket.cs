@@ -11,6 +11,10 @@ public class JohnnyJacket : Survivor {
     public readonly string[] firstRequest = { "It's hanging for sure. I think. Maybe. ",
                                               "Do you think you can show me how to survive longer on the outside? " };
 
+    private readonly string[] firstMaddie = { "Hey Maddie." };
+    private readonly string[] secondMaddie = { "Sure I think. What do you need me to... do?" };
+    private readonly string[] thirdMaddie = { "If it's really gonna be that easy, the next free night I get I'm all yours. Please don't poison me. " };
+
     private string questDesc = "It's crawling with crazies outside. I should talk to Mimi and see if she'll teach me how she managed to survive outside.\r\n"
                                        + "\r\nPress Mimi's quest icon.";
 
@@ -34,14 +38,35 @@ public class JohnnyJacket : Survivor {
         talkCanvas.gameObject.SetActive(true);
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
-        at.SetComponents(this, this.message);
-        at.StartScrolling();
 
-        QuestManager.qm.johnnyActive = true;
+        if (QuestManager.qm.johnnyActive) {
+            at.SetComponents(this, this.message);
+            at.StartScrolling();
 
-        GameObject mimiObject = GameObject.Find("Mimi(Clone)");
-        Mimi mimi = mimiObject.GetComponent<Mimi>();
-        mimi.DeepTalkBubbleToggle();
+            // Will her name always have a clone at the end? Investigate prefabs
+            GameObject mimiObject = GameObject.Find("Mimi(Clone)");
+            Mimi mimi = mimiObject.GetComponent<Mimi>();
+            mimi.DeepTalkBubbleActivate();
+        } else if (QuestManager.qm.maddieActive) {
+            GameObject maddieObject = GameObject.Find("Maddie");
+            Maddie maddie = maddieObject.GetComponent<Maddie>();
+
+            List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
+                new AnimatedText.MessagePacket(this, this.firstMaddie),
+                new AnimatedText.MessagePacket(maddie, maddie.firstRequest),
+                new AnimatedText.MessagePacket(this, this.secondMaddie),
+                new AnimatedText.MessagePacket(maddie, maddie.secondRequest),
+                new AnimatedText.MessagePacket(this, this.thirdMaddie),
+                new AnimatedText.MessagePacket(maddie, maddie.thirdRequest)
+            };
+
+            at.SetComponents(survMsgs);
+            at.StartScrolling();
+
+            maddie.UpdateQuestDesc();
+        }
+
+
     }
 
     public string GetQuestDesc() {
@@ -50,10 +75,6 @@ public class JohnnyJacket : Survivor {
 
     public string GetQuestCompl() {
         return questCompl;
-    }
-
-    public string GetCharName() {
-        return charName;
     }
 
     public void UpdateQuestDesc() {

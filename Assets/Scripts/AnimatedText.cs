@@ -56,7 +56,8 @@ public class AnimatedText : MonoBehaviour {
                     messageText.text = "";
                     survMsgs = null;
                     survMsgsIndex = 0;
-                    caller.DeepTalkBubbleToggle();
+                    // TODO: figure this out for whne two quests are active at the same time
+                    caller.DeepTalkBubbleDeactivate();
                     parentCanvas.gameObject.SetActive(false);
                 }
             }

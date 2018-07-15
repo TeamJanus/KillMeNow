@@ -354,6 +354,25 @@ public class GameManager : MonoBehaviour {
 
         Survivor target = helper.GetSupportTarget();
 
+        if (helper is Maddie && target is JohnnyJacket) {
+            if (target.action == Survivor.Action.None) {
+                output += "\r\nJohnny settles into his cot for the night as Maddie pulls out her homemade medical pamphlets and voltmeter. "
+                        + "\"It'll be fine,\" she says as she gives Johnny an experimental sedative. Maddie pokes, prods, measures and takes notes. " 
+                        + "Johnny wakes up. \"What's was in that syringe? I had the strangest dreams, some great underwater city.\"\r\n"
+                        + "\"Oh nothing too much, just some opiates mixed in with some goo fungus I found the bad rations we have. How do you feel?\"\r\n"
+                        + "\"Maddie, if it wasn't for how great I feel I'd be seriously concerned. We gotta talk about your methods sometime.\"\r\n" 
+                        + "Johnny swears he can feel what people are thinking. Sometimes.\r\n\r\n" ;
+                target.rally += 10;
+                helper.rally += 10;
+
+                QuestManager.qm.maddieActive = false;
+                QuestManager.qm.CompleteQuest(helper);
+                QuestManager.qm.maddieComplete = true;
+
+                return output;
+            }
+        }
+
         if (target.GetStatuses().Count > 0) {
             if (Random.Range(1, 100) <= helper.rally) {
                 List<Survivor.Status> statuses = target.GetStatuses();
@@ -371,6 +390,10 @@ public class GameManager : MonoBehaviour {
                         output += helper.charName + " cleans and sets " + target.charName + "'s wounds. \r\n" +
                                   target.charName + " can do heavy work again.\r\n";
                         break;
+                }
+
+                if (helper is Maddie) {
+                    (helper as Maddie).IncreaseQuestCount();
                 }
             } else {
                 output += helper.charName + " can't help " + target.charName + "'s wounds. \r\n" +
@@ -413,6 +436,9 @@ public class GameManager : MonoBehaviour {
                         break;
                 }
 
+                if (helper is Maddie) {
+                    (helper as Maddie).IncreaseQuestCount();
+                }
             } else {
                 output += "The two don't make much of a connection.\r\n";
 
@@ -425,6 +451,12 @@ public class GameManager : MonoBehaviour {
                     output += helper.charName + " looks outside nervously.\r\n";
                 }
             }
+        }
+
+        // TODO: figure out a way to stop checking for this every time instead of just pushing it past 2 for quest count
+        if ((helper is Maddie) && (helper as Maddie).GetQuestCount() == 2) {
+            QuestManager.qm.ActivateQuest(helper as Maddie);
+            (helper as Maddie).IncreaseQuestCount();
         }
 
         return output;

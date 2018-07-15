@@ -10,6 +10,12 @@ public class QuestManager : MonoBehaviour {
     public Image questPanel;
     public Image questInfoPanel;
 
+    public Image portraitImage;
+    public Text nameText;
+    public Text descText;
+
+    public SlidePanel slideScript;
+
     public GameObject buttonPrefab;
 
     private List<Survivor> questers = new List<Survivor>();
@@ -28,7 +34,20 @@ public class QuestManager : MonoBehaviour {
     }
 
     public void ActivateQuest(Survivor survivor) {
-        survivor.DeepTalkBubbleToggle();
+        survivor.DeepTalkBubbleActivate();
+
+        // TODO: I hate this. Redo the entire survivor inheritance tree dude. Asap
+        switch (survivor.charName) {
+            case (JohnnyJacket.charName):
+                johnnyActive = true;
+                break;
+            case (Maddie.charName):
+                maddieActive = true;
+                break;
+            case (Mimi.charName):
+                mimiActive = true;
+                break;
+        }
 
         GameObject tempObject = (GameObject)Instantiate(buttonPrefab);
         Button tempButton = tempObject.GetComponent<Button>();
@@ -54,38 +73,42 @@ public class QuestManager : MonoBehaviour {
     }
 
     private void ShowQuestInfo(Survivor survivor) {
-        Image[] images = questInfoPanel.GetComponentsInChildren<Image>();
-        Text[] words = questInfoPanel.GetComponentsInChildren<Text>();
 
         switch (survivor.charName) {
             case JohnnyJacket.charName:
-                JohnnyJacket johnny = survivor as JohnnyJacket;
-                words[1].text = johnny.GetQuestDesc();
+                descText.text = (survivor as JohnnyJacket).GetQuestDesc();
+                break;
+            case Mimi.charName:
+                descText.text = (survivor as Mimi).GetQuestDesc();
+                break;
+            case Maddie.charName:
+                descText.text = (survivor as Maddie).GetQuestDesc();
                 break;
         }
 
-        images[1].sprite = survivor.portrait;
-        words[0].text = survivor.charName;
+        portraitImage.sprite = survivor.portrait;
+        nameText.text = survivor.charName;
 
-        SlidePanel slideScript = questInfoPanel.GetComponent<SlidePanel>();
         slideScript.CallSlide();
     }
 
     private void ShowCompleteQuestInfo(Survivor survivor) {
-        Image[] images = questInfoPanel.GetComponentsInChildren<Image>();
-        Text[] words = questInfoPanel.GetComponentsInChildren<Text>();
 
         switch (survivor.charName) {
             case JohnnyJacket.charName:
-                JohnnyJacket johnny = survivor as JohnnyJacket;
-                words[1].text = johnny.GetQuestCompl();
+                descText.text = (survivor as JohnnyJacket).GetQuestCompl();
+                break;
+            case Mimi.charName:
+                descText.text = (survivor as Mimi).GetQuestCompl();
+                break;
+            case Maddie.charName:
+                descText.text = (survivor as Maddie).GetQuestCompl();
                 break;
         }
 
-        images[1].sprite = survivor.portrait;
-        words[0].text = survivor.charName;
+        portraitImage.sprite = survivor.portrait;
+        nameText.text = survivor.charName;
 
-        SlidePanel slideScript = questInfoPanel.GetComponent<SlidePanel>();
         slideScript.CallSlide();
     }
 

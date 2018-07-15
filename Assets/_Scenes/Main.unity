@@ -238,6 +238,12 @@ Canvas:
   m_PrefabParentObject: {fileID: 223248312438276674, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
     type: 2}
   m_PrefabInternal: {fileID: 1188306073}
+--- !u!114 &439988723 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114009443871191068, guid: aa5a708ebf5336f41890cb0ad581426c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610168894}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &775998335
 Prefab:
   m_ObjectHideFlags: 0
@@ -346,6 +352,26 @@ Prefab:
       propertyPath: questInfoPanel
       value: 
       objectReference: {fileID: 817385208}
+    - target: {fileID: 114876747472072700, guid: 7a20ac217739f204d95356d9afad66e5,
+        type: 2}
+      propertyPath: portraitImage
+      value: 
+      objectReference: {fileID: 1361169120}
+    - target: {fileID: 114876747472072700, guid: 7a20ac217739f204d95356d9afad66e5,
+        type: 2}
+      propertyPath: nameText
+      value: 
+      objectReference: {fileID: 439988723}
+    - target: {fileID: 114876747472072700, guid: 7a20ac217739f204d95356d9afad66e5,
+        type: 2}
+      propertyPath: descText
+      value: 
+      objectReference: {fileID: 1006516568}
+    - target: {fileID: 114876747472072700, guid: 7a20ac217739f204d95356d9afad66e5,
+        type: 2}
+      propertyPath: slideScript
+      value: 
+      objectReference: {fileID: 1928373665}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a20ac217739f204d95356d9afad66e5, type: 2}
   m_IsPrefabParent: 0
@@ -366,6 +392,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 33723689}
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1006516568 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114872770849789686, guid: aa5a708ebf5336f41890cb0ad581426c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610168894}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1041810583
 Prefab:
   m_ObjectHideFlags: 0
@@ -720,6 +752,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 33723689}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1361169120 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114120407197707686, guid: aa5a708ebf5336f41890cb0ad581426c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610168894}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1401012242 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114800499150664166, guid: aa5a708ebf5336f41890cb0ad581426c,
@@ -1110,6 +1148,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 33723689}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1928373665 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114908181970795386, guid: aa5a708ebf5336f41890cb0ad581426c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610168894}
+  m_Script: {fileID: 11500000, guid: c120b3d9e0fb4a24ab61081a3d7af285, type: 3}
 --- !u!114 &2020035841 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114718777580468998, guid: aa5a708ebf5336f41890cb0ad581426c,

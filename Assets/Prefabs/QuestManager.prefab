@@ -54,5 +54,15 @@ MonoBehaviour:
   questsButton: {fileID: 0}
   questPanel: {fileID: 0}
   questInfoPanel: {fileID: 0}
+  portraitImage: {fileID: 0}
+  nameText: {fileID: 0}
+  descText: {fileID: 0}
+  slideScript: {fileID: 0}
   buttonPrefab: {fileID: 1218007682863792, guid: c914aaa7a5ebd874782a0a7305cb2a19,
     type: 2}
+  johnnyActive: 0
+  maddieActive: 0
+  mimiActive: 0
+  johnnyComplete: 0
+  maddieComplete: 0
+  mimiComplete: 0
