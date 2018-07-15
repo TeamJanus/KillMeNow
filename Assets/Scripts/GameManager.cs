@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ReloadLevel() {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     // Keep in mind that all random comparisons should be RandomValue <= SurvivorStat
