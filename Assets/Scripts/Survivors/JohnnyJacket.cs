@@ -46,7 +46,6 @@ public class JohnnyJacket : Survivor {
 
         if (questActive && !calledUpon) {
             at.SetComponents(this, this.message);
-            at.StartScrolling();
 
             // TODO: Finding clones will become problematic. How are we gonna handle this?
             GameObject mimiObject = GameObject.Find("Mimi(Clone)");
@@ -64,7 +63,6 @@ public class JohnnyJacket : Survivor {
             };
 
             at.SetComponents(survMsgs);
-            at.StartScrolling();
 
             maddie.UpdateQuestDesc();
         }

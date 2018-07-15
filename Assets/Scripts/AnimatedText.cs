@@ -32,44 +32,47 @@ public class AnimatedText : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.GetMouseButtonUp(0)) {
-            if (characterIndex < textStrings[stringIndex].Length) {
-                StopCoroutine(DisplayTimer());
-                characterIndex = textStrings[stringIndex].Length;
-            } else if (stringIndex < textStrings.Length - 1) {
-                stringIndex++;
-                characterIndex = 0;
-                StartCoroutine(DisplayTimer());
-            } else {
-                if (survMsgs != null && (survMsgsIndex < survMsgs.Count)) {
-                    survMsgsIndex++;
 
-                    Survivor next = survMsgs[survMsgsIndex].GetSurvivor();
-                    nameText.text = next.charName;
-                    portrait.sprite = next.portrait;
-                    textStrings = survMsgs[survMsgsIndex].GetMsg();
-
-                    stringIndex = 0;
+            // It's possible to click faster than textStrings gets set throwing a bunch of annoying gameobject not set errors. This solves that
+            if (textStrings != null) { 
+                if (characterIndex < textStrings[stringIndex].Length) {
+                    StopCoroutine(DisplayTimer());
+                    characterIndex = textStrings[stringIndex].Length;
+                } else if (stringIndex < textStrings.Length - 1) {
+                    stringIndex++;
                     characterIndex = 0;
                     StartCoroutine(DisplayTimer());
                 } else {
-                    stringIndex = 0;
-                    characterIndex = 0;
-                    messageText.text = "";
-                    survMsgs = null;
-                    survMsgsIndex = 0;
-                    // TODO: figure this out for when two quests are active at the same 
-                    if (caller.questActive) {
-                        if (caller.calledUpon) {
-                            caller.calledUpon = false;
+                    if (survMsgs != null && (survMsgsIndex < survMsgs.Count - 1)) {
+                        survMsgsIndex++;
+                        Survivor next = survMsgs[survMsgsIndex].GetSurvivor();
+                        nameText.text = next.charName;
+                        portrait.sprite = next.portrait;
+                        textStrings = survMsgs[survMsgsIndex].GetMsg();
+
+                        stringIndex = 0;
+                        characterIndex = 0;
+                        StartCoroutine(DisplayTimer());
+                    } else {
+                        stringIndex = 0;
+                        characterIndex = 0;
+                        messageText.text = "";
+                        survMsgs = null;
+                        survMsgsIndex = 0;
+                        // TODO: figure this out for when two quests are active at the same 
+                        if (caller.questActive) {
+                            if (caller.calledUpon) {
+                                caller.calledUpon = false;
+                            } else {
+                                caller.DeepTalkBubbleDeactivate();
+                            }
                         } else {
+                            caller.calledUpon = false;
                             caller.DeepTalkBubbleDeactivate();
                         }
-                    } else {
-                        caller.calledUpon = false;
-                        caller.DeepTalkBubbleDeactivate();
+
+                        parentCanvas.gameObject.SetActive(false);
                     }
-                    
-                    parentCanvas.gameObject.SetActive(false);
                 }
             }
         }
@@ -80,6 +83,8 @@ public class AnimatedText : MonoBehaviour {
         portrait.sprite = survivor.portrait;
         textStrings = msg;
         caller = survivor;
+
+        StartScrolling();
     }
 
     public void SetComponents(List<AnimatedText.MessagePacket> survMsgs) {
@@ -89,6 +94,8 @@ public class AnimatedText : MonoBehaviour {
         textStrings = survMsgs[0].GetMsg();
 
         this.survMsgs = survMsgs;
+
+        StartScrolling();
     }
 
     public void StartScrolling() {
@@ -96,8 +103,8 @@ public class AnimatedText : MonoBehaviour {
     }
 
     public class MessagePacket {
-        Survivor surv;
-        string[] msg;
+        readonly Survivor surv;
+        readonly string[] msg;
 
         public MessagePacket (Survivor surv, string[] msg) {
             this.surv = surv;

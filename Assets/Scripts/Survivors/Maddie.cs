@@ -43,7 +43,6 @@ public class Maddie : Survivor {
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
         at.SetComponents(this, this.message);
-        at.StartScrolling();
 
         johnny.calledUpon = true;
         johnny.DeepTalkBubbleActivate();

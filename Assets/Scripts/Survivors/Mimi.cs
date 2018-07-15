@@ -41,7 +41,6 @@ public class Mimi : Survivor {
 
         if (questActive && !calledUpon) {
             at.SetComponents(this, this.message);
-            at.StartScrolling();
         } else if (johnny.questActive) { 
             List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
                 new AnimatedText.MessagePacket(this, this.firstJohnny),
@@ -50,7 +49,6 @@ public class Mimi : Survivor {
             };
 
             at.SetComponents(survMsgs);
-            at.StartScrolling();
 
             johnny.UpdateQuestDesc();
         }
