@@ -53,7 +53,6 @@ public class Mimi : Survivor {
             at.StartScrolling();
 
             johnny.UpdateQuestDesc();
-            calledUpon = false;
         }
     }
 

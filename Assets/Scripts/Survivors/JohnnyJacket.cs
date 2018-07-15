@@ -67,7 +67,6 @@ public class JohnnyJacket : Survivor {
             at.StartScrolling();
 
             maddie.UpdateQuestDesc();
-            calledUpon = false;
         }
 
 
