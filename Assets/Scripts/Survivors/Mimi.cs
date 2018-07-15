@@ -29,10 +29,10 @@ public class Mimi : Survivor {
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
 
-        //if (QuestManager.qm.mimiActive) {
-        //    at.SetComponents(this, this.message);
-        //    at.StartScrolling();
-        //} else if (QuestManager.qm.johnnyActive) {
+        if (QuestManager.qm.mimiActive) {
+            at.SetComponents(this, this.message);
+            at.StartScrolling();
+        } else if (QuestManager.qm.johnnyActive) {
             GameObject johnnyObject = GameObject.Find("JohnnyJacket");
             JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
 
@@ -44,6 +44,6 @@ public class Mimi : Survivor {
 
             at.SetComponents(survMsgs);
             at.StartScrolling();
-        //}
+        }
     }
 }
