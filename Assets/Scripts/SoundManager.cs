@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour {
     private void Awake() {
         if (sm == null) sm = this;
         else if (sm != this) Destroy(gameObject);
+
+        DontDestroyOnLoad(sm);
     }
 
     public void PlayGameMain() {

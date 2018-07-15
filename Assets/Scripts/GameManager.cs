@@ -228,10 +228,6 @@ public class GameManager : MonoBehaviour {
         nightlyNews.NewGame();
     }
 
-    public void ReloadLevel() {
-        SceneManager.LoadScene(1);
-    }
-
     // Keep in mind that all random comparisons should be RandomValue <= SurvivorStat
     private string EvaluateAction() {
         string output = "";
@@ -613,6 +609,14 @@ public class GameManager : MonoBehaviour {
 
         storiesButton.gameObject.SetActive(false);
 
+    }
+
+    public void LoadMainMenu() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReloadLevel() {
+        SceneManager.LoadScene(1);
     }
 
     public void DoAQuit() {
