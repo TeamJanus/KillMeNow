@@ -77,6 +77,12 @@ public class GameManager : MonoBehaviour {
         nextDayButton.interactable = false;
     }
 
+    private void Update() {
+        if (Input.GetKeyUp(KeyCode.R)) {
+            ReloadLevel();
+        }
+    }
+
     public Survivor[] GetSurvivors() {
         return survivors;
     }
@@ -248,6 +254,48 @@ public class GameManager : MonoBehaviour {
 
     private string EvaluateLooting(Survivor survivor) {
         string output = "";
+
+        if (QuestManager.qm.johnnyActive) {
+            Mimi mimi = null;
+            JohnnyJacket johnny = null;
+            if (survivor is Mimi) {
+                mimi = survivor as Mimi;
+                foreach (Survivor surv in survivors) {
+                    if (surv is JohnnyJacket) {
+                        johnny = surv as JohnnyJacket;
+                        break;
+                    }
+                }
+            } else if (survivor is JohnnyJacket) {
+                johnny = survivor as JohnnyJacket;
+                foreach (Survivor surv in survivors) {
+                    if (surv is Mimi) {
+                        mimi = surv as Mimi;
+                        break;
+                    }
+                }
+            }
+
+            if ((mimi.action == Survivor.Action.Loot) && (johnny.action == Survivor.Action.Loot)) {
+                output += "\r\nMimi takes lead as she and Johnny go looting for the night. They find themselves at an junkyard near the library. "
+                        + "\"This is my spot!\" says Mimi, handing Johnny a spiked bat. It's not long before creatures come over the heaps of junk and "
+                        + "the two are bashing away. Johnny is a quick study. \"Radical,\" he remarks as they return with plenty of rations.\r\n\r\n";
+
+                foodCount += 6;
+
+                johnny.loot += 20;
+                johnny.combat += 25;
+
+                mimi.combat += 5;
+
+                QuestManager.qm.johnnyActive = false;
+                QuestManager.qm.CompleteQuest(johnny);
+                QuestManager.qm.johnnyComplete = true;
+
+                return output;
+            }
+        }
+
         if (Random.Range(1, 100) <= survivor.loot) {
             // Good Stuff
             int foodFound = Random.Range(2, 5);
@@ -256,8 +304,7 @@ public class GameManager : MonoBehaviour {
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            if (true) {
-                //if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
                 int index = Random.Range(0, survivorsToBeFound.Count);
                 Survivor addition = survivorsToBeFound[index];
                 survivorsToBeFound.Remove(addition);

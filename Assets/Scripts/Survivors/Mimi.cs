@@ -1,13 +1,14 @@
 ﻿using System.Collections.Specialized;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mimi : Survivor {
 
     private readonly string[] message = { "It's pretty fun out there. I get to use my bat and figure out how these things tick!" };
 
     private readonly string[] firstJohnny = { "Hello JJ. What's it hanging? " };
-    private readonly string[] secondJohnny = { "Oh yes that sounds fun. Go looting with me at some time soon. ",
+    private readonly string[] secondJohnny = { "Oh yes that sounds fun. Come looting with me sometime soon. ",
                                                "We will bash some heads! " };
 
     public new const string charName = "Mimi Necrosnyth, Dread Queen";
@@ -44,6 +45,8 @@ public class Mimi : Survivor {
 
             at.SetComponents(survMsgs);
             at.StartScrolling();
+
+            johnny.UpdateQuestDesc();
         }
     }
 }

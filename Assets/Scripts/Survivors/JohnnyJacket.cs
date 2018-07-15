@@ -11,8 +11,10 @@ public class JohnnyJacket : Survivor {
     public readonly string[] firstRequest = { "It's hanging for sure. I think. Maybe. ",
                                               "Do you think you can show me how to survive longer on the outside? " };
 
-    private const string questDesc = "It's crawling with crazies outside. I should talk to Mimi and see if she'll teach me how she managed to survive outside.\r\n"
+    private string questDesc = "It's crawling with crazies outside. I should talk to Mimi and see if she'll teach me how she managed to survive outside.\r\n"
                                        + "\r\nPress Mimi's quest icon.";
+
+    private const string questCompl = "I had a great time at the junkyard with Mimi. I can swing and loot harder now!";
 
     public new const string charName = "Johnny Jacket";
 
@@ -45,8 +47,17 @@ public class JohnnyJacket : Survivor {
         return questDesc;
     }
 
+    public string GetQuestCompl() {
+        return questCompl;
+    }
+
     public string GetCharName() {
         return charName;
+    }
+
+    public void UpdateQuestDesc() {
+        questDesc = "Mimi invited me out on a looting run. I'm looking forward to learning some real moves!\r\n"
+                  + "\r\nSend Mimi and Johnny looting.";
     }
 
 }

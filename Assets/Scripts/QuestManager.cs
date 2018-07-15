@@ -18,6 +18,10 @@ public class QuestManager : MonoBehaviour {
     public bool maddieActive = false;
     public bool mimiActive = false;
 
+    public bool johnnyComplete = false;
+    public bool maddieComplete = false;
+    public bool mimiComplete = false;
+
     private void Awake() {
         if (qm == null) qm = this;
         else if (qm != this) Destroy(gameObject);
@@ -36,20 +40,17 @@ public class QuestManager : MonoBehaviour {
 
         questers.Add(survivor);
 
-        if (questers.Count > 0) {
-            questsButton.interactable = true;
-        }
+        questsButton.interactable = true;
     }
 
     public void CompleteQuest(Survivor survivor) {
 
         GameObject button = GameObject.Find(survivor.charName + " Button");
-        Destroy(button);
+        Button bb = button.GetComponent<Button>();
+        Text bbt = bb.GetComponentInChildren<Text>();
+        bbt.text += " = Complete!";
 
-        questers.Remove(survivor);
-        if (questers.Count == 0) {
-            questsButton.interactable = false;
-        }
+        bb.onClick.AddListener(() => ShowCompleteQuestInfo(survivor));
     }
 
     private void ShowQuestInfo(Survivor survivor) {
@@ -60,6 +61,24 @@ public class QuestManager : MonoBehaviour {
             case JohnnyJacket.charName:
                 JohnnyJacket johnny = survivor as JohnnyJacket;
                 words[1].text = johnny.GetQuestDesc();
+                break;
+        }
+
+        images[1].sprite = survivor.portrait;
+        words[0].text = survivor.charName;
+
+        SlidePanel slideScript = questInfoPanel.GetComponent<SlidePanel>();
+        slideScript.CallSlide();
+    }
+
+    private void ShowCompleteQuestInfo(Survivor survivor) {
+        Image[] images = questInfoPanel.GetComponentsInChildren<Image>();
+        Text[] words = questInfoPanel.GetComponentsInChildren<Text>();
+
+        switch (survivor.charName) {
+            case JohnnyJacket.charName:
+                JohnnyJacket johnny = survivor as JohnnyJacket;
+                words[1].text = johnny.GetQuestCompl();
                 break;
         }
 
