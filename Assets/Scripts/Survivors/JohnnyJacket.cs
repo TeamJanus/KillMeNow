@@ -22,10 +22,15 @@ public class JohnnyJacket : Survivor {
 
     public new const string charName = "Johnny Jacket";
 
+    private Maddie maddie;
+
 	// Use this for initialization
 	void Start () {
         // Johnny thinks himself well rounded
         highest = Stats.Build;
+        // TODO: This will be unsafe in future builds when we can't assume the same set of characters. Make it general
+        GameObject maddieObject = GameObject.Find("Maddie");
+        maddie = maddieObject.GetComponent<Maddie>();
     }
 	
 	// Update is called once per frame
@@ -39,18 +44,16 @@ public class JohnnyJacket : Survivor {
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
 
-        if (QuestManager.qm.johnnyActive) {
+        if (questActive && !calledUpon) {
             at.SetComponents(this, this.message);
             at.StartScrolling();
 
-            // Will her name always have a clone at the end? Investigate prefabs
+            // TODO: Finding clones will become problematic. How are we gonna handle this?
             GameObject mimiObject = GameObject.Find("Mimi(Clone)");
             Mimi mimi = mimiObject.GetComponent<Mimi>();
+            mimi.calledUpon = true;
             mimi.DeepTalkBubbleActivate();
-        } else if (QuestManager.qm.maddieActive) {
-            GameObject maddieObject = GameObject.Find("Maddie");
-            Maddie maddie = maddieObject.GetComponent<Maddie>();
-
+        } else if (maddie.questActive) {
             List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
                 new AnimatedText.MessagePacket(this, this.firstMaddie),
                 new AnimatedText.MessagePacket(maddie, maddie.firstRequest),
@@ -64,6 +67,7 @@ public class JohnnyJacket : Survivor {
             at.StartScrolling();
 
             maddie.UpdateQuestDesc();
+            calledUpon = false;
         }
 
 

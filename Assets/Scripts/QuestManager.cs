@@ -20,14 +20,6 @@ public class QuestManager : MonoBehaviour {
 
     private List<Survivor> questers = new List<Survivor>();
 
-    public bool johnnyActive = false;
-    public bool maddieActive = false;
-    public bool mimiActive = false;
-
-    public bool johnnyComplete = false;
-    public bool maddieComplete = false;
-    public bool mimiComplete = false;
-
     private void Awake() {
         if (qm == null) qm = this;
         else if (qm != this) Destroy(gameObject);
@@ -36,18 +28,7 @@ public class QuestManager : MonoBehaviour {
     public void ActivateQuest(Survivor survivor) {
         survivor.DeepTalkBubbleActivate();
 
-        // TODO: I hate this. Redo the entire survivor inheritance tree dude. Asap
-        switch (survivor.charName) {
-            case (JohnnyJacket.charName):
-                johnnyActive = true;
-                break;
-            case (Maddie.charName):
-                maddieActive = true;
-                break;
-            case (Mimi.charName):
-                mimiActive = true;
-                break;
-        }
+        survivor.questActive = true;
 
         GameObject tempObject = (GameObject)Instantiate(buttonPrefab);
         Button tempButton = tempObject.GetComponent<Button>();

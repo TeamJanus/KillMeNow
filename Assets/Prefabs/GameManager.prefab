@@ -56,7 +56,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   survivorsToBeFound:
-  - {fileID: 114990180012235164, guid: 0c23024f825f363439849f358e374522, type: 2}
+  - {fileID: 1812426164651826, guid: 0c23024f825f363439849f358e374522, type: 2}
   nextDayButton: {fileID: 0}
   storiesButton: {fileID: 0}
   dayText: {fileID: 0}

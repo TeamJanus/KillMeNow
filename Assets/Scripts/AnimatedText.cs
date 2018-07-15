@@ -33,6 +33,7 @@ public class AnimatedText : MonoBehaviour {
     void Update() {
         if (Input.GetMouseButtonUp(0)) {
             if (characterIndex < textStrings[stringIndex].Length) {
+                StopCoroutine(DisplayTimer());
                 characterIndex = textStrings[stringIndex].Length;
             } else if (stringIndex < textStrings.Length - 1) {
                 stringIndex++;
@@ -56,7 +57,7 @@ public class AnimatedText : MonoBehaviour {
                     messageText.text = "";
                     survMsgs = null;
                     survMsgsIndex = 0;
-                    // TODO: figure this out for whne two quests are active at the same time
+                    // TODO: figure this out for when two quests are active at the same 
                     caller.DeepTalkBubbleDeactivate();
                     parentCanvas.gameObject.SetActive(false);
                 }

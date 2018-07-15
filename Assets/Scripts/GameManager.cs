@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     private GameObject survivorSlots;
     public Transform[] slots = new Transform[SURVIVOR_SLOTS];
     private Survivor[] survivors = new Survivor[SURVIVOR_SLOTS];
-    public List<Survivor> survivorsToBeFound = new List<Survivor>();
+    public List<GameObject> survivorsToBeFound = new List<GameObject>();
 
     public Button nextDayButton;
     public Button storiesButton;
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour {
     private string EvaluateLooting(Survivor survivor) {
         string output = "";
 
-        if (QuestManager.qm.johnnyActive) {
+        if ((survivor is JohnnyJacket) && survivor.questActive) {
             Mimi mimi = null;
             JohnnyJacket johnny = null;
             if (survivor is Mimi) {
@@ -288,9 +288,9 @@ public class GameManager : MonoBehaviour {
 
                 mimi.combat += 5;
 
-                QuestManager.qm.johnnyActive = false;
+                johnny.questActive = false;
                 QuestManager.qm.CompleteQuest(johnny);
-                QuestManager.qm.johnnyComplete = true;
+                johnny.questComplete = true;
 
                 return output;
             }
@@ -306,20 +306,20 @@ public class GameManager : MonoBehaviour {
             // TODO: Add ability to select slot to add survivor to
             if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot) {
                 int index = Random.Range(0, survivorsToBeFound.Count);
-                Survivor addition = survivorsToBeFound[index];
-                survivorsToBeFound.Remove(addition);
+                GameObject additionObj = survivorsToBeFound[index];
+                survivorsToBeFound.Remove(additionObj);
 
                 output += "\r\n" + survivor.charName + " stumbles upon someone wielding a spiked bat with ease. " +
                           "In between giant swings she introduces herself as Mimi Necrosynth, Dread Queen. " +
                           "Mimi accompanies " + survivor.charName + " back to the library.\r\n";
 
-                Instantiate(addition, slots[1]);
+                Instantiate(additionObj, slots[1]);
                 survivors = survivorSlots.GetComponentsInChildren<Survivor>();
                 survivorCount = survivors.Length;
 
-                // TODO: Can I do this loop better?
+                // TODO: Can I do this loop better? Also it assumes the survivor is Mimi. Bad for the future.
                 foreach (Survivor surv in survivors) {
-                    if (surv.charName.Equals(JohnnyJacket.charName)) {
+                    if (surv is JohnnyJacket) {
                         QuestManager.qm.ActivateQuest(surv);
                         break;
                     }
@@ -365,9 +365,9 @@ public class GameManager : MonoBehaviour {
                 target.rally += 10;
                 helper.rally += 10;
 
-                QuestManager.qm.maddieActive = false;
+                helper.questActive = false;
                 QuestManager.qm.CompleteQuest(helper);
-                QuestManager.qm.maddieComplete = true;
+                helper.questComplete = true;
 
                 return output;
             }

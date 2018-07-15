@@ -1604,8 +1604,9 @@ MonoBehaviour:
   action: 5
   statuses: 
   deepTalkSign: {fileID: 212168439662484936}
-  talkCanvasPrefab: {fileID: 1454221721134730, guid: d0f99e863f5cef946aa50a1ffbd7a5e8,
-    type: 2}
+  calledUpon: 0
+  questActive: 0
+  questComplete: 0
 --- !u!212 &212168439662484936
 SpriteRenderer:
   m_ObjectHideFlags: 1

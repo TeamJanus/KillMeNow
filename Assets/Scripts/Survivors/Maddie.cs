@@ -22,9 +22,14 @@ public class Maddie : Survivor {
 
     private const string questCompl = "I've learned so much! Thanks Johnny, you're a real boy. ";
 
+    private JohnnyJacket johnny;
+
     // Use this for initialization
     void Start () {
         highest = Stats.Rally;
+        // TODO: This will be unsafe in future builds when we can't assume the same set of characters. Make it general
+        GameObject johnnyObject = GameObject.Find("JohnnyJacket");
+        johnny = johnnyObject.GetComponent<JohnnyJacket>();
     }
 	
 	// Update is called once per frame
@@ -40,8 +45,7 @@ public class Maddie : Survivor {
         at.SetComponents(this, this.message);
         at.StartScrolling();
 
-        GameObject johnnyObject = GameObject.Find("JohnnyJacket");
-        JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
+        johnny.calledUpon = true;
         johnny.DeepTalkBubbleActivate();
     }
 

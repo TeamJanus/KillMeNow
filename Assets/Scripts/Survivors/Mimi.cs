@@ -18,9 +18,14 @@ public class Mimi : Survivor {
 
     private const string questCompl = "I've learned so much! Thanks Johnny, you're a real boy. ";
 
+    private JohnnyJacket johnny;
+
     // Use this for initialization
     void Start () {
         highest = Stats.Combat;
+        // TODO: This will be unsafe in future builds when we can't assume the same set of characters. Make it general
+        GameObject johnnyObject = GameObject.Find("JohnnyJacket");
+        johnny = johnnyObject.GetComponent<JohnnyJacket>();
     }
 	
 	// Update is called once per frame
@@ -34,13 +39,10 @@ public class Mimi : Survivor {
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
 
-        if (QuestManager.qm.mimiActive) {
+        if (questActive && !calledUpon) {
             at.SetComponents(this, this.message);
             at.StartScrolling();
-        } else if (QuestManager.qm.johnnyActive) {
-            GameObject johnnyObject = GameObject.Find("JohnnyJacket");
-            JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
-
+        } else if (johnny.questActive) { 
             List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
                 new AnimatedText.MessagePacket(this, this.firstJohnny),
                 new AnimatedText.MessagePacket(johnny, johnny.firstRequest),
@@ -51,6 +53,7 @@ public class Mimi : Survivor {
             at.StartScrolling();
 
             johnny.UpdateQuestDesc();
+            calledUpon = false;
         }
     }
 

@@ -60,6 +60,10 @@ public class Survivor : MonoBehaviour,
     public List<Status> statuses = new List<Status>();
 
     public SpriteRenderer deepTalkSign;
+    public bool calledUpon = false;
+
+    public bool questActive = false;
+    public bool questComplete = false;
 
     private bool firstLoad = true;
 
