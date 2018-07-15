@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour {
 
     public Canvas talkCanvas;
 
+    // Survivor suite
+    Mimi mimi = null;
+
     private void Awake() {
         if (gm == null) gm = this;
         else if (gm != this) Destroy(gameObject);
@@ -135,6 +138,20 @@ public class GameManager : MonoBehaviour {
         foodCount -= HUNGER_SCORE * survivorCount;
         zombieCount += 1;
 
+        // Mimi Quest Win
+        if (mimi != null && mimi.questComplete) {
+            int count = 0;
+            foreach (Survivor surv in survivors) {
+                if (surv.action == Survivor.Action.Loot) {
+                    count += 1;
+                }
+            }
+
+            if (count == SURVIVOR_SLOTS) {
+                WinMimiGame();
+            }
+        }
+
         if (barrierCount <= 0) LoseGame();
         else if (dayCount >= 10) WinGame();
         else ContinueGame();
@@ -151,6 +168,22 @@ public class GameManager : MonoBehaviour {
             numbersReport.text = EvaluateNumbers();
 
             ResetActions();
+
+            if (mimi != null && !mimi.questActive) {
+                int count = 0;
+                foreach (Survivor surv in survivors) {
+                    if (surv is Mimi) {
+                        continue;
+                    } else if (surv.questComplete) {
+                        count += 1;
+                    }
+                }
+
+                if (count == 2) {
+                    QuestManager.qm.ActivateQuest(mimi);
+                }
+            }
+
         }
     }
 
@@ -161,6 +194,18 @@ public class GameManager : MonoBehaviour {
         dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops.\r\n" + 
                          "You join up with the survivor army and live to fight another day.";
         actionReport.text = "Click to play again.";
+        numbersReport.enabled = false;
+
+        nightlyNews.NewGame();
+    }
+
+    private void WinMimiGame() {
+        // TODO: Find a win game sound
+        //SoundManager.sm.PlayGameWin();
+        dayReport.text = "The trio make their way to the rainbow gate. They down Maddie's potions and find little resistance to their advance.\r\n" +
+                         "The silence in the warehouse is in stark contrast to the visual noise of the light. A few excited looks and the trio plunge through the gate.\r\n" +
+                         "Others find the library  a few days later. Anyone staying for longer than a day swears they can feel a push toward The Gate and the Way, sitting open on a side table near the barricaded door.";
+        actionReport.text = "You got them out of the apocalypse! Click to play again.";
         numbersReport.enabled = false;
 
         nightlyNews.NewGame();
@@ -255,6 +300,7 @@ public class GameManager : MonoBehaviour {
     private string EvaluateLooting(Survivor survivor) {
         string output = "";
 
+        // Johnny Quest Completion
         if ((survivor is JohnnyJacket) && survivor.questActive) {
             Mimi mimi = null;
             JohnnyJacket johnny = null;
@@ -296,6 +342,45 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        // Mimi Quest Completion
+        if ((survivor is Mimi) && survivor.questActive) {
+            Mimi mimi = null;
+            Maddie maddie = null;
+            if (survivor is Mimi) {
+                mimi = survivor as Mimi;
+                foreach (Survivor surv in survivors) {
+                    if (surv is Maddie) {
+                        maddie = surv as Maddie;
+                        break;
+                    }
+                }
+            } else if (survivor is Maddie) {
+                maddie = survivor as Maddie;
+                foreach (Survivor surv in survivors) {
+                    if (surv is Mimi) {
+                        mimi = surv as Mimi;
+                        break;
+                    }
+                }
+            }
+
+            if ((mimi.action == Survivor.Action.Loot) && (maddie.action == Survivor.Action.Loot)) {
+                output += "\r\nMimi and Maddie approach a warehouse that looks like it's hosting a rave. It's surrounded by tentacled monstrosities. "
+                        + "\"Bottoms up,\" says Maddie, handing Mimi a beaker of black ichor. Mimi is already elbow deep in squid bits when Maddie feels "
+                        + "the strength roll through her body. The two make it inside. \"No headache!,\" Mimi exclaims and pushes past empty boxes and " 
+                        + "turned over metal storage shelves. The rainbow lights at the gate threaten to engulf the pair. \"Let's bring Johnny,\" the say in unison.\r\n\r\n";
+
+                foodCount += 10;
+
+                mimi.questActive = false;
+                QuestManager.qm.CompleteQuest(mimi);
+                mimi.questComplete = true;
+
+                return output;
+            }
+        }
+
+        // Normal looting 
         if (Random.Range(1, 100) <= survivor.loot) {
             // Good Stuff
             int foodFound = Random.Range(2, 5);
@@ -316,6 +401,9 @@ public class GameManager : MonoBehaviour {
                 Instantiate(additionObj, slots[1]);
                 survivors = survivorSlots.GetComponentsInChildren<Survivor>();
                 survivorCount = survivors.Length;
+
+                GameObject mimiObj = GameObject.Find("Mimi(Clone)");
+                mimi = mimiObj.GetComponent<Mimi>();
 
                 // TODO: Can I do this loop better? Also it assumes the survivor is Mimi. Bad for the future.
                 foreach (Survivor surv in survivors) {

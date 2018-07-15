@@ -13,6 +13,13 @@ public class Maddie : Survivor {
     public readonly string[] secondRequest = { "Nothing much! Just hang around and try to take it easy for a night. Try a sedative. Safe stuff, nothing big. " };
     public readonly string[] thirdRequest = { "Perfect! This is going to be great. " };
 
+    private readonly string[] firstMimi = { "Mimi! What can I help you with?" };
+    private readonly string[] secondMimi = { "A weird colored gate? Lemme see, I think I have a picture in one of my books.",
+                                             "Does the gate look something like this?" };
+    private readonly string[] thirdMimi = { "Yeah this library is filled with weird stuff in the occult section. I just happened to be reading " 
+                                          + "The Gate and the Way.",
+                                            "But yeah I can totally get us some migraine meds. I wanna see what's beyond that gate too!"};
+
     public new const string charName = "Maddie";
 
     private int supportQuestCount = 0;
@@ -23,6 +30,7 @@ public class Maddie : Survivor {
     private const string questCompl = "I've learned so much! Thanks Johnny, you're a real boy. ";
 
     private JohnnyJacket johnny;
+    private Mimi mimi;
 
     // Use this for initialization
     void Start () {
@@ -42,10 +50,26 @@ public class Maddie : Survivor {
         talkCanvas.gameObject.SetActive(true);
 
         AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
-        at.SetComponents(this, this.message);
 
-        johnny.calledUpon = true;
-        johnny.DeepTalkBubbleActivate();
+        if (questActive && !calledUpon) {
+            at.SetComponents(this, this.message);
+
+            johnny.calledUpon = true;
+            johnny.DeepTalkBubbleActivate();
+        } else if (mimi != null && mimi.questActive) {
+            List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
+                new AnimatedText.MessagePacket(this, this.firstMimi),
+                new AnimatedText.MessagePacket(mimi, mimi.firstRequest),
+                new AnimatedText.MessagePacket(this, this.secondMimi),
+                new AnimatedText.MessagePacket(mimi, mimi.secondRequest),
+                new AnimatedText.MessagePacket(this, this.thirdMimi),
+                new AnimatedText.MessagePacket(mimi, mimi.thirdRequest)
+            };
+
+            at.SetComponents(survMsgs);
+
+            mimi.UpdateQuestDesc();
+        }
     }
 
     public int GetQuestCount() {
@@ -67,5 +91,9 @@ public class Maddie : Survivor {
     public void UpdateQuestDesc() {
         questDesc = "Johnny's willing to help me study some new techniques. I can't wait to get started!\r\n"
                   + "\r\nHave Mimi support Johnny while Johnny sits still and does nothing.";
+    }
+
+    public void SetMimi(Mimi mimiRef) {
+        mimi = mimiRef;
     }
 }
