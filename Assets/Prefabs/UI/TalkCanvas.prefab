@@ -166,7 +166,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentCanvas: {fileID: 223248312438276674}
   speed: 0.1
-  text: {fileID: 114638078388750340}
+  messageText: {fileID: 114638078388750340}
+  nameText: {fileID: 114881477914854642}
+  portrait: {fileID: 114235136078190488}
 --- !u!114 &114235136078190488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -325,7 +327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentCanvas: {fileID: 223248312438276674}
   speed: 0.05
-  text: {fileID: 0}
+  messageText: {fileID: 0}
+  nameText: {fileID: 0}
+  portrait: {fileID: 0}
 --- !u!114 &114638078388750340
 MonoBehaviour:
   m_ObjectHideFlags: 1

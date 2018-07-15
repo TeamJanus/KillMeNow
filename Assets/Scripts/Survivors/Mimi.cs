@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Specialized;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Mimi : Survivor {
 
     private readonly string[] message = { "It's pretty fun out there. I get to use my bat and figure out how these things tick!" };
+
+    private readonly string[] firstJohnny = { "Hello JJ. What's it hanging? " };
+    private readonly string[] secondJohnny = { "Oh yes that sounds fun. Go looting with me at some time soon. ",
+                                               "We will bash some heads! " };
 
     public new const string charName = "Mimi Necrosnyth, Dread Queen";
 
@@ -23,18 +27,23 @@ public class Mimi : Survivor {
         Canvas talkCanvas = GameManager.gm.GetTalkCanvas();
         talkCanvas.gameObject.SetActive(true);
 
-        // TODO: the children get components seems to be deterministic but I'm using magic numbers here. Can I get this not so... guessy?
-        Image[] comps = talkCanvas.GetComponentsInChildren<Image>();
-        // TODO: The portrait is the second image child in calling find in children on an image. What's up with that?
-        comps[1].GetComponentsInChildren<Image>()[1].sprite = portrait;
-        comps[3].GetComponentInChildren<Text>().text = charName;
-        AnimatedText at = comps[4].GetComponentInChildren<AnimatedText>();
+        AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
 
-        if (QuestManager.qm.mimiActive) {
-            at.SetTextStringAndSurvivor(this.message, this);
-        } else if (QuestManager.qm.johnnyActive) {
+        //if (QuestManager.qm.mimiActive) {
+        //    at.SetComponents(this, this.message);
+        //    at.StartScrolling();
+        //} else if (QuestManager.qm.johnnyActive) {
+            GameObject johnnyObject = GameObject.Find("JohnnyJacket");
+            JohnnyJacket johnny = johnnyObject.GetComponent<JohnnyJacket>();
 
-        }
-        at.StartScrolling();
+            List<AnimatedText.MessagePacket> survMsgs = new List<AnimatedText.MessagePacket> {
+                new AnimatedText.MessagePacket(this, this.firstJohnny),
+                new AnimatedText.MessagePacket(johnny, johnny.firstRequest),
+                new AnimatedText.MessagePacket(this, this.secondJohnny)
+            };
+
+            at.SetComponents(survMsgs);
+            at.StartScrolling();
+        //}
     }
 }

@@ -8,28 +8,29 @@ public class AnimatedText : MonoBehaviour {
 
     public Canvas parentCanvas;
     public float speed = 0.1f;
-    public Text text;
+    public Text messageText;
+
+    public Text nameText;
+    public Image portrait;
 
     private string[] textStrings;
     private int stringIndex = 0;
     private int characterIndex = 0;
 
     private Survivor caller;
+    private List<AnimatedText.MessagePacket> survMsgs;
+    private int survMsgsIndex = 0;
 
     IEnumerator DisplayTimer() {
-        while (characterIndex < textStrings[stringIndex].Length) {
+        while (characterIndex <= textStrings[stringIndex].Length) {
             yield return new WaitForSeconds(speed);
-            text.text = textStrings[stringIndex].Substring(0, characterIndex);
+            messageText.text = textStrings[stringIndex].Substring(0, characterIndex);
             characterIndex++;
         }
-
-        // This ensures we don't get a weird error about startIndex + length > this.length. Really not sure what it's about.
-        yield return new WaitForSeconds(speed);
-        characterIndex++;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         if (Input.GetMouseButtonUp(0)) {
             if (characterIndex < textStrings[stringIndex].Length) {
                 characterIndex = textStrings[stringIndex].Length;
@@ -38,21 +39,65 @@ public class AnimatedText : MonoBehaviour {
                 characterIndex = 0;
                 StartCoroutine(DisplayTimer());
             } else {
-                stringIndex = 0;
-                characterIndex = 0;
-                text.text = "";
-                caller.DeepTalkBubbleToggle();
-                parentCanvas.gameObject.SetActive(false);
+                if (survMsgs != null && (survMsgsIndex < survMsgs.Count)) {
+                    survMsgsIndex++;
+
+                    Survivor next = survMsgs[survMsgsIndex].GetSurvivor();
+                    nameText.text = next.charName;
+                    portrait.sprite = next.portrait;
+                    textStrings = survMsgs[survMsgsIndex].GetMsg();
+
+                    stringIndex = 0;
+                    characterIndex = 0;
+                    StartCoroutine(DisplayTimer());
+                } else {
+                    stringIndex = 0;
+                    characterIndex = 0;
+                    messageText.text = "";
+                    survMsgs = null;
+                    survMsgsIndex = 0;
+                    caller.DeepTalkBubbleToggle();
+                    parentCanvas.gameObject.SetActive(false);
+                }
             }
         }
-	}
+    }
 
-    public void SetTextStringAndSurvivor(string[] msg, Survivor survivor) {
+    public void SetComponents(Survivor survivor, string[] msg) {
+        nameText.text = survivor.charName;
+        portrait.sprite = survivor.portrait;
         textStrings = msg;
         caller = survivor;
     }
 
+    public void SetComponents(List<AnimatedText.MessagePacket> survMsgs) {
+        caller = survMsgs[0].GetSurvivor();
+        nameText.text = caller.charName;
+        portrait.sprite = caller.portrait;
+        textStrings = survMsgs[0].GetMsg();
+
+        this.survMsgs = survMsgs;
+    }
+
     public void StartScrolling() {
         StartCoroutine(DisplayTimer());
+    }
+
+    public class MessagePacket {
+        Survivor surv;
+        string[] msg;
+
+        public MessagePacket (Survivor surv, string[] msg) {
+            this.surv = surv;
+            this.msg = msg;
+        }
+
+        public Survivor GetSurvivor() {
+            return this.surv;
+        }
+
+        public string[] GetMsg() {
+            return this.msg;
+        }
     }
 }

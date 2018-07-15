@@ -8,6 +8,9 @@ public class JohnnyJacket : Survivor {
     private readonly string[] message = { "What's up friendo? I'm Johnny Jacket.",
                                           "I wonder if Mimi can teach me a thing or two about fending off those monsters outside? "};
 
+    public readonly string[] firstRequest = { "It's hanging for sure. I think. Maybe. ",
+                                              "Do you think you can show me how to survive longer on the outside? " };
+
     private const string questDesc = "It's crawling with crazies outside. I should talk to Mimi and see if she'll teach me how she managed to survive outside.\r\n"
                                        + "\r\nPress Mimi's quest icon.";
 
@@ -24,17 +27,11 @@ public class JohnnyJacket : Survivor {
 	}
 
     public void TalkCanvasToggle() {
-        // TODO: Something about doing this causes the update method to throw Object reference not set errors 
         Canvas talkCanvas = GameManager.gm.GetTalkCanvas();
         talkCanvas.gameObject.SetActive(true);
 
-        // TODO: the children get components seems to be deterministic but I'm using magic numbers here. Can I get this not so... guessy?
-        Image[] comps = talkCanvas.GetComponentsInChildren<Image>();
-        // TODO: The portrait is the second image child in calling find in children on an image. What's up with that?
-        comps[1].GetComponentsInChildren<Image>()[1].sprite = portrait;
-        comps[3].GetComponentInChildren<Text>().text = charName;
-        AnimatedText at = comps[4].GetComponentInChildren<AnimatedText>();
-        at.SetTextStringAndSurvivor(this.message, this);
+        AnimatedText at = talkCanvas.GetComponentInChildren<AnimatedText>();
+        at.SetComponents(this, this.message);
         at.StartScrolling();
 
         GameObject mimiObject = GameObject.Find("Mimi(Clone)");
@@ -44,6 +41,10 @@ public class JohnnyJacket : Survivor {
 
     public string GetQuestDesc() {
         return questDesc;
+    }
+
+    public string GetCharName() {
+        return charName;
     }
 
 }
