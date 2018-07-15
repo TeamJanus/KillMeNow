@@ -11,7 +11,7 @@ public class Maddie : Survivor {
 
     // Use this for initialization
     void Start () {
-
+        highest = Stats.Rally;
     }
 	
 	// Update is called once per frame

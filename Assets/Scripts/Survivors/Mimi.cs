@@ -15,7 +15,7 @@ public class Mimi : Survivor {
 
     // Use this for initialization
     void Start () {
-
+        highest = Stats.Combat;
     }
 	
 	// Update is called once per frame

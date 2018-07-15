@@ -43,6 +43,7 @@ public class Survivor : MonoBehaviour,
 
     public enum Action { Build, Loot, Support, LastChance, None, Empty };
     public enum Status { Frightened, Hurt };
+    public enum Stats { Loot, Combat, Build, Rally };
 
     public string charName;
     public string pronounSubject;
@@ -52,6 +53,8 @@ public class Survivor : MonoBehaviour,
     public int combat = 1;
     public int build = 1;
     public int rally = 1;
+
+    protected Stats highest;
 
     public Action action = Action.Empty;
     public List<Status> statuses = new List<Status>();
@@ -68,6 +71,7 @@ public class Survivor : MonoBehaviour,
     }
 
     private void Start() {
+
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -221,6 +225,10 @@ public class Survivor : MonoBehaviour,
         } else {
             deepTalkSign.gameObject.SetActive(true);
         }
+    }
+
+    public Stats GetHighestStat() {
+        return highest;
     }
 
 }

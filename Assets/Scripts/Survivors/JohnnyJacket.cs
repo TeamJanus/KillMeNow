@@ -20,7 +20,8 @@ public class JohnnyJacket : Survivor {
 
 	// Use this for initialization
 	void Start () {
-
+        // Johnny thinks himself well rounded
+        highest = Stats.Build;
     }
 	
 	// Update is called once per frame

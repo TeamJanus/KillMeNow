@@ -304,7 +304,7 @@ public class GameManager : MonoBehaviour {
 
             // TODO: Add more survivors to the list
             // TODO: Add ability to select slot to add survivor to
-            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot / 2) {
+            if (survivorsToBeFound.Count > 0 && Random.Range(1, 100) <= survivor.loot) {
                 int index = Random.Range(0, survivorsToBeFound.Count);
                 Survivor addition = survivorsToBeFound[index];
                 survivorsToBeFound.Remove(addition);
@@ -381,9 +381,38 @@ public class GameManager : MonoBehaviour {
 
             if (Random.Range(1, 100) <= (helper.rally + (target.rally / 2))) {
                 // TODO: revamp this. Maybe not make it permanent per playthrough.
-                output += target.charName + " receives " + helper.charName + " warmly. " + 
-                          target.pronounSubject + " is energized and ready to be more attentive.\r\n";
-                target.rally += 5;
+                output += target.charName + " receives " + helper.charName + " warmly. ";
+
+                switch (helper.GetHighestStat()) {
+                    case Survivor.Stats.Build:
+                        output += helper.charName + " teaches " + target.charName + " the ins and outs of jury rigging a strong barricade. "
+                                + target.charName + " feels a little more confident defending the door!\r\n";
+                        target.build += 5;
+                        break;
+                    case Survivor.Stats.Combat:
+                        output += helper.charName + " takes " + target.charName + " through the basics of self defense. "
+                                + "It's a crazy world out there but " + target.charName + " feels a little more prepared to get through it all unscathed.\r\n";
+                        target.combat += 5;
+                        break;
+                    case Survivor.Stats.Loot:
+                        output += helper.charName + " takes out a map " + helper.pronounObject.ToLower() + " has been working on. "
+                                + "\"These are the good spots,\" " + helper.pronounObject.ToLower() + " says and begins to show " 
+                                + target.charName + " the paths of least resistance through the wreckage. " + target.charName 
+                                + " feels ready to loot more rations.\r\n";
+                        target.loot += 5;
+                        break;
+                    case Survivor.Stats.Rally:
+                        output += helper.charName + " goes over the basics of knitting wounds back together. " + target.charName 
+                                + " is as impressed with " + helper.charName + "'s steady hands as " + helper.pronounObject.ToLower() 
+                                + " bed side manner. " + target.charName + " feels more capable of keeping the others healthier.\r\n";
+                        target.rally += 5;
+                        break;
+                    default:
+                        Debug.LogError("Helper " + helper.charName + " doesn't have a highest stat. Is this intended?");
+                        output += helper.charName + " is feeling too insecure to teach " + target.charName + " anything.\r\n";
+                        break;
+                }
+
             } else {
                 output += "The two don't make much of a connection.\r\n";
 
