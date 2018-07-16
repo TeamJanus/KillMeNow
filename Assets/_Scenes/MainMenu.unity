@@ -2307,8 +2307,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Kill Me Now uses these sounds from freesound:\r\nCammipple by ShnitzelKiller
-    ( https://freesound.org/people/ShnitzelKiller/ ) - Main Game Music"
+  m_Text: "Kill Me Now uses these sounds from freesound:\r\nMain Menu Music -  Ambient
+    level / location sound by kickhat (https://freesound.org/people/kickhat/)\nMain
+    Game Music - Cammipple.mp3 by ShnitzelKiller ( https://freesound.org/people/ShnitzelKiller/
+    )\nWin Game Music - Surpni.mp3 by ShnitzelKiller ( https://freesound.org/people/ShnitzelKiller/
+    )\nWin Gate Game Music - Success menu by kickhat (https://freesound.org/people/kickhat/)"
 --- !u!222 &1342534123
 CanvasRenderer:
   m_ObjectHideFlags: 0
