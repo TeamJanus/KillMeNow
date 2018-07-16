@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour {
 
             if (count == SURVIVOR_SLOTS) {
                 WinMimiGame();
+                return;
             }
         }
 
@@ -169,7 +170,7 @@ public class GameManager : MonoBehaviour {
 
             ResetActions();
 
-            if (mimi != null && !mimi.questActive) {
+            if (mimi != null && !mimi.questActive && !mimi.questComplete) {
                 int count = 0;
                 foreach (Survivor surv in survivors) {
                     if (surv is Mimi) {
