@@ -146,9 +146,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 554501699eea82d42b0ea6c8fa5de004, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 732a4ef06ec2e3543971e8030212a887, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -247,6 +247,8 @@ MonoBehaviour:
   musicSource: {fileID: 82602980748428186}
   gameMain: {fileID: 8300000, guid: 554501699eea82d42b0ea6c8fa5de004, type: 3}
   gameOver: {fileID: 8300000, guid: cd537833c8fa7ba49b55b329c01efdc7, type: 3}
-  gameWin: {fileID: 8300000, guid: f14dfa80450b45d449bdc3ae929fc1ef, type: 3}
+  gameWin: {fileID: 8300000, guid: 63c5aff5eba8b924fbe9a054c0b9c882, type: 3}
+  gameGateWin: {fileID: 8300000, guid: 438997987d4ec8c42bb6fb82d8100515, type: 3}
+  mainMenu: {fileID: 8300000, guid: 732a4ef06ec2e3543971e8030212a887, type: 3}
   lowPitchRange: 0.95
   highPitchRange: 1.05

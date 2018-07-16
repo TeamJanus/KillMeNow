@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour {
     public AudioClip gameMain;
     public AudioClip gameOver;
     public AudioClip gameWin;
+    public AudioClip gameGateWin;
+    public AudioClip mainMenu;
 
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
@@ -21,6 +23,8 @@ public class SoundManager : MonoBehaviour {
 
         DontDestroyOnLoad(sm);
     }
+
+    // TODO: play sounds that aren't just background in a better way
 
     public void PlayGameMain() {
         musicSource.clip = gameMain;
@@ -36,6 +40,18 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayGameWin() {
         musicSource.clip = gameWin;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayGameGateWin() {
+        musicSource.clip = gameGateWin;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayMainMenu() {
+        musicSource.clip = mainMenu;
         musicSource.loop = true;
         musicSource.Play();
     }

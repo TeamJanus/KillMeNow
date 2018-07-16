@@ -189,8 +189,7 @@ public class GameManager : MonoBehaviour {
 
 
     private void WinGame() {
-        // TODO: Find a win game sound
-        //SoundManager.sm.PlayGameWin();
+        SoundManager.sm.PlayGameWin();
         dayReport.text = "The sounds of gunfire finally reach your door and the pounding stops.\r\n" + 
                          "You join up with the survivor army and live to fight another day.";
         actionReport.text = "Click to play again.";
@@ -200,8 +199,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void WinMimiGame() {
-        // TODO: Find a win game sound
-        //SoundManager.sm.PlayGameWin();
+        SoundManager.sm.PlayGameGateWin();
         dayReport.text = "The trio make their way to the rainbow gate. They down Maddie's potions and find little resistance to their advance.\r\n" +
                          "The silence in the warehouse is in stark contrast to the visual noise of the light. A few excited looks and the trio plunge through the gate.\r\n" +
                          "Others find the library  a few days later. Anyone staying for longer than a day swears they can feel a push toward The Gate and the Way, sitting open on a side table near the barricaded door.";
