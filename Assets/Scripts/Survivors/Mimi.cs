@@ -20,7 +20,7 @@ public class Mimi : Survivor {
     public readonly string[] thirdRequest = { "YES. Let's go see the shiny colors beyond the gate!",
                                               "Don't worry Mads, stay behind me and no mosties will touch us." };
 
-    public new const string charName = "Mimi Necrosnyth, Dread Queen";
+    public new const string charName = "Mimi Necrosynth, Dread Queen";
 
     private string questDesc = "I wanna go see a big cool looking gate but I get lots of headaches when I approach it. Let's ask the medicine girl for help!\r\n"
                              + "\r\nPress Maddie's quest icon.";

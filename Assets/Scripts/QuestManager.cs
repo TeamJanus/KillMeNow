@@ -54,12 +54,18 @@ public class QuestManager : MonoBehaviour {
     }
 
     private void ShowQuestInfo(Survivor survivor) {
+        Debug.Log("survivor's charname " + survivor.charName);
+        Debug.Log("Mimi's charname " + Mimi.charName);
+        if (survivor.charName.Equals(Mimi.charName)) {
+            Debug.Log("this is the same stuff");
+        }
 
         switch (survivor.charName) {
             case JohnnyJacket.charName:
                 descText.text = (survivor as JohnnyJacket).GetQuestDesc();
                 break;
             case Mimi.charName:
+                Debug.Log("Mimi's charname matches");
                 descText.text = (survivor as Mimi).GetQuestDesc();
                 break;
             case Maddie.charName:
